@@ -10,7 +10,7 @@
 #define DNS_STRING_MAX_SIZE 5120
 #define DNS_RR_NAME_MAX_SIZE 512
 
-typedef struct dns_header
+typedef struct
 {
     uint16_t id;
     uint8_t qr : 1;
@@ -46,7 +46,7 @@ typedef struct dns_rr
     struct dns_rr * next;
 }Dns_RR;
 
-typedef struct dns_message
+typedef struct
 {
     Dns_Header *header;
     Dns_Que *question;

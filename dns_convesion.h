@@ -9,6 +9,8 @@
 
 void string_to_dnsmsg(Dns_Msg * pmsg, const char *pstring);
 
+void destroy_dnsmsg(Dns_Msg * pmsg);
+
 void print_dns_string(const char* pstring, int len);
 
 void print_dns_message(const Dns_Msg * pmsg);

@@ -137,6 +137,16 @@ void print_dns_string(const char * pstring, int len)
     printf("\n");
 }
 
+void destroy_dnsmsg(Dns_Msg * pmsg)
+{
+    free(pmsg->header);
+    free(pmsg->question);
+    free(pmsg->answer);
+    free(pmsg->authority);
+    free(pmsg->additional);
+    free(pmsg);
+}
+
 static void print_dns_header(const Dns_Header * phead)
 {
     printf("ID = 0x%04" PRIx16 "\n", phead->id);

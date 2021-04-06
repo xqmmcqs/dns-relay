@@ -3,14 +3,14 @@
 //
 
 #include <stdlib.h>
-#include "dns_structure.h"
+#include "dns_client.h"
 #include "dns_server.h"
+#include "dns_convesion.h"
+#include "dns_structure.h"
+#include "util.h"
 
-uv_udp_t send_socket;
-struct sockaddr_in addr, send_addr;
-char recv_packet[DNS_STRING_MAX_SIZE];
-int recv_packet_size;
-uv_buf_t res;
+static uv_udp_t server_socket;
+struct sockaddr_in recv_addr;
 
 static void alloc_buffer(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf)
 {
@@ -18,49 +18,55 @@ static void alloc_buffer(uv_handle_t *handle, size_t suggested_size, uv_buf_t *b
     buf->len = DNS_STRING_MAX_SIZE;
 }
 
-static void close_cb(uv_handle_t *handle)
+static void on_send(uv_udp_send_t *req, int status)
 {
-    uv_is_closing(handle);
+    print_log(DEBUG, "Sent to local, status %d", status);
+    free(req);
+    // TODO: status异常处理
 }
 
 static void on_read(uv_udp_t *handle, ssize_t nread, const uv_buf_t *buf, const struct sockaddr *addr, unsigned flags)
 {
-//    FILE * temp = fopen("./out.txt", "w");
-//    for(int i=0;i<100;++i)
-//        fprintf(temp, "%c", *(rcvbuf->base+i));
-//    fclose(temp);
-    recv_packet_size = nread;
-    memcpy(recv_packet, buf->base, recv_packet_size);
-    uv_close((uv_handle_t *)handle, close_cb);
+    if(nread<=0)
+    {
+        free(buf->base);
+        return;
+    }
+    print_log(DEBUG, "Received request from local");
+    uv_buf_t send_buf = uv_buf_init((char *)malloc(buf->len), nread);
+    memcpy(send_buf.base, buf->base, nread);
+    Dns_Msg *msg = (Dns_Msg *)calloc(1, sizeof(Dns_Msg));
+    string_to_dnsmsg(msg, buf->base);
+//    print_dns_message(msg);
+//    destroy_dnsmsg(msg);
+    for(int i=0;i<14;++i)printf("%d ",addr->sa_data[i]);
+    puts("");
+    send_to_remote(addr, &send_buf);
     free(buf->base);
 }
 
-static void on_send(uv_udp_send_t *req, int status)
+void send_to_local(const struct sockaddr *addr, const uv_buf_t * buf)
 {
-    printf("call back");
-    uv_udp_recv_start(req->handle, alloc_buffer, on_read);
+    uv_udp_send_t *req = malloc(sizeof(uv_udp_send_t));
+    uv_buf_t send_buf = uv_buf_init((char *)malloc(buf->len), buf->len);
+    memcpy(send_buf.base, buf->base, buf->len);
+    print_log(DEBUG, "Sending response to local");
+//    Dns_Msg *msg = (Dns_Msg *)calloc(1, sizeof(Dns_Msg));
+//    string_to_dnsmsg(msg, send_buf.base);
+//    print_dns_message(msg);
+//    destroy_dnsmsg(msg);
+    free(buf->base);
+    print_dns_string(send_buf.base, send_buf.len);
+    for(int i=0;i<14;++i)printf("%d ",addr->sa_data[i]);
+    puts("");
+    uv_udp_send(req, &server_socket, &send_buf, 1, addr, on_send);
 }
 
-void run_server(const uv_buf_t *buf)
+void init_server()
 {
-    uv_udp_init(server_loop, &send_socket);
-    uv_ip4_addr("0.0.0.0", 0, &addr);
-    uv_udp_bind(&send_socket, (const struct sockaddr *)&addr, UV_UDP_REUSEADDR);
-    uv_udp_set_broadcast(&send_socket, 1);
-    uv_ip4_addr("10.3.9.4", 53, &send_addr);
-    uv_buf_t cl_buf = uv_buf_init(buf->base, buf->len);
-    uv_udp_send_t req;
-    uv_udp_send(&req, &send_socket, &cl_buf, 1, (const struct sockaddr*)&send_addr, on_send);
-    uv_run(server_loop, UV_RUN_DEFAULT);
-}
-
-uv_buf_t *redirect(const uv_buf_t *buf)
-{
-    uv_thread_t thread_id;
-    uv_thread_create(&thread_id, run_server, buf);
-    uv_sleep(2000);
-
-    res = uv_buf_init(recv_packet,recv_packet_size);
-    printf("response!");
-    return &res;
+    print_log(DEBUG, "Starting server");
+    uv_udp_init(loop, &server_socket);
+    uv_ip4_addr("0.0.0.0", 53, &recv_addr);
+    uv_udp_bind(&server_socket, (struct sockaddr *)&recv_addr, UV_UDP_REUSEADDR);
+    uv_udp_recv_start(&server_socket, alloc_buffer, on_read);
 }
