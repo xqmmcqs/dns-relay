@@ -3,9 +3,9 @@
 //
 
 #include <stdlib.h>
-#include "dns_structure.h"
 #include "dns_convesion.h"
 #include "dns_server.h"
+#include "dns_print.h"
 #include "dns_client.h"
 #include "udp_pool.h"
 #include "util.h"
@@ -29,20 +29,19 @@ static void on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, cons
         return;
     }
     print_log(DEBUG, "Received response from remote");
-//    Dns_Msg *msg = (Dns_Msg *)calloc(1, sizeof(Dns_Msg));
-//    string_to_dnsmsg(msg, buf->base);
-//    print_dns_message(msg);
-//    destroy_dnsmsg(msg);
-    uint16_t id = ntohs(*(uint16_t *)buf->base);
+    uint16_t id = ntohs(*(uint16_t *) buf->base);
     if (!upool_query(upool, id))
     {
         return;
     }
-    Udp_Req *ureq = upool_delete(upool, id);
-    *(uint16_t *)buf->base = htons(ureq->prev_id);
-    uv_buf_t send_buf = uv_buf_init((char *)malloc(buf->len), nread);
-    memcpy(send_buf.base, buf->base, nread);
-    send_to_local(&ureq->addr, &send_buf);
+    Udp_Req * ureq = upool_delete(upool, id);
+    *(uint16_t *) buf->base = htons(ureq->prev_id);
+//    print_dns_string(buf->base, nread);
+    Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+    string_to_dnsmsg(msg, buf->base);
+//    print_dns_string(buf->base, nread);
+//    print_dns_message(msg);
+    send_to_local(&ureq->addr, msg);
     free(buf->base);
 }
 
@@ -64,26 +63,38 @@ void init_client()
     upool = upool_init();
 }
 
-void send_to_remote(const struct sockaddr *addr, const uv_buf_t * buf)
+void send_to_remote(const struct sockaddr * addr, Dns_Msg * msg)
 {
-    if(upool_full(upool))
+    if (upool_full(upool))
     {
         print_log(FATAL, "UDP pool full");
         return;
     }
-    Udp_Req * ureq = (Udp_Req *)calloc(1, sizeof(Udp_Req));
+    
+    char * str = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
+    unsigned int len = dnsmsg_to_string(msg, str);
+    
+    Udp_Req * ureq = (Udp_Req *) calloc(1, sizeof(Udp_Req));
     ureq->addr = *addr;
     ureq->id = upool_insert(upool, ureq);
-    ureq->prev_id = ntohs(*(uint16_t *)buf->base);
-    uv_udp_send_t *req = malloc(sizeof(uv_udp_send_t));
-    *(uint16_t *)buf->base = htons(ureq->id);
-    uv_buf_t send_buf = uv_buf_init((char *)malloc(buf->len), buf->len);
-    memcpy(send_buf.base, buf->base, buf->len);
+    ureq->prev_id = ntohs(*(uint16_t *) str);
+    
+    uv_udp_send_t * req = malloc(sizeof(uv_udp_send_t));
+    uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
+    memcpy(send_buf.base, str, len);
+    *(uint16_t *) send_buf.base = htons(ureq->id);
     print_log(DEBUG, "Sending request to remote");
-//    Dns_Msg *msg = (Dns_Msg *)calloc(1, sizeof(Dns_Msg));
-//    string_to_dnsmsg(msg, buf->base);
+
+//    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+//    print_dns_string(send_buf.base,len);
+//    string_to_dnsmsg(chkmsg, send_buf.base);
+//    print_log(DEBUG, "Now printing msg");
 //    print_dns_message(msg);
-//    destroy_dnsmsg(msg);
+//    print_log(DEBUG, "Now printing chkmsg");
+//    print_dns_message(chkmsg);
+//    destroy_dnsmsg(chkmsg);
+    
     uv_udp_send(req, &client_socket, &send_buf, 1, &send_addr, on_send);
-    free(buf->base);
+    free(str);
+    destroy_dnsmsg(msg);
 }

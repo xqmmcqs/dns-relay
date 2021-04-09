@@ -7,12 +7,10 @@
 
 #include "dns_structure.h"
 
-void string_to_dnsmsg(Dns_Msg * pmsg, const char *pstring);
+void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring);
+
+unsigned int dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring);
 
 void destroy_dnsmsg(Dns_Msg * pmsg);
-
-void print_dns_string(const char* pstring, int len);
-
-void print_dns_message(const Dns_Msg * pmsg);
 
 #endif //DNSR_DNS_CONVESION_H

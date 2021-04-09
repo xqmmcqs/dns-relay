@@ -8,17 +8,33 @@
 #include <stdint.h>
 
 #define DNS_STRING_MAX_SIZE 5120
-#define DNS_RR_NAME_MAX_SIZE 512
+#define DNS_RR_NAME_MAX_SIZE 256
+
+#define DNS_QR_QUERY 0
+#define DNS_QR_ANSWER 1
+
+#define DNS_OPCODE_QUERY 0
+#define DNS_OPCODE_IQUERY 1
+#define DNS_OPCODE_STATUS 2
+
+#define DNS_TYPE_A 1
+#define DNS_TYPE_NS 2
+#define DNS_TYPE_CNAME 5
+#define DNS_TYPE_SOA 6
+#define DNS_TYPE_PTR 12
+#define DNS_TYPE_HINFO 13
+#define DNS_TYPE_MX 15
+#define DNS_TYPE_AAAA 28
 
 typedef struct
 {
     uint16_t id;
-    uint8_t qr : 1;
-    uint8_t opcode : 4;
-    uint8_t aa : 1;
-    uint8_t tc : 1;
-    uint8_t rd : 1;
-    uint8_t ra : 1;
+    uint8_t qr: 1;
+    uint8_t opcode: 4;
+    uint8_t aa: 1;
+    uint8_t tc: 1;
+    uint8_t rd: 1;
+    uint8_t ra: 1;
     uint8_t z : 3;
     uint8_t rcode : 4;
     uint16_t qdcount;
@@ -48,11 +64,9 @@ typedef struct dns_rr
 
 typedef struct
 {
-    Dns_Header *header;
-    Dns_Que *question;
-    Dns_RR *answer;
-    Dns_RR *authority;
-    Dns_RR *additional;
+    Dns_Header * header;
+    Dns_Que * que;
+    Dns_RR * rr;
 }Dns_Msg;
 
 #endif //DNSR_DNS_STRUCTURE_H
