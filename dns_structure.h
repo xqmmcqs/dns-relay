@@ -26,6 +26,8 @@
 #define DNS_TYPE_MX 15
 #define DNS_TYPE_AAAA 28
 
+#define DNS_CLASS_IN 1
+
 typedef struct
 {
     uint16_t id;

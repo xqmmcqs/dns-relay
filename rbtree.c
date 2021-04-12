@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "rbtree.h"
 
+static Rbtree_Node * NIL;
+
 static inline Rbtree_Node * grandparent(Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -33,7 +35,7 @@ static inline Rbtree_Node * sibling(Rbtree_Node * node)
 
 static Rbtree_Node * smallest_child(Rbtree_Node * node)
 {
-    if (node->left == NULL)
+    if (node->left == NIL)
         return node;
     return smallest_child(node->left);
 }
@@ -41,6 +43,8 @@ static Rbtree_Node * smallest_child(Rbtree_Node * node)
 void rbtree_init(Rbtree * tree)
 {
     tree->root = NULL;
+    NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+    NIL->color = BLACK;
 }
 
 static void rotate_right(Rbtree * tree, Rbtree_Node * node)
@@ -49,7 +53,7 @@ static void rotate_right(Rbtree * tree, Rbtree_Node * node)
     Rbtree_Node * fa = node->parent;
     Rbtree_Node * y = node->right;
     fa->left = y;
-    if (y != NULL)
+    if (y != NIL)
         y->parent = fa;
     node->right = fa;
     fa->parent = node;
@@ -71,7 +75,7 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
     Rbtree_Node * fa = node->parent;
     Rbtree_Node * y = node->right;
     fa->right = y;
-    if (y != NULL)
+    if (y != NIL)
         y->parent = fa;
     node->left = fa;
     fa->parent = node;
@@ -87,16 +91,134 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
+static Dns_RR_LinkList * linklist_init()
+{
+    Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
+    list->rr = NULL;
+    list->next = NULL;
+    return list;
+}
+
+static void linklist_insert(Dns_RR_LinkList * list, Dns_RR * value, time_t ttl)
+{
+    Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
+    new_list_node->ttl = ttl;
+    new_list_node->rr = value;
+    new_list_node->next = list->next;
+    list->next = new_list_node;
+}
+
+static void insert_case(Rbtree * tree, Rbtree_Node * node)
+{
+    if (node->parent == NULL)
+    {
+        tree->root = node;
+        node->color = BLACK;
+        return;
+    }
+    if (node->parent->color == RED)
+    {
+        if (uncle(node)->color == RED)
+        {
+            node->parent->color = uncle(node)->color = BLACK;
+            grandparent(node)->color = RED;
+            insert_case(tree, grandparent(node));
+        }
+        else
+        {
+            if (node->parent->right == node && grandparent(node)->left == node->parent)
+            {
+                rotate_left(tree, node);
+                node->color = BLACK;
+                node->parent->color = RED;
+                rotate_right(tree, node);
+            }
+            else if (node->parent->left == node && grandparent(node)->right == node->parent)
+            {
+                rotate_right(tree, node);
+                node->color = BLACK;
+                node->parent->color = RED;
+                rotate_left(tree, node);
+            }
+            else if (node->parent->left == node && grandparent(node)->left == node->parent)
+            {
+                node->parent->color = BLACK;
+                grandparent(node)->color = RED;
+                rotate_right(tree, node->parent);
+            }
+            else if (node->parent->right == node && grandparent(node)->right == node->parent)
+            {
+                node->parent->color = BLACK;
+                grandparent(node)->color = RED;
+                rotate_left(tree, node->parent);
+            }
+        }
+    }
+}
+
+static Rbtree_Node * node_init(unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
+{
+    Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+    node->key = key;
+    node->value = linklist_init();
+    linklist_insert(node->value, value, ttl);
+    node->color = RED;
+    node->left = node->right = NIL;
+    node->parent = fa;
+    return node;
+}
+
+void
+rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
+{
+    if (node == NULL)
+    {
+        node = node_init(key, value, ttl, fa);
+        insert_case(tree, node);
+        return;
+    }
+    while (1)
+    {
+        if (key < node->key)
+        {
+            if (node->left != NIL)node = node->left;
+            else
+            {
+                Rbtree_Node * new_node = node_init(key, value, ttl, node);
+                node->left = new_node;
+                insert_case(tree, new_node);
+                return;
+            }
+        }
+        else if (key > node->key)
+        {
+            if (node->right != NIL)node = node->right;
+            else
+            {
+                Rbtree_Node * new_node = node_init(key, value, ttl, node);
+                node->right = new_node;
+                insert_case(tree, new_node);
+                return;
+            }
+        }
+        else
+        {
+            linklist_insert(node->value, value, ttl);
+            return;
+        }
+    }
+}
+
 static Rbtree_Node * rbtree_find(Rbtree_Node * node, unsigned int data)
 {
     if (node->key > data)
     {
-        if (node->left == NULL)return NULL;
+        if (node->left == NIL)return NULL;
         return rbtree_find(node->left, data);
     }
     else if (node->key < data)
     {
-        if (node->right == NULL)return NULL;
+        if (node->right == NIL)return NULL;
         return rbtree_find(node->right, data);
     }
     else return node;
@@ -106,6 +228,12 @@ static void linklist_delete_next(Dns_RR_LinkList * list)
 {
     Dns_RR_LinkList * temp = list->next;
     list->next = list->next->next;
+    while (temp->rr)
+    {
+        Dns_RR * temprr = temp->rr;
+        temp->rr = temprr->next;
+        free(temprr);
+    }
     free(temp);
 }
 
@@ -179,7 +307,7 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
 
 static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
 {
-    if (node->right != NULL)
+    if (node->right != NIL)
     {
         Rbtree_Node * smallest = smallest_child(node);
         Dns_RR_LinkList * temp = node->value;
@@ -188,11 +316,11 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
         node->key = smallest->key;
         node = smallest;
     }
-    Rbtree_Node * child = node->left == NULL ? node->right : node->left;
+    Rbtree_Node * child = node->left == NIL ? node->right : node->left;
     if (node->parent == NULL)
     {
         destroy_node(node);
-        if (node->left == NULL && node->right == NULL)
+        if (node->left == NIL && node->right == NIL)
             tree->root = NULL;
         else
         {
@@ -225,7 +353,7 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
     Dns_RR_LinkList * list = node->value;
     while (list->next != NULL)
     {
-        if (list->next->ttl != -1 && list->next->ttl < now_time)
+        if (list->next->ttl != -1 && list->next->ttl <= now_time)
             linklist_delete_next(list);
         list = list->next;
     }
@@ -236,98 +364,4 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
         rbtree_delete(tree, node);
         return NULL;
     }
-}
-
-static Dns_RR_LinkList * linklist_init()
-{
-    Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
-    list->rr = NULL;
-    list->next = NULL;
-    return list;
-}
-
-static void linklist_insert(Dns_RR_LinkList * list, Dns_RR * value, time_t ttl)
-{
-    Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
-    new_list_node->ttl = ttl;
-    new_list_node->rr = value;
-    new_list_node->next = list->next;
-    list->next = new_list_node;
-}
-
-static Rbtree_Node * node_init(unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
-{
-    Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
-    node->key = key;
-    node->value = linklist_init();
-    linklist_insert(node->value, value, ttl);
-    node->color = RED;
-    node->left = node->right = NULL;
-    node->parent = fa;
-    return node;
-}
-
-static void insert_case(Rbtree * tree, Rbtree_Node * node)
-{
-    if (node->parent == NULL)
-    {
-        tree->root = node;
-        node->color = BLACK;
-        return;
-    }
-    if (node->parent->color == RED)
-    {
-        if (uncle(node)->color == RED)
-        {
-            node->parent->color = uncle(node)->color = BLACK;
-            grandparent(node)->color = RED;
-            insert_case(tree, grandparent(node));
-        }
-        else
-        {
-            if (node->parent->right == node && grandparent(node)->left == node->parent)
-            {
-                rotate_left(tree, node);
-                node->color = BLACK;
-                node->parent->color = RED;
-                rotate_right(tree, node);
-            }
-            else if (node->parent->left == node && grandparent(node)->right == node->parent)
-            {
-                rotate_right(tree, node);
-                node->color = BLACK;
-                node->parent->color = RED;
-                rotate_left(tree, node);
-            }
-            else if (node->parent->left == node && grandparent(node)->left == node->parent)
-            {
-                node->parent->color = BLACK;
-                grandparent(node)->color = RED;
-                rotate_right(tree, node->parent);
-            }
-            else if (node->parent->right == node && grandparent(node)->right == node->parent)
-            {
-                node->parent->color = BLACK;
-                grandparent(node)->color = RED;
-                rotate_left(tree, node->parent);
-            }
-        }
-    }
-}
-
-void
-rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
-{
-    if (node == NULL)
-    {
-        node = node_init(key, value, ttl, fa);
-        insert_case(tree, node);
-        return;
-    }
-    if (key > node->key)
-        rbtree_insert(tree, node->left, key, value, ttl, node);
-    else if (key < node->key)
-        rbtree_insert(tree, node->right, key, value, ttl, node);
-    else
-        linklist_insert(node->value, value, ttl);
 }

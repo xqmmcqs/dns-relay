@@ -37,8 +37,8 @@ typedef struct
 
 void rbtree_init(Rbtree * tree);
 
-Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data);
-
 void rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa);
+
+Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data);
 
 #endif //DNSR_RBTREE_H
