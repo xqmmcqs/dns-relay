@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "dns_structure.h"
-#include "dns_convesion.h"
+#include "dns_conversion.h"
 
 static uint16_t read_uint16(const char * pstring, unsigned * offset)
 {
@@ -25,11 +25,6 @@ static uint32_t read_uint32(const char * pstring, unsigned * offset)
 
 static unsigned string_to_rrname(uint8_t * pname, const char * pstring, unsigned * offset)
 {
-    if (!*(pstring + *offset))
-    {
-        ++*offset;
-        return 0;
-    }
     unsigned start_offset = *offset;
     while (true)
     {
@@ -87,12 +82,24 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
     prr->class = read_uint16(pstring, offset);
     prr->ttl = read_uint32(pstring, offset);
     prr->rdlength = read_uint16(pstring, offset);
-    if (prr->type == DNS_TYPE_CNAME)
+    if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         prr->rdlength = string_to_rrname(temp, pstring, offset);
         prr->rdata = (uint8_t *) calloc(prr->rdlength, sizeof(uint8_t));
         memcpy(prr->rdata, temp, prr->rdlength);
+        free(temp);
+    }
+    else if (prr->type == DNS_TYPE_SOA)
+    {
+        uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        prr->rdlength = string_to_rrname(temp, pstring, offset);
+        prr->rdlength += string_to_rrname(temp + prr->rdlength, pstring, offset);
+        prr->rdata = (uint8_t *) calloc(prr->rdlength + 20, sizeof(uint8_t));
+        memcpy(prr->rdata, temp, prr->rdlength);
+        memcpy(prr->rdata + prr->rdlength, pstring + *offset, 20);
+        *offset += 20;
+        prr->rdlength += 20;
         free(temp);
     }
     else
@@ -199,8 +206,15 @@ static void dnsrr_to_string(Dns_RR * prr, char * pstring, unsigned * offset)
     write_uint16(pstring, offset, prr->class);
     write_uint32(pstring, offset, prr->ttl);
     write_uint16(pstring, offset, prr->rdlength);
-    if (prr->type == DNS_TYPE_CNAME)
+    if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
         rrname_to_string(prr->rdata, pstring, offset);
+    else if (prr->type == DNS_TYPE_SOA)
+    {
+        rrname_to_string(prr->rdata, pstring, offset);
+        rrname_to_string(prr->rdata + strlen(prr->rdata) + 1, pstring, offset);
+        memcpy(pstring + *offset, prr->rdata + prr->rdlength - 20, 20);
+        *offset += 20;
+    }
     else
     {
         memcpy(pstring + *offset, prr->rdata, prr->rdlength);
@@ -228,10 +242,76 @@ unsigned int dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring)
     return offset;
 }
 
+void destroy_dnsrr(Dns_RR * prr)
+{
+    while (prr != NULL)
+    {
+        Dns_RR * temp = prr->next;
+        free(prr->name);
+        free(prr->rdata);
+        free(prr);
+        prr = temp;
+    }
+}
+
 void destroy_dnsmsg(Dns_Msg * pmsg)
 {
     free(pmsg->header);
-    free(pmsg->que);
-    free(pmsg->rr);
+    while (pmsg->que)
+    {
+        Dns_Que * temp = pmsg->que->next;
+        free(pmsg->que->qname);
+        free(pmsg->que);
+        pmsg->que = temp;
+    }
+    destroy_dnsrr(pmsg->rr);
     free(pmsg);
+}
+
+Dns_RR * copy_dnsrr(Dns_RR * src)
+{
+    Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
+    Dns_RR * old_rr = src;
+    memcpy(new_rr, old_rr, sizeof(Dns_RR));
+    new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
+    new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    memcpy(new_rr->rdata, old_rr->rdata, DNS_RR_NAME_MAX_SIZE);
+    while (old_rr->next)
+    {
+        new_rr->next = (Dns_RR *) calloc(1, sizeof(Dns_RR));
+        old_rr = old_rr->next;
+        new_rr = new_rr->next;
+        memcpy(new_rr, old_rr, sizeof(Dns_RR));
+        new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
+        new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        memcpy(new_rr->rdata, old_rr->rdata, DNS_RR_NAME_MAX_SIZE);
+    }
+    return rr;
+}
+
+Dns_Msg * copy_dnsmsg(Dns_Msg * src)
+{
+    Dns_Msg * new_msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+    new_msg->header = (Dns_Header *) calloc(1, sizeof(Dns_Header));
+    memcpy(new_msg->header, src->header, sizeof(Dns_Header));
+    
+    new_msg->que = (Dns_Que *) calloc(1, sizeof(Dns_Que));
+    Dns_Que * que = new_msg->que, * old_que = src->que;
+    memcpy(que, old_que, sizeof(Dns_Que));
+    que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
+    while (old_que->next)
+    {
+        que->next = (Dns_Que *) calloc(1, sizeof(Dns_Que));
+        old_que = old_que->next;
+        que = que->next;
+        memcpy(que, old_que, sizeof(Dns_Que));
+        que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
+    }
+    
+    if (src->rr != NULL)new_msg->rr = copy_dnsrr(src->rr);
+    return new_msg;
 }

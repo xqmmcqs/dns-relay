@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "dns_conversion.h"
 #include "cache.h"
 
 static unsigned int BKDRHash(uint8_t * str)
@@ -43,7 +44,11 @@ Rbtree * init_cache(FILE * keep_file)
                 }
                 rr->rdata[ird] = rr->rdata[ird] * 10 + ip[iip] - '0';
             }
-            rbtree_insert(tree, tree->root, BKDRHash(rr->name), rr, rr->ttl, NULL);
+            Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+            value->rr = rr;
+            value->ancount = 1;
+            value->type = rr->type;
+            rbtree_insert(tree, BKDRHash(rr->name), value, -1);
         }
     }
     return tree;
@@ -51,37 +56,26 @@ Rbtree * init_cache(FILE * keep_file)
 
 void insert_cache(Rbtree * tree, Dns_Msg * msg)
 {
-    Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
-    Dns_RR * old_rr = msg->rr;
-    memcpy(new_rr, old_rr, sizeof(Dns_RR));
-    while (old_rr->next)
-    {
-        new_rr->next = (Dns_RR *) calloc(1, sizeof(Dns_RR));
-        old_rr = old_rr->next;
-        new_rr = new_rr->next;
-        memcpy(new_rr, old_rr, sizeof(Dns_RR));
-    }
-    rbtree_insert(tree, tree->root, BKDRHash(rr->name), rr, time(NULL) + rr->ttl, NULL);
+    Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+    value->rr = copy_dnsrr(msg->rr);
+    value->ancount = msg->header->ancount;
+    value->nscount = msg->header->nscount;
+    value->arcount = msg->header->arcount;
+    value->type = msg->que->qtype;
+    rbtree_insert(tree, BKDRHash(value->rr->name), value, time(NULL) + value->rr->ttl);
 }
 
-Dns_RR * query_cache(Rbtree * tree, Dns_Que * que)
+Rbtree_Value * query_cache(Rbtree * tree, Dns_Que * que)
 {
     Dns_RR_LinkList * list = rbtree_query(tree, BKDRHash(que->qname));
     while (list != NULL)
     {
-        if (strcmp(list->rr->name, que->qname) == 0)
+        if (strcmp(list->value->rr->name, que->qname) == 0 && list->value->type == que->qtype)
         {
-            Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
-            Dns_RR * old_rr = list->rr;
-            memcpy(new_rr, old_rr, sizeof(Dns_RR));
-            while (old_rr->next)
-            {
-                new_rr->next = (Dns_RR *) calloc(1, sizeof(Dns_RR));
-                old_rr = old_rr->next;
-                new_rr = new_rr->next;
-                memcpy(new_rr, old_rr, sizeof(Dns_RR));
-            }
-            return rr;
+            Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+            memcpy(value, list->value, sizeof(Rbtree_Value));
+            value->rr = copy_dnsrr(list->value->rr);
+            return value;
         }
         list = list->next;
     }

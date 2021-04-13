@@ -3,7 +3,10 @@
 //
 
 #include <stdlib.h>
+#include "dns_conversion.h"
 #include "rbtree.h"
+
+#include <assert.h>
 
 static Rbtree_Node * NIL;
 
@@ -94,16 +97,14 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
 static Dns_RR_LinkList * linklist_init()
 {
     Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
-    list->rr = NULL;
-    list->next = NULL;
     return list;
 }
 
-static void linklist_insert(Dns_RR_LinkList * list, Dns_RR * value, time_t ttl)
+static void linklist_insert(Dns_RR_LinkList * list, Rbtree_Value * value, time_t ttl)
 {
     Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
     new_list_node->ttl = ttl;
-    new_list_node->rr = value;
+    new_list_node->value = value;
     new_list_node->next = list->next;
     list->next = new_list_node;
 }
@@ -156,12 +157,12 @@ static void insert_case(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-static Rbtree_Node * node_init(unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
+static Rbtree_Node * node_init(unsigned int key, Rbtree_Value * value, time_t ttl, Rbtree_Node * fa)
 {
     Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     node->key = key;
-    node->value = linklist_init();
-    linklist_insert(node->value, value, ttl);
+    node->rr_list = linklist_init();
+    linklist_insert(node->rr_list, value, ttl);
     node->color = RED;
     node->left = node->right = NIL;
     node->parent = fa;
@@ -169,11 +170,12 @@ static Rbtree_Node * node_init(unsigned int key, Dns_RR * value, time_t ttl, Rbt
 }
 
 void
-rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa)
+rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t ttl)
 {
+    Rbtree_Node * node = tree->root;
     if (node == NULL)
     {
-        node = node_init(key, value, ttl, fa);
+        node = node_init(key, value, ttl, NULL);
         insert_case(tree, node);
         return;
     }
@@ -203,7 +205,7 @@ rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * valu
         }
         else
         {
-            linklist_insert(node->value, value, ttl);
+            linklist_insert(node->rr_list, value, ttl);
             return;
         }
     }
@@ -228,18 +230,14 @@ static void linklist_delete_next(Dns_RR_LinkList * list)
 {
     Dns_RR_LinkList * temp = list->next;
     list->next = list->next->next;
-    while (temp->rr)
-    {
-        Dns_RR * temprr = temp->rr;
-        temp->rr = temprr->next;
-        free(temprr);
-    }
+    destroy_dnsrr(temp->value->rr);
+    free(temp->value);
     free(temp);
 }
 
 static void destroy_node(Rbtree_Node * node)
 {
-    free(node->value);
+    free(node->rr_list);
     free(node);
 }
 
@@ -310,16 +308,15 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
     if (node->right != NIL)
     {
         Rbtree_Node * smallest = smallest_child(node);
-        Dns_RR_LinkList * temp = node->value;
-        node->value = smallest->value;
-        smallest->value = temp;
+        Dns_RR_LinkList * temp = node->rr_list;
+        node->rr_list = smallest->rr_list;
+        smallest->rr_list = temp;
         node->key = smallest->key;
         node = smallest;
     }
     Rbtree_Node * child = node->left == NIL ? node->right : node->left;
     if (node->parent == NULL)
     {
-        destroy_node(node);
         if (node->left == NIL && node->right == NIL)
             tree->root = NULL;
         else
@@ -328,6 +325,7 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
             tree->root = child;
             tree->root->color = BLACK;
         }
+        destroy_node(node);
         return;
     }
     if (node->parent->left == node)
@@ -350,15 +348,16 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
     Rbtree_Node * node = rbtree_find(tree->root, data);
     if (node == NULL)return NULL;
     time_t now_time = time(NULL);
-    Dns_RR_LinkList * list = node->value;
+    Dns_RR_LinkList * list = node->rr_list;
     while (list->next != NULL)
     {
         if (list->next->ttl != -1 && list->next->ttl <= now_time)
             linklist_delete_next(list);
-        list = list->next;
+        else
+            list = list->next;
     }
-    if (node->value->next != NULL)
-        return node->value->next;
+    if (node->rr_list->next != NULL)
+        return node->rr_list->next;
     else
     {
         rbtree_delete(tree, node);

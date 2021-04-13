@@ -28,6 +28,9 @@
 
 #define DNS_CLASS_IN 1
 
+#define DNS_RCODE_OK 0
+#define DNS_RCODE_NXDOMAIN 3
+
 typedef struct
 {
     uint16_t id;
@@ -37,38 +40,38 @@ typedef struct
     uint8_t tc: 1;
     uint8_t rd: 1;
     uint8_t ra: 1;
-    uint8_t z : 3;
-    uint8_t rcode : 4;
+    uint8_t z: 3;
+    uint8_t rcode: 4;
     uint16_t qdcount;
     uint16_t ancount;
     uint16_t nscount;
     uint16_t arcount;
-}Dns_Header;
+} Dns_Header;
 
 typedef struct dns_question
 {
-    uint8_t *qname;
+    uint8_t * qname;
     uint16_t qtype;
     uint16_t qclass;
     struct dns_question * next;
-}Dns_Que;
+} Dns_Que;
 
 typedef struct dns_rr
 {
-    uint8_t *name;
+    uint8_t * name;
     uint16_t type;
     uint16_t class;
     uint32_t ttl;
     uint16_t rdlength;
-    uint8_t *rdata;
+    uint8_t * rdata;
     struct dns_rr * next;
-}Dns_RR;
+} Dns_RR;
 
 typedef struct
 {
     Dns_Header * header;
     Dns_Que * que;
     Dns_RR * rr;
-}Dns_Msg;
+} Dns_Msg;
 
 #endif //DNSR_DNS_STRUCTURE_H

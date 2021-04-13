@@ -12,14 +12,14 @@ typedef struct
     uint16_t q[QUEUE_SIZE];
     unsigned short head;
     unsigned short tail;
-}Queue;
+} Queue;
 
-Queue *queue_init();
+Queue * queue_init();
 
 void queue_push(Queue * queue, uint16_t num);
 
 uint16_t queue_pop(Queue * queue);
 
-void queue_destroy(Queue *queue);
+void queue_destroy(Queue * queue);
 
 #endif //DNSR_QUEUE_H

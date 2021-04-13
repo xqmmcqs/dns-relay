@@ -30,7 +30,7 @@ uint16_t upool_insert(Udp_Pool * upool, Udp_Req * req)
 
 bool upool_query(Udp_Pool * upool, uint16_t id)
 {
-    return upool->p[id % UDP_POOL_SIZE]->id == id;
+    return upool->p[id % UDP_POOL_SIZE] != NULL && upool->p[id % UDP_POOL_SIZE]->id == id;
 }
 
 Udp_Req * upool_delete(Udp_Pool * upool, uint16_t id)

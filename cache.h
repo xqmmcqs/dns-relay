@@ -13,6 +13,6 @@ Rbtree * init_cache(FILE * keep_file);
 
 void insert_cache(Rbtree * tree, Dns_Msg * msg);
 
-Dns_RR * query_cache(Rbtree * tree, Dns_Que * que);
+Rbtree_Value * query_cache(Rbtree * tree, Dns_Que * que);
 
 #endif //DNSR_CACHE_H

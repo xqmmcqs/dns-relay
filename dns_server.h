@@ -8,10 +8,8 @@
 #include "dns_structure.h"
 #include <uv.h>
 
-extern uv_loop_t *loop;
+void init_server();
 
 void send_to_local(const struct sockaddr * addr, Dns_Msg * msg);
-
-void init_server();
 
 #endif //DNSR_DNS_SERVER_H

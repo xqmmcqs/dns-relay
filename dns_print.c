@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdlib.h>
+#include <string.h>
 #include "dns_print.h"
 
 void print_dns_string(const char * pstring, unsigned int len)
@@ -61,8 +62,20 @@ static void print_dns_rr(const Dns_RR * prr)
     printf("RDATA = ");
     if (prr->type == DNS_TYPE_A)
         print_rr_A(prr->rdata);
-    else if (prr->type == DNS_TYPE_CNAME)
+    else if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
         print_rr_CNAME(prr->rdata);
+    else if (prr->type == DNS_TYPE_SOA)
+    {
+        print_rr_CNAME(prr->rdata);
+        printf(" ");
+        print_rr_CNAME(prr->rdata + strlen(prr->rdata) + 1);
+        printf(" ");
+        printf("%" PRIu32 " ", ntohl(*(uint32_t *) (prr->rdata + prr->rdlength - 20)));
+        printf("%" PRIu32 " ", ntohl(*(uint32_t *) (prr->rdata + prr->rdlength - 16)));
+        printf("%" PRIu32 " ", ntohl(*(uint32_t *) (prr->rdata + prr->rdlength - 12)));
+        printf("%" PRIu32 " ", ntohl(*(uint32_t *) (prr->rdata + prr->rdlength - 8)));
+        printf("%" PRIu32, ntohl(*(uint32_t *) (prr->rdata + prr->rdlength - 4)));
+    }
     else
         for (int i = 0; i < prr->rdlength; ++i)
             printf("%" PRIu8, *(prr->rdata + i));

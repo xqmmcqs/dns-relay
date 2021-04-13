@@ -13,9 +13,18 @@ typedef enum
     BLACK, RED
 } Color;
 
-typedef struct dns_rr_linklist
+typedef struct
 {
     Dns_RR * rr;
+    uint16_t ancount;
+    uint16_t nscount;
+    uint16_t arcount;
+    uint8_t type;
+} Rbtree_Value;
+
+typedef struct dns_rr_linklist
+{
+    Rbtree_Value * value;
     time_t ttl;
     struct dns_rr_linklist * next;
 } Dns_RR_LinkList;
@@ -23,7 +32,7 @@ typedef struct dns_rr_linklist
 typedef struct rbtree_node
 {
     unsigned int key;
-    Dns_RR_LinkList * value;
+    Dns_RR_LinkList * rr_list;
     Color color;
     struct rbtree_node * left;
     struct rbtree_node * right;
@@ -37,7 +46,7 @@ typedef struct
 
 void rbtree_init(Rbtree * tree);
 
-void rbtree_insert(Rbtree * tree, Rbtree_Node * node, unsigned int key, Dns_RR * value, time_t ttl, Rbtree_Node * fa);
+void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t ttl);
 
 Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data);
 

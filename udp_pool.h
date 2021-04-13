@@ -5,8 +5,8 @@
 #ifndef DNSR_UDP_POOL_H
 #define DNSR_UDP_POOL_H
 
-#include <stdbool.h>
 #include <uv.h>
+#include <stdbool.h>
 #include "queue.h"
 
 #define UDP_POOL_SIZE 65535
@@ -15,27 +15,25 @@ typedef struct
 {
     uint16_t id;
     uint16_t prev_id;
-    struct sockaddr addr;
-    uv_timer_t *timer;
-}Udp_Req;
+} Udp_Req;
 
 typedef struct
 {
-    Udp_Req *p[UDP_POOL_SIZE];
+    Udp_Req * p[UDP_POOL_SIZE];
     unsigned short count;
-    Queue *index_que;
-}Udp_Pool;
+    Queue * index_que;
+} Udp_Pool;
 
-Udp_Pool *upool_init();
+Udp_Pool * upool_init();
 
-bool upool_full(Udp_Pool *upool);
+bool upool_full(Udp_Pool * upool);
 
-uint16_t upool_insert(Udp_Pool *upool, Udp_Req *req);
+uint16_t upool_insert(Udp_Pool * upool, Udp_Req * req);
 
-bool upool_query(Udp_Pool *upool, uint16_t id);
+bool upool_query(Udp_Pool * upool, uint16_t id);
 
-Udp_Req *upool_delete(Udp_Pool *upool, uint16_t index);
+Udp_Req * upool_delete(Udp_Pool * upool, uint16_t index);
 
-void upool_destroy(Udp_Pool *upool);
+void upool_destroy(Udp_Pool * upool);
 
 #endif //DNSR_UDP_POOL_H
