@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include "queue.h"
 
-#define UDP_POOL_SIZE 65535
+#define UDP_POOL_SIZE 256
 
 typedef struct
 {

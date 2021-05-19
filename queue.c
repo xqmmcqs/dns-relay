@@ -8,13 +8,14 @@
 Queue * queue_init()
 {
     Queue * queue = (Queue *) calloc(1, sizeof(Queue));
-    queue->head = queue->tail = 0;
+    queue->head = 0;
+    queue->tail = QUEUE_SIZE - 1;
     return queue;
 }
 
 void queue_push(Queue * queue, uint16_t num)
 {
-    queue->q[queue->tail++] = num;
+    queue->q[++queue->tail] = num;
 }
 
 uint16_t queue_pop(Queue * queue)

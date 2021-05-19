@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <uv.h>
+
 #include "dns_client.h"
 #include "dns_server.h"
 #include "cache.h"
@@ -9,16 +10,16 @@
 uv_loop_t * loop;
 Rbtree * tree;
 Query_Pool * qpool;
+char log_mask = 15;
 
 int main()
 {
     // TODO: 加注释
     // TODO: log
-    // TODO: ipv6
     // TODO: DoH/DoT
     // TODO: EDNS
     // TODO: 命令行参数
-    print_log(DEBUG, "Starting main");
+    log_info("启动DNS relay")
     loop = uv_default_loop();
     FILE * keep_file = fopen("keep.txt", "r");
     tree = init_cache(keep_file);

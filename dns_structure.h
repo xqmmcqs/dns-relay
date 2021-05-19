@@ -1,6 +1,14 @@
-//
-// Created by xqmmcqs on 2021/4/3.
-//
+/**
+ * @file      dns_structure.h
+ * @brief     DNS报文结构
+ * @author    Ziheng Mao
+ * @date      2021/4/3
+ * @copyright GNU General Public License, version 3 (GPL-3.0)
+ *
+ * 本文件定义了DNS报文中部分字段的常量，以及DNS报文结构体
+ *
+ * 报文结构体中每个字段长度均与RFC 1035中规定的字段长度一致，但是采用小端法存储
+*/
 
 #ifndef DNSR_DNS_STRUCTURE_H
 #define DNSR_DNS_STRUCTURE_H
@@ -31,6 +39,7 @@
 #define DNS_RCODE_OK 0
 #define DNS_RCODE_NXDOMAIN 3
 
+/// 报文头部分结构体
 typedef struct
 {
     uint16_t id;
@@ -48,6 +57,7 @@ typedef struct
     uint16_t arcount;
 } Dns_Header;
 
+/// Question部分结构体，以链表表示
 typedef struct dns_question
 {
     uint8_t * qname;
@@ -56,6 +66,7 @@ typedef struct dns_question
     struct dns_question * next;
 } Dns_Que;
 
+/// Resource Record部分结构体，以链表表示
 typedef struct dns_rr
 {
     uint8_t * name;
@@ -67,11 +78,12 @@ typedef struct dns_rr
     struct dns_rr * next;
 } Dns_RR;
 
+/// DNS报文结构体
 typedef struct
 {
     Dns_Header * header;
-    Dns_Que * que;
-    Dns_RR * rr;
+    Dns_Que * que; ///< 指向Question链表的头节点
+    Dns_RR * rr; ///< 指向Resource Record链表的头节点
 } Dns_Msg;
 
 #endif //DNSR_DNS_STRUCTURE_H

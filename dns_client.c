@@ -29,13 +29,13 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
         free(buf->base);
         return;
     }
-    print_log(DEBUG, "Received response from remote");
+    log_info("从服务器接收到消息");
 //    print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     string_to_dnsmsg(msg, buf->base);
-//    print_dns_string(buf->base, nread);
     print_dns_message(msg);
     qpool_finish(qpool, msg);
+    destroy_dnsmsg(msg);
     free(buf->base);
 }
 
@@ -47,7 +47,7 @@ static void on_send(uv_udp_send_t * req, int status)
 
 void init_client()
 {
-    print_log(DEBUG, "Starting client")
+    log_info("启动client")
     uv_udp_init(loop, &client_socket);
     uv_ip4_addr("0.0.0.0", 0, &local_addr);
     uv_udp_bind(&client_socket, (const struct sockaddr *) &local_addr, UV_UDP_REUSEADDR);
@@ -56,7 +56,7 @@ void init_client()
     uv_udp_recv_start(&client_socket, alloc_buffer, on_read);
 }
 
-void send_to_remote(Dns_Msg * msg)
+void send_to_remote(const Dns_Msg * msg)
 {
     char * str = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
     unsigned int len = dnsmsg_to_string(msg, str);
@@ -64,14 +64,14 @@ void send_to_remote(Dns_Msg * msg)
     uv_udp_send_t * req = malloc(sizeof(uv_udp_send_t));
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len);
-    print_log(DEBUG, "Sending request to remote");
+    log_info("向服务器发送消息");
 
 //    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
 //    print_dns_string(send_buf.base,len);
 //    string_to_dnsmsg(chkmsg, send_buf.base);
-//    print_log(DEBUG, "Now printing msg");
+//    log_debug("Now printing msg");
     print_dns_message(msg);
-//    print_log(DEBUG, "Now printing chkmsg");
+//    log_debug("Now printing chkmsg");
 //    print_dns_message(chkmsg);
 //    destroy_dnsmsg(chkmsg);
     

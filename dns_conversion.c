@@ -2,12 +2,14 @@
 // Created by xqmmcqs on 2021/4/3.
 //
 
+#include "dns_conversion.h"
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdio.h>
+
 #include "dns_structure.h"
-#include "dns_conversion.h"
+#include "util.h"
 
 static uint16_t read_uint16(const char * pstring, unsigned * offset)
 {
@@ -244,34 +246,38 @@ unsigned int dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring)
 
 void destroy_dnsrr(Dns_RR * prr)
 {
-    while (prr != NULL)
+    Dns_RR * now = prr;
+    while (now != NULL)
     {
-        Dns_RR * temp = prr->next;
-        free(prr->name);
-        free(prr->rdata);
-        free(prr);
-        prr = temp;
+        Dns_RR * next = now->next;
+        free(now->name);
+        free(now->rdata);
+        free(now);
+        now = next;
     }
 }
 
 void destroy_dnsmsg(Dns_Msg * pmsg)
 {
+    log_debug("释放DNS报文空间");
     free(pmsg->header);
-    while (pmsg->que)
+    Dns_Que * now = pmsg->que;
+    while (now != NULL)
     {
-        Dns_Que * temp = pmsg->que->next;
-        free(pmsg->que->qname);
-        free(pmsg->que);
-        pmsg->que = temp;
+        Dns_Que * next = now->next;
+        free(now->qname);
+        free(now);
+        now = next;
     }
     destroy_dnsrr(pmsg->rr);
     free(pmsg);
 }
 
-Dns_RR * copy_dnsrr(Dns_RR * src)
+Dns_RR * copy_dnsrr(const Dns_RR * src)
 {
+    if (src == NULL) return NULL;
     Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
-    Dns_RR * old_rr = src;
+    const Dns_RR * old_rr = src;
     memcpy(new_rr, old_rr, sizeof(Dns_RR));
     new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
     memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
@@ -291,8 +297,9 @@ Dns_RR * copy_dnsrr(Dns_RR * src)
     return rr;
 }
 
-Dns_Msg * copy_dnsmsg(Dns_Msg * src)
+Dns_Msg * copy_dnsmsg(const Dns_Msg * src)
 {
+    if (src == NULL) return NULL;
     Dns_Msg * new_msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     new_msg->header = (Dns_Header *) calloc(1, sizeof(Dns_Header));
     memcpy(new_msg->header, src->header, sizeof(Dns_Header));
@@ -312,6 +319,6 @@ Dns_Msg * copy_dnsmsg(Dns_Msg * src)
         memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
     }
     
-    if (src->rr != NULL)new_msg->rr = copy_dnsrr(src->rr);
+    new_msg->rr = copy_dnsrr(src->rr);
     return new_msg;
 }

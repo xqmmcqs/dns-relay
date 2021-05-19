@@ -10,7 +10,7 @@
 #include "dns_structure.h"
 #include "udp_pool.h"
 
-#define QUERY_POOL_SIZE 65535
+#define QUERY_POOL_SIZE 256
 
 typedef struct
 {
@@ -33,9 +33,9 @@ Query_Pool * qpool_init();
 
 bool qpool_full(Query_Pool * qpool);
 
-void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, Dns_Msg * msg);
+void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const Dns_Msg * msg);
 
-void qpool_finish(Query_Pool * qpool, Dns_Msg * msg);
+void qpool_finish(Query_Pool * qpool, const Dns_Msg * msg);
 
 void qpool_delete(Query_Pool * qpool, uint16_t id);
 

@@ -28,4 +28,4 @@ add_executable(main
         cache.h
         query_pool.c
         query_pool.h)
-target_link_libraries(main -luv)
+target_link_libraries(main uv)

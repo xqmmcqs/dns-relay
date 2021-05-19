@@ -14,6 +14,7 @@ extern Rbtree * tree;
 
 Query_Pool * qpool_init()
 {
+    log_debug("初始化query pool");
     Query_Pool * qpool = (Query_Pool *) calloc(1, sizeof(Query_Pool));
     qpool->count = 0;
     qpool->index_que = queue_init();
@@ -28,7 +29,7 @@ bool qpool_full(Query_Pool * qpool)
     return qpool->count == QUERY_POOL_SIZE;
 }
 
-void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, Dns_Msg * msg)
+void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const Dns_Msg * msg)
 {
     Dns_Query * query = (Dns_Query *) calloc(1, sizeof(Dns_Query));
     uint16_t id = queue_pop(qpool->index_que);
@@ -40,18 +41,20 @@ void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, Dns_Msg * ms
     query->addr = *addr;
     query->msg = copy_dnsmsg(msg);
     
-    Rbtree_Value * value = query_cache(tree, msg->que);
+    Rbtree_Value * value = query_cache(tree, query->msg->que);
     if (value != NULL)
     {
+        log_debug("命中");
         query->msg->header->qr = DNS_QR_ANSWER;
         if (query->msg->header->rd == 1)query->msg->header->ra = 1;
         query->msg->header->ancount = value->ancount;
         query->msg->header->nscount = value->nscount;
         query->msg->header->arcount = value->arcount;
         query->msg->rr = value->rr;
-        
+    
         // 污染
-        if (value->rr->type == DNS_TYPE_A && value->rr->rdata != NULL && (*(int *) value->rr->rdata) == 0)
+        if ((value->rr->type == DNS_TYPE_A || value->rr->type == DNS_TYPE_AAAA) && value->rr->rdata != NULL &&
+            (*(int *) value->rr->rdata) == 0)
         {
             query->msg->header->rcode = DNS_RCODE_NXDOMAIN;
             destroy_dnsrr(query->msg->rr);
@@ -62,7 +65,7 @@ void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, Dns_Msg * ms
     {
         if (upool_full(qpool->upool))
         {
-            print_log(FATAL, "UDP pool full");
+            log_error("UDP pool full");
             qpool_delete(qpool, id);
             return;
         }
@@ -70,11 +73,12 @@ void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, Dns_Msg * ms
         ureq->id = upool_insert(qpool->upool, ureq);
         ureq->prev_id = id;
         query->msg->header->id = ureq->id;
-        //TODO:timer
+        uv_timer_init(loop, &query->timer);
+        query->timer.data = malloc(sizeof(uint16_t));
+        *(uint16_t *) query->timer.data = query->id;
+        uv_timer_start(&query->timer, timeout_cb, 5000, 5000);
         send_to_remote(query->msg);
     }
-    
-    destroy_dnsmsg(msg);
     if (query->msg->rr != NULL)
         send_to_local(addr, query->msg);
 }
@@ -84,7 +88,7 @@ static bool qpool_query(Query_Pool * qpool, uint16_t id)
     return qpool->p[id % QUERY_POOL_SIZE] != NULL && qpool->p[id % QUERY_POOL_SIZE]->id == id;
 }
 
-void qpool_finish(Query_Pool * qpool, Dns_Msg * msg)
+void qpool_finish(Query_Pool * qpool, const Dns_Msg * msg)
 {
     uint16_t uid = msg->header->id;
     if (!upool_query(qpool->upool, uid))
@@ -102,15 +106,15 @@ void qpool_finish(Query_Pool * qpool, Dns_Msg * msg)
     {
         query->msg = copy_dnsmsg(msg);
         query->msg->header->id = query->prev_id;
-        
-        if (msg->header->rcode == DNS_RCODE_OK && (msg->que->qtype == DNS_TYPE_A || msg->que->qtype == DNS_TYPE_CNAME))
+    
+        if (msg->header->rcode == DNS_RCODE_OK &&
+            (msg->que->qtype == DNS_TYPE_A || msg->que->qtype == DNS_TYPE_CNAME || msg->que->qtype == DNS_TYPE_AAAA))
             insert_cache(tree, msg);
-        
+    
         send_to_local(&query->addr, query->msg);
         qpool_delete(qpool, query->id);
     }
     
-    destroy_dnsmsg(msg);
     free(ureq);
 }
 
@@ -120,10 +124,13 @@ void qpool_delete(Query_Pool * qpool, uint16_t id)
     {
         return;
     }
+    log_debug("删除 DNS query %d", id);
     Dns_Query * query = qpool->p[id % QUERY_POOL_SIZE];
     queue_push(qpool->index_que, id + QUERY_POOL_SIZE);
     qpool->p[id % UDP_POOL_SIZE] = NULL;
     qpool->count--;
+    uv_timer_stop(&query->timer);
     destroy_dnsmsg(query->msg);
+    free(query->timer.data);
     free(query);
 }

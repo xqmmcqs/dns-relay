@@ -7,20 +7,38 @@
 
 #include <stdio.h>
 
-#define TRACE "trace"
-#define DEBUG "debug"
-#define INFO "info"
-#define ERROR "error"
-#define FATAL "fatal"
+extern char log_mask;
 
-#define print_log(level, ...)                                            \
-  fprintf(stdout, "\x1b[33m[%s]\x1b[36m %s:%d \x1b[0m", level, __FILE__, \
-          __LINE__);                                                     \
-  fprintf(stdout, __VA_ARGS__);                                          \
-  fprintf(stdout, "\n");
+#define log_debug(args...) \
+    if(log_mask & 1) \
+    { \
+        fprintf(stdout, "\x1b[33m[DEBUG]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(stdout, args); \
+        fprintf(stdout, "\n"); \
+    }
 
-#define new(instance_name, struct_name)\
-struct_name *instance_name = (struct_name *)malloc(sizeof(struct_name));\
-memset(instance_name, 0x0, sizeof(struct_name));
+#define log_info(args...) \
+    if(log_mask & 2) \
+    { \
+        fprintf(stdout, "\x1b[33m[INFO ]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(stdout, args); \
+        fprintf(stdout, "\n"); \
+    }
+
+#define log_error(args...) \
+    if(log_mask & 4) \
+    { \
+        fprintf(stderr, "\x1b[33m[ERROR]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(stderr, args); \
+        fprintf(stderr, "\n"); \
+    }
+
+#define log_fatal(args...) \
+    if(log_mask & 8) \
+    { \
+        fprintf(stderr, "\x1b[33m[FATAL]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(stderr, args); \
+        fprintf(stderr, "\n"); \
+    }
 
 #endif //DNSR_UTIL_H

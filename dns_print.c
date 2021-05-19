@@ -29,6 +29,15 @@ static void print_rr_CNAME(const uint8_t * pdata)
     printf("%s", pdata);
 }
 
+static void print_rr_AAAA(const uint8_t * pdata)
+{
+    for (int i = 0; i < 16; i += 2)
+    {
+        if (i)printf(":");
+        printf("%x", (pdata[i] << 8) + pdata[i + 1]);
+    }
+}
+
 static void print_dns_header(const Dns_Header * phead)
 {
     printf("ID = 0x%04" PRIx16 "\n", phead->id);
@@ -64,6 +73,8 @@ static void print_dns_rr(const Dns_RR * prr)
         print_rr_A(prr->rdata);
     else if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
         print_rr_CNAME(prr->rdata);
+    else if (prr->type == DNS_TYPE_AAAA)
+        print_rr_AAAA(prr->rdata);
     else if (prr->type == DNS_TYPE_SOA)
     {
         print_rr_CNAME(prr->rdata);

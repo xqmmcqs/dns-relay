@@ -5,13 +5,13 @@
 #ifndef DNSR_QUEUE_H
 #define DNSR_QUEUE_H
 
-#define QUEUE_SIZE 65536
+#define QUEUE_SIZE 256
 
 typedef struct
 {
     uint16_t q[QUEUE_SIZE];
-    unsigned short head;
-    unsigned short tail;
+    unsigned char head;
+    unsigned char tail;
 } Queue;
 
 Queue * queue_init();
