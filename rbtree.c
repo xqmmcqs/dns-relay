@@ -71,16 +71,6 @@ static Rbtree_Node * smallest_child(Rbtree_Node * node)
     return smallest_child(node->left);
 }
 
-Rbtree * rbtree_init()
-{
-    log_debug("初始化红黑树");
-    Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));
-    tree->root = NULL;
-    NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
-    NIL->color = BLACK;
-    return tree;
-}
-
 /**
  * @brief 将节点右旋
  */
@@ -333,13 +323,13 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
             rotate_right(tree, node->parent);
     }
     if (node->parent->color == BLACK && sibling(node)->color == BLACK
-                                        && sibling(node)->left->color == BLACK && sibling(node)->right->color == BLACK)
+        && sibling(node)->left->color == BLACK && sibling(node)->right->color == BLACK)
     {
         sibling(node)->color = RED;
         delete_case(tree, node->parent);
     }
     else if (node->parent->color == RED && sibling(node)->color == BLACK
-                                           && sibling(node)->left->color == BLACK && sibling(node)->right->color == BLACK)
+             && sibling(node)->left->color == BLACK && sibling(node)->right->color == BLACK)
     {
         sibling(node)->color = RED;
         node->parent->color = BLACK;
@@ -349,14 +339,14 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
         if (sibling(node)->color == BLACK)
         {
             if (node == node->parent->left && sibling(node)->left->color == RED
-                                              && sibling(node)->right->color == BLACK)
+                && sibling(node)->right->color == BLACK)
             {
                 sibling(node)->color = RED;
                 sibling(node)->left->color = BLACK;
                 rotate_right(tree, sibling(node)->left);
             }
             else if (node == node->parent->right && sibling(node)->left->color == BLACK
-                                                    && sibling(node)->right->color == RED)
+                     && sibling(node)->right->color == RED)
             {
                 sibling(node)->color = RED;
                 sibling(node)->right->color = BLACK;
@@ -411,7 +401,8 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
         node->parent->left = child;
     else
         node->parent->right = child;
-    child->parent = node->parent;
+    if (child != NIL)
+        child->parent = node->parent;
     if (node->color == BLACK)
     {
         if (child->color == RED)
@@ -446,4 +437,17 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
         rbtree_delete(tree, node);
         return NULL;
     }
+}
+
+Rbtree * rbtree_init()
+{
+    log_debug("初始化红黑树");
+    Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));
+    tree->root = NULL;
+    NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+    NIL->color = BLACK;
+    
+    tree->insert = &rbtree_insert;
+    tree->query = &rbtree_query;
+    return tree;
 }

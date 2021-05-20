@@ -8,9 +8,7 @@
 #include "dns_structure.h"
 #include <uv.h>
 
-extern uv_loop_t * loop;
-
-void init_client();
+void init_client(uv_loop_t * loop);
 
 void send_to_remote(const Dns_Msg * msg);
 

@@ -22,8 +22,7 @@
 #include "query_pool.h"
 
 static uv_udp_t server_socket; ///< 服务器与本地通信的socket
-struct sockaddr_in recv_addr; ///< 服务器收取DNS查询报文的地址
-extern uv_loop_t * loop; ///< 事件循环，定义在main.c中
+static struct sockaddr_in recv_addr; ///< 服务器收取DNS查询报文的地址
 extern Query_Pool * qpool; ///< 查询池，定义在main.c中
 
 /**
@@ -53,6 +52,17 @@ static void on_send(uv_udp_send_t * req, int status)
 }
 
 /**
+ * @brief 超时回调函数
+ * @param timer 超时的计时器
+ */
+static void timeout_cb(uv_timer_t * timer)
+{
+    log_info("超时");
+    uv_timer_stop(timer);
+    qpool->delete(qpool, *(uint16_t *) timer->data);
+}
+
+/**
  * @brief 从本地接收查询报文的回调函数
  * @param handle 查询句柄
  * @param nread 收到报文的字节数
@@ -77,12 +87,12 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     print_dns_message(msg);
 //    print_dns_string(send_buf.base, nread);
     
-    qpool_insert(qpool, addr, msg); // 将DNS查询加入查询池
+    qpool->insert(qpool, addr, msg, timeout_cb); // 将DNS查询加入查询池
     destroy_dnsmsg(msg);
     free(buf->base);
 }
 
-void init_server()
+void init_server(uv_loop_t * loop)
 {
     log_info("启动server");
     uv_udp_init(loop, &server_socket); // 将server_docket绑定到事件循环
@@ -110,11 +120,4 @@ void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg)
     
     uv_udp_send(req, &server_socket, &send_buf, 1, addr, on_send);
     free(str);
-}
-
-void timeout_cb(uv_timer_t * timer)
-{
-    log_info("超时");
-    uv_timer_stop(timer);
-    qpool_delete(qpool, *(uint16_t *) timer->data);
 }

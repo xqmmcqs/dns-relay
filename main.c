@@ -23,8 +23,8 @@ int main()
     loop = uv_default_loop();
     FILE * keep_file = fopen("keep.txt", "r");
     tree = init_cache(keep_file);
-    qpool = qpool_init();
-    init_client();
-    init_server();
+    qpool = qpool_init(loop, tree);
+    init_client(loop);
+    init_server(loop);
     return uv_run(loop, UV_RUN_DEFAULT);
 }

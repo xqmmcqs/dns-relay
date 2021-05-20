@@ -7,8 +7,10 @@
 
 #include <stdbool.h>
 #include <uv.h>
+
 #include "dns_structure.h"
 #include "udp_pool.h"
+#include "cache.h"
 
 #define QUERY_POOL_SIZE 256
 
@@ -21,24 +23,27 @@ typedef struct
     uv_timer_t timer;
 } Dns_Query;
 
-typedef struct
+typedef struct query_pool
 {
     Dns_Query * p[QUERY_POOL_SIZE];
     unsigned short count;
-    Queue * index_que;
+    Queue * queue;
     Udp_Pool * upool;
+    uv_loop_t * loop;
+    Rbtree * tree;
+    
+    bool (* full)(struct query_pool * this);
+    
+    void (* insert)(struct query_pool * this, const struct sockaddr * addr, const Dns_Msg * msg,
+                    void (* timeout_cb)(uv_timer_t * timer));
+    
+    void (* finish)(struct query_pool * this, const Dns_Msg * msg);
+    
+    void (* delete)(struct query_pool * this, uint16_t id);
+    
+    void (* destroy)(struct query_pool * this);
 } Query_Pool;
 
-Query_Pool * qpool_init();
-
-bool qpool_full(Query_Pool * qpool);
-
-void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const Dns_Msg * msg);
-
-void qpool_finish(Query_Pool * qpool, const Dns_Msg * msg);
-
-void qpool_delete(Query_Pool * qpool, uint16_t id);
-
-void qpool_destroy(Query_Pool * qpool);
+Query_Pool * qpool_init(uv_loop_t * loop, Rbtree * tree);
 
 #endif //DNSR_QUERY_POOL_H

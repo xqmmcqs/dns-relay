@@ -10,9 +10,8 @@
 #include "util.h"
 
 static uv_udp_t client_socket;
-struct sockaddr_in local_addr;
-struct sockaddr send_addr;
-extern uv_loop_t * loop;
+static struct sockaddr_in local_addr;
+static struct sockaddr send_addr;
 extern Query_Pool * qpool;
 
 static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf)
@@ -34,7 +33,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     string_to_dnsmsg(msg, buf->base);
     print_dns_message(msg);
-    qpool_finish(qpool, msg);
+    qpool->finish(qpool, msg);
     destroy_dnsmsg(msg);
     free(buf->base);
 }
@@ -45,7 +44,7 @@ static void on_send(uv_udp_send_t * req, int status)
     // TODO: status异常处理
 }
 
-void init_client()
+void init_client(uv_loop_t * loop)
 {
     log_info("启动client")
     uv_udp_init(loop, &client_socket);

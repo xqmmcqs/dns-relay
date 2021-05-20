@@ -69,9 +69,21 @@ typedef struct rbtree_node
 /**
  * @brief 红黑树
  */
-typedef struct
+typedef struct rbtree
 {
     Rbtree_Node * root; ///< 指向红黑树的根节点
+    
+    /**
+     * @brief 向红黑树中插入键-值对
+     */
+    void (* insert)(struct rbtree * this, unsigned int key, Rbtree_Value * value, time_t ttl);
+    
+    /**
+     * @brief 在红黑树中查找键对应的值
+     * @return 如果找到了对应的值，返回一个没有头节点的链表；否则返回NULL
+     */
+    Dns_RR_LinkList * (* query)(struct rbtree * tree, unsigned int data);
+    
 } Rbtree;
 
 /**
@@ -79,17 +91,6 @@ typedef struct
  * @return 指向新红黑树的指针
  */
 Rbtree * rbtree_init();
-
-/**
- * @brief 向红黑树中插入键-值对
- */
-void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t ttl);
-
-/**
- * @brief 在红黑树中查找键对应的值
- * @return 如果找到了对应的值，返回一个没有头节点的链表；否则返回NULL
- */
-Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data);
 
 #endif //DNSR_RBTREE_H
 

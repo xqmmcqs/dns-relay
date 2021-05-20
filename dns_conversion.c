@@ -259,7 +259,7 @@ void destroy_dnsrr(Dns_RR * prr)
 
 void destroy_dnsmsg(Dns_Msg * pmsg)
 {
-    log_debug("释放DNS报文空间");
+    log_debug("释放DNS报文空间 ID: 0x%x", pmsg->header->id);
     free(pmsg->header);
     Dns_Que * now = pmsg->que;
     while (now != NULL)

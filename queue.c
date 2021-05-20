@@ -2,28 +2,33 @@
 // Created by xqmmcqs on 2021/4/5.
 //
 
-#include <stdlib.h>
 #include "queue.h"
+
+#include <stdlib.h>
+
+static void queue_push(Queue * this, uint16_t num)
+{
+    this->q[++this->tail] = num;
+}
+
+static uint16_t queue_pop(Queue * this)
+{
+    return this->q[this->head++];
+}
+
+static void queue_destroy(Queue * this)
+{
+    free(this);
+}
 
 Queue * queue_init()
 {
     Queue * queue = (Queue *) calloc(1, sizeof(Queue));
     queue->head = 0;
     queue->tail = QUEUE_SIZE - 1;
+    
+    queue->push = &queue_push;
+    queue->pop = &queue_pop;
+    queue->destroy = &queue_destroy;
     return queue;
-}
-
-void queue_push(Queue * queue, uint16_t num)
-{
-    queue->q[++queue->tail] = num;
-}
-
-uint16_t queue_pop(Queue * queue)
-{
-    return queue->q[queue->head++];
-}
-
-void queue_destroy(Queue * queue)
-{
-    free(queue);
 }

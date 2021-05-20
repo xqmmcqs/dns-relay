@@ -22,7 +22,7 @@
 /**
  * @brief 服务器初始化
  */
-void init_server();
+void init_server(uv_loop_t * loop);
 
 /**
  * @brief 将DNS回复报文发送至本地
@@ -30,11 +30,5 @@ void init_server();
  * @param msg DNS回复报文
  */
 void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg);
-
-/**
- * @brief 超时回调函数
- * @param timer 超时的计时器
- */
-void timeout_cb(uv_timer_t * timer);
 
 #endif //DNSR_DNS_SERVER_H

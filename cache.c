@@ -64,7 +64,7 @@ Rbtree * init_cache(FILE * keep_file)
             value->ancount = 1;
             value->type = rr->type;
             log_debug("插入记录 %s", rr->name);
-            rbtree_insert(tree, BKDRHash(rr->name), value, -1);
+            tree->insert(tree, BKDRHash(rr->name), value, -1);
         }
     }
     return tree;
@@ -95,13 +95,13 @@ void insert_cache(Rbtree * tree, const Dns_Msg * msg)
     value->nscount = msg->header->nscount;
     value->arcount = msg->header->arcount;
     value->type = msg->que->qtype;
-    rbtree_insert(tree, BKDRHash(value->rr->name), value, time(NULL) + get_min_ttl(value->rr));
+    tree->insert(tree, BKDRHash(value->rr->name), value, time(NULL) + get_min_ttl(value->rr));
 }
 
 Rbtree_Value * query_cache(Rbtree * tree, const Dns_Que * que)
 {
     log_debug("查询cache");
-    Dns_RR_LinkList * list = rbtree_query(tree, BKDRHash(que->qname));
+    Dns_RR_LinkList * list = tree->query(tree, BKDRHash(que->qname));
     while (list != NULL)
     {
         if (strcmp(list->value->rr->name, que->qname) == 0 && list->value->type == que->qtype)
