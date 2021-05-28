@@ -16,7 +16,6 @@ int main()
 {
     // TODO: 加注释
     // TODO: log
-    // TODO: DoH/DoT
     // TODO: EDNS
     // TODO: 命令行参数
     log_info("启动DNS relay")

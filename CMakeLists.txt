@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 link_directories(/usr/local/lib)
 include_directories(/usr/local/include)
+
 add_executable(main
         main.c
         config_jar.h
@@ -28,4 +29,4 @@ add_executable(main
         cache.h
         query_pool.c
         query_pool.h)
-target_link_libraries(main uv)
+target_link_libraries(main uv curl)

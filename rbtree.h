@@ -23,17 +23,13 @@
 
 #include "dns_structure.h"
 
-/**
- * @brief 红黑树节点的颜色
- */
+/// 红黑树节点的颜色
 typedef enum
 {
     BLACK, RED
 } Color;
 
-/**
- * @brief 红黑树节点链表的节点的值，对应一个特定查询的答案
- */
+/// 红黑树节点链表的节点的值，对应一个特定查询的答案
 typedef struct
 {
     Dns_RR * rr; ///< 指向一个Dns_RR的链表
@@ -43,9 +39,7 @@ typedef struct
     uint8_t type; ///< RR对应的Question的类型
 } Rbtree_Value;
 
-/**
- * @brief 红黑树节点链表的节点
- */
+/// 红黑树节点链表的节点
 typedef struct dns_rr_linklist
 {
     Rbtree_Value * value; ///< 指向当前链表节点的值
@@ -53,9 +47,7 @@ typedef struct dns_rr_linklist
     struct dns_rr_linklist * next; ///< 链表的下一个节点
 } Dns_RR_LinkList;
 
-/**
- * @brief 红黑树的节点
- */
+/// 红黑树的节点
 typedef struct rbtree_node
 {
     unsigned int key; ///< 红黑树节点的键
@@ -66,9 +58,7 @@ typedef struct rbtree_node
     struct rbtree_node * parent; ///< 指向当前节点的父亲节点
 } Rbtree_Node;
 
-/**
- * @brief 红黑树
- */
+/// 红黑树
 typedef struct rbtree
 {
     Rbtree_Node * root; ///< 指向红黑树的根节点

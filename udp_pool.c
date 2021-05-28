@@ -2,40 +2,41 @@
 // Created by xqmmcqs on 2021/4/5.
 //
 
-#include <stdlib.h>
 #include "udp_pool.h"
 
-static bool upool_full(Udp_Pool * this)
+#include <stdlib.h>
+
+static bool upool_full(Udp_Pool * upool)
 {
-    return this->count == UDP_POOL_SIZE;
+    return upool->count == UDP_POOL_SIZE;
 }
 
-static uint16_t upool_insert(Udp_Pool * this, Udp_Req * req)
+static uint16_t upool_insert(Udp_Pool * upool, Udp_Req * req)
 {
-    uint16_t id = this->queue->pop(this->queue);
-    this->p[id % UDP_POOL_SIZE] = req;
-    this->count++;
+    uint16_t id = upool->queue->pop(upool->queue);
+    upool->pool[id] = req;
+    upool->count++;
     return id;
 }
 
-static bool upool_query(Udp_Pool * this, uint16_t id)
+static bool upool_query(Udp_Pool * upool, uint16_t id)
 {
-    return this->p[id % UDP_POOL_SIZE] != NULL && this->p[id % UDP_POOL_SIZE]->id == id;
+    return upool->pool[id] != NULL;
 }
 
-static Udp_Req * upool_delete(Udp_Pool * this, uint16_t id)
+static Udp_Req * upool_delete(Udp_Pool * upool, uint16_t id)
 {
-    Udp_Req * req = this->p[id % UDP_POOL_SIZE];
-    this->queue->push(this->queue, id + UDP_POOL_SIZE);
-    this->p[id % UDP_POOL_SIZE] = NULL;
-    this->count--;
+    Udp_Req * req = upool->pool[id];
+    upool->queue->push(upool->queue, id);
+    upool->pool[id] = NULL;
+    upool->count--;
     return req;
 }
 
-static void upool_destroy(Udp_Pool * this)
+static void upool_destroy(Udp_Pool * upool)
 {
-    this->queue->destroy(this->queue);
-    free(this);
+    upool->queue->destroy(upool->queue);
+    free(upool);
 }
 
 Udp_Pool * upool_init()

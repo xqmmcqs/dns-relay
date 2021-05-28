@@ -6,11 +6,10 @@
 #define DNSR_UDP_POOL_H
 
 #include <stdbool.h>
-#include <uv.h>
 
 #include "queue.h"
 
-#define UDP_POOL_SIZE 256
+#define UDP_POOL_SIZE 65535
 
 typedef struct
 {
@@ -20,7 +19,7 @@ typedef struct
 
 typedef struct udp_pool
 {
-    Udp_Req * p[UDP_POOL_SIZE];
+    Udp_Req * pool[UDP_POOL_SIZE];
     unsigned short count;
     Queue * queue;
     

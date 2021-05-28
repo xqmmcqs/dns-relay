@@ -25,7 +25,7 @@ typedef struct
 
 typedef struct query_pool
 {
-    Dns_Query * p[QUERY_POOL_SIZE];
+    Dns_Query * pool[QUERY_POOL_SIZE];
     unsigned short count;
     Queue * queue;
     Udp_Pool * upool;
@@ -34,8 +34,7 @@ typedef struct query_pool
     
     bool (* full)(struct query_pool * this);
     
-    void (* insert)(struct query_pool * this, const struct sockaddr * addr, const Dns_Msg * msg,
-                    void (* timeout_cb)(uv_timer_t * timer));
+    void (* insert)(struct query_pool * this, const struct sockaddr * addr, const Dns_Msg * msg);
     
     void (* finish)(struct query_pool * this, const Dns_Msg * msg);
     

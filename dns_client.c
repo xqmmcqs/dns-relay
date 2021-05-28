@@ -2,10 +2,12 @@
 // Created by xqmmcqs on 2021/4/3.
 //
 
+#include "dns_client.h"
+
 #include <stdlib.h>
+
 #include "dns_conversion.h"
 #include "dns_print.h"
-#include "dns_client.h"
 #include "query_pool.h"
 #include "util.h"
 

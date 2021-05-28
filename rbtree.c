@@ -25,9 +25,7 @@
 
 static Rbtree_Node * NIL; ///< 叶节点
 
-/**
- * @brief 求节点的祖父节点
- */
+/// 求节点的祖父节点
 static inline Rbtree_Node * grandparent(Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -35,9 +33,7 @@ static inline Rbtree_Node * grandparent(Rbtree_Node * node)
     return node->parent->parent;
 }
 
-/**
- * @brief 求节点的叔父节点
- */
+/// 求节点的叔父节点
 static inline Rbtree_Node * uncle(Rbtree_Node * node)
 {
     if (grandparent(node) == NULL)
@@ -47,9 +43,7 @@ static inline Rbtree_Node * uncle(Rbtree_Node * node)
     return grandparent(node)->right;
 }
 
-/**
- * @brief 求节点的兄弟节点
- */
+/// 求节点的兄弟节点
 static inline Rbtree_Node * sibling(Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -60,10 +54,7 @@ static inline Rbtree_Node * sibling(Rbtree_Node * node)
         return node->parent->left;
 }
 
-/**
- * @brief 求节点的前驱节点
- * @note 假设前驱存在
- */
+/// 求树中最小的节点
 static Rbtree_Node * smallest_child(Rbtree_Node * node)
 {
     if (node->left == NIL)
@@ -71,9 +62,7 @@ static Rbtree_Node * smallest_child(Rbtree_Node * node)
     return smallest_child(node->left);
 }
 
-/**
- * @brief 将节点右旋
- */
+/// 将节点右旋
 static void rotate_right(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -101,9 +90,7 @@ static void rotate_right(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/**
- * @brief 将节点左旋
- */
+/// 将节点左旋
 static void rotate_left(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -141,9 +128,7 @@ static Dns_RR_LinkList * linklist_init()
     return list;
 }
 
-/**
- * @brief 向链表中给定节点后插入一个新节点，分配内存
- */
+/// 向链表中给定节点后插入一个新节点，分配内存
 static void linklist_insert(Dns_RR_LinkList * list, Rbtree_Value * value, time_t ttl)
 {
     Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
@@ -153,9 +138,7 @@ static void linklist_insert(Dns_RR_LinkList * list, Rbtree_Value * value, time_t
     list->next = new_list_node;
 }
 
-/**
- * @brief 依照不同情况调整红黑树的形态，使其平衡
- */
+/// 依照不同情况调整红黑树的形态，使其平衡
 static void insert_case(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -285,11 +268,10 @@ static Rbtree_Node * rbtree_find(Rbtree_Node * node, unsigned int data)
     else return node;
 }
 
-/**
- * @brief 删除链表中给定节点的下一个节点，释放内存
- */
+/// 删除链表中给定节点的下一个节点，释放内存
 static void linklist_delete_next(Dns_RR_LinkList * list)
 {
+    log_debug("删除链表中超时元素");
     Dns_RR_LinkList * temp = list->next;
     list->next = list->next->next;
     destroy_dnsrr(temp->value->rr);
@@ -308,9 +290,7 @@ static void destroy_node(Rbtree_Node * node)
     node = NULL;
 }
 
-/**
- * @brief 依照不同情况调整红黑树的形态，使其平衡
- */
+/// 依照不同情况调整红黑树的形态，使其平衡
 static void delete_case(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -373,9 +353,7 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/**
- * @brief 删除红黑树中的节点
- */
+/// 删除红黑树中的节点
 static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
 {
     log_debug("删除红黑树中的节点");

@@ -52,17 +52,6 @@ static void on_send(uv_udp_send_t * req, int status)
 }
 
 /**
- * @brief 超时回调函数
- * @param timer 超时的计时器
- */
-static void timeout_cb(uv_timer_t * timer)
-{
-    log_info("超时");
-    uv_timer_stop(timer);
-    qpool->delete(qpool, *(uint16_t *) timer->data);
-}
-
-/**
  * @brief 从本地接收查询报文的回调函数
  * @param handle 查询句柄
  * @param nread 收到报文的字节数
@@ -87,7 +76,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     print_dns_message(msg);
 //    print_dns_string(send_buf.base, nread);
     
-    qpool->insert(qpool, addr, msg, timeout_cb); // 将DNS查询加入查询池
+    qpool->insert(qpool, addr, msg); // 将DNS查询加入查询池
     destroy_dnsmsg(msg);
     free(buf->base);
 }

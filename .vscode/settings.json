@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "arg_parser.h": "c",
-        "runtime.h": "c",
-        "log.h": "c",
-        "stdio.h": "c"
-    }
-}
