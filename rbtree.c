@@ -76,6 +76,11 @@ static Rbtree_Node * smallest_child(Rbtree_Node * node)
  */
 static void rotate_right(Rbtree * tree, Rbtree_Node * node)
 {
+    if (node->parent == NULL)
+    {
+        tree->root = node;
+        return;
+    }
     Rbtree_Node * gp = grandparent(node);
     Rbtree_Node * fa = node->parent;
     Rbtree_Node * y = node->right;
@@ -318,9 +323,9 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
         node->parent->color = RED;
         sibling(node)->color = BLACK;
         if (node == node->parent->left)
-            rotate_left(tree, node->parent);
+            rotate_left(tree, sibling(node));
         else
-            rotate_right(tree, node->parent);
+            rotate_right(tree, sibling(node));
     }
     if (node->parent->color == BLACK && sibling(node)->color == BLACK
         && sibling(node)->left->color == BLACK && sibling(node)->right->color == BLACK)
@@ -380,7 +385,9 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
         Dns_RR_LinkList * temp = node->rr_list;
         node->rr_list = smallest->rr_list;
         smallest->rr_list = temp;
+        unsigned int temp1 = node->key;
         node->key = smallest->key;
+        smallest->key = temp1;
         node = smallest;
     }
     Rbtree_Node * child = node->left == NIL ? node->right : node->left;
@@ -446,6 +453,7 @@ Rbtree * rbtree_init()
     tree->root = NULL;
     NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     NIL->color = BLACK;
+    NIL->left = NIL->right = NIL;
     
     tree->insert = &rbtree_insert;
     tree->query = &rbtree_query;

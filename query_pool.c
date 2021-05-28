@@ -89,6 +89,7 @@ static void qpool_finish(Query_Pool * this, const Dns_Msg * msg)
         return;
     }
     Dns_Query * query = this->p[ureq->prev_id % QUERY_POOL_SIZE];
+    log_debug("结束查询 ID: 0x%x", query->id);
     
     if (strcmp(msg->que->qname, query->msg->que->qname) == 0 && msg->que->qtype == query->msg->que->qtype)
     {
@@ -100,8 +101,8 @@ static void qpool_finish(Query_Pool * this, const Dns_Msg * msg)
             insert_cache(this->tree, msg);
         
         send_to_local(&query->addr, query->msg);
-        this->delete(this, query->id);
     }
+    this->delete(this, query->id);
     
     free(ureq);
 }
