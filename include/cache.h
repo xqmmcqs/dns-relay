@@ -10,10 +10,20 @@
 #include "dns_structure.h"
 #include "rbtree.h"
 
-Rbtree * cache_init(FILE * keep_file);
+#define CACHE_SIZE 30
 
-void cache_insert(Rbtree * tree, const Dns_Msg * msg);
+typedef struct _cache
+{
+    Dns_RR_LinkList * head;
+    Dns_RR_LinkList * tail;
+    int size;
+    Rbtree * tree;
+    
+    void (* insert)(struct _cache * cache, const Dns_Msg * msg);
+    
+    Rbtree_Value * (* query)(struct _cache * cache, const Dns_Que * que);
+} Cache;
 
-Rbtree_Value * cache_query(Rbtree * tree, const Dns_Que * que);
+Cache * cache_init(FILE * keep_file);
 
 #endif //DNSR_CACHE_H

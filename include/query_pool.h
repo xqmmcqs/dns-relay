@@ -30,7 +30,7 @@ typedef struct query_pool
     Queue * queue;
     Udp_Pool * upool;
     uv_loop_t * loop;
-    Rbtree * tree;
+    Cache * cache;
     
     bool (* full)(struct query_pool * this);
     
@@ -43,6 +43,6 @@ typedef struct query_pool
     void (* destroy)(struct query_pool * this);
 } Query_Pool;
 
-Query_Pool * qpool_init(uv_loop_t * loop, Rbtree * tree);
+Query_Pool * qpool_init(uv_loop_t * loop, Cache * cache);
 
 #endif //DNSR_QUERY_POOL_H

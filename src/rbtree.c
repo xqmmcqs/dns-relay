@@ -19,11 +19,66 @@
 #include "../include/rbtree.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/dns_conversion.h"
 #include "../include/util.h"
 
 static Rbtree_Node * NIL; ///< 叶节点
+
+/// 向链表中给定节点后插入一个新节点，分配内存
+static void linklist_insert(Dns_RR_LinkList * list, Dns_RR_LinkList * new_list_node)
+{
+    new_list_node->next = list->next;
+    list->next = new_list_node;
+}
+
+/// 删除链表中给定节点的下一个节点，释放内存
+static void linklist_delete_next(Dns_RR_LinkList * list)
+{
+    log_debug("删除链表中的元素")
+    Dns_RR_LinkList * temp = list->next;
+    list->next = list->next->next;
+    destroy_dnsrr(temp->value->rr);
+    free(temp->value);
+    free(temp);
+}
+
+static Dns_RR_LinkList * linklist_query_next(Dns_RR_LinkList * list, const uint8_t * qname, uint16_t qtype)
+{
+    log_debug("在链表中查找元素")
+    time_t now_time = time(NULL);
+    while (list->next != NULL)
+    {
+        if (list->next->expire_time != -1 && list->next->expire_time <= now_time)
+            list = list->next;
+        else if (strcmp(list->next->value->rr->name, qname) == 0 && list->next->value->type == qtype)
+            return list;
+        else
+            list = list->next;
+    }
+    return NULL;
+}
+
+/**
+ * @brief 初始化一个链表，分配内存
+ * @return 指向新链表的指针
+ */
+Dns_RR_LinkList * linklist_init()
+{
+    Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
+    if (!list)
+    {
+        log_fatal("内存分配错误")
+        exit(1);
+    }
+    list->next = NULL;
+    
+    list->insert = &linklist_insert;
+    list->delete_next = &linklist_delete_next;
+    list->query_next = &linklist_query_next;
+    return list;
+}
 
 /// 求节点的祖父节点
 static inline Rbtree_Node * grandparent(Rbtree_Node * node)
@@ -118,36 +173,6 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/**
- * @brief 初始化一个链表，分配内存
- * @return 指向新链表的指针
- */
-static Dns_RR_LinkList * linklist_init()
-{
-    Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
-    if (!list)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
-    return list;
-}
-
-/// 向链表中给定节点后插入一个新节点，分配内存
-static void linklist_insert(Dns_RR_LinkList * list, Rbtree_Value * value, time_t ttl)
-{
-    Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
-    if (!new_list_node)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
-    new_list_node->expire_time = ttl;
-    new_list_node->value = value;
-    new_list_node->next = list->next;
-    list->next = new_list_node;
-}
-
 /// 依照不同情况调整红黑树的形态，使其平衡
 static void insert_case(Rbtree * tree, Rbtree_Node * node)
 {
@@ -202,17 +227,17 @@ static void insert_case(Rbtree * tree, Rbtree_Node * node)
  * @param fa 新节点的父亲节点
  * @return 指向新节点的指针
  */
-static Rbtree_Node * node_init(unsigned int key, Rbtree_Value * value, time_t ttl, Rbtree_Node * fa)
+static Rbtree_Node * node_init(unsigned int key, Dns_RR_LinkList * list, Rbtree_Node * fa)
 {
     Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     if (!node)
     {
-        log_fatal("内存分配错误");
+        log_fatal("内存分配错误")
         exit(1);
     }
     node->key = key;
     node->rr_list = linklist_init();
-    linklist_insert(node->rr_list, value, ttl);
+    node->rr_list->insert(node->rr_list, list);
     node->color = RED;
     node->left = node->right = NIL;
     node->parent = fa;
@@ -222,13 +247,13 @@ static Rbtree_Node * node_init(unsigned int key, Rbtree_Value * value, time_t tt
 /**
  * @details 此函数从根节点开始迭代查找插入位置，如果该键对应的节点不存在，则创建一个新节点，并且维护树的平衡；否则在原有节点的链表上插入新元素。
  */
-void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t ttl)
+void rbtree_insert(Rbtree * tree, unsigned int key, Dns_RR_LinkList * list)
 {
-    log_debug("向红黑树中插入值");
+    log_debug("向红黑树中插入值")
     Rbtree_Node * node = tree->root;
     if (node == NULL)
     {
-        node = node_init(key, value, ttl, NULL);
+        node = node_init(key, list, NULL);
         insert_case(tree, node);
         return;
     }
@@ -239,7 +264,7 @@ void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t
             if (node->left != NIL)node = node->left;
             else
             {
-                Rbtree_Node * new_node = node_init(key, value, ttl, node);
+                Rbtree_Node * new_node = node_init(key, list, node);
                 node->left = new_node;
                 insert_case(tree, new_node);
                 return;
@@ -250,7 +275,7 @@ void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t
             if (node->right != NIL)node = node->right;
             else
             {
-                Rbtree_Node * new_node = node_init(key, value, ttl, node);
+                Rbtree_Node * new_node = node_init(key, list, node);
                 node->right = new_node;
                 insert_case(tree, new_node);
                 return;
@@ -258,7 +283,7 @@ void rbtree_insert(Rbtree * tree, unsigned int key, Rbtree_Value * value, time_t
         }
         else
         {
-            linklist_insert(node->rr_list, value, ttl);
+            node->rr_list->insert(node->rr_list, list);
             return;
         }
     }
@@ -281,17 +306,6 @@ static Rbtree_Node * rbtree_find(Rbtree_Node * node, unsigned int data)
         return rbtree_find(node->right, data);
     }
     else return node;
-}
-
-/// 删除链表中给定节点的下一个节点，释放内存
-static void linklist_delete_next(Dns_RR_LinkList * list)
-{
-    log_debug("删除链表中超时元素");
-    Dns_RR_LinkList * temp = list->next;
-    list->next = list->next->next;
-    destroy_dnsrr(temp->value->rr);
-    free(temp->value);
-    free(temp);
 }
 
 /**
@@ -371,7 +385,7 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
 /// 删除红黑树中的节点
 static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
 {
-    log_debug("删除红黑树中的节点");
+    log_debug("删除红黑树中的节点")
     if (node->right != NIL)
     {
         Rbtree_Node * smallest = smallest_child(node->right);
@@ -418,7 +432,7 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
  */
 Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
 {
-    log_debug("在红黑树中查询");
+    log_debug("在红黑树中查询")
     Rbtree_Node * node = rbtree_find(tree->root, data);
     if (node == NULL)return NULL;
     time_t now_time = time(NULL);
@@ -426,7 +440,7 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
     while (list->next != NULL)
     {
         if (list->next->expire_time != -1 && list->next->expire_time <= now_time)
-            linklist_delete_next(list);
+            list->delete_next(list);
         else
             list = list->next;
     }
@@ -441,18 +455,18 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
 
 Rbtree * rbtree_init()
 {
-    log_debug("初始化红黑树");
+    log_debug("初始化红黑树")
     Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));
     if (!tree)
     {
-        log_fatal("内存分配错误");
+        log_fatal("内存分配错误")
         exit(1);
     }
     tree->root = NULL;
     NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     if (!NIL)
     {
-        log_fatal("内存分配错误");
+        log_fatal("内存分配错误")
         exit(1);
     }
     NIL->color = BLACK;

@@ -45,6 +45,12 @@ typedef struct dns_rr_linklist
     Rbtree_Value * value; ///< 指向当前链表节点的值
     time_t expire_time; ///< 过期的时刻
     struct dns_rr_linklist * next; ///< 链表的下一个节点
+    
+    void (* insert)(struct dns_rr_linklist * list, struct dns_rr_linklist * new_list_node);
+    
+    void (* delete_next)(struct dns_rr_linklist * list);
+    
+    struct dns_rr_linklist * (* query_next)(struct dns_rr_linklist * list, const uint8_t * qname, const uint16_t qtype);
 } Dns_RR_LinkList;
 
 /// 红黑树的节点
@@ -66,7 +72,7 @@ typedef struct rbtree
     /**
      * @brief 向红黑树中插入键-值对
      */
-    void (* insert)(struct rbtree * this, unsigned int key, Rbtree_Value * value, time_t ttl);
+    void (* insert)(struct rbtree * this, unsigned int key, Dns_RR_LinkList * list);
     
     /**
      * @brief 在红黑树中查找键对应的值
@@ -81,6 +87,8 @@ typedef struct rbtree
  * @return 指向新红黑树的指针
  */
 Rbtree * rbtree_init();
+
+Dns_RR_LinkList * linklist_init();
 
 #endif //DNSR_RBTREE_H
 

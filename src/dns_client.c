@@ -52,6 +52,8 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
 
 static void on_send(uv_udp_send_t * req, int status)
 {
+    free(*(char **) req->data);
+    free(req->data);
     free(req);
     // TODO: status异常处理
 }
@@ -85,6 +87,8 @@ void send_to_remote(const Dns_Msg * msg)
     }
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len);
+    req->data = (char **) malloc(sizeof(char **));
+    *(char **) (req->data) = send_buf.base;
     log_info("向服务器发送消息");
     print_dns_message(msg);
 

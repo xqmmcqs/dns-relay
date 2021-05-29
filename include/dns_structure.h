@@ -15,8 +15,8 @@
 
 #include <stdint.h>
 
-#define DNS_STRING_MAX_SIZE 5120
-#define DNS_RR_NAME_MAX_SIZE 256
+#define DNS_STRING_MAX_SIZE 8192
+#define DNS_RR_NAME_MAX_SIZE 512
 
 #define DNS_QR_QUERY 0
 #define DNS_QR_ANSWER 1

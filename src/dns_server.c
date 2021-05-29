@@ -52,6 +52,8 @@ static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t *
 static void on_send(uv_udp_send_t * req, int status)
 {
     log_debug("向本地发送回复，状态 %d", status);
+    free(*(char **) req->data);
+    free(req->data);
     free(req);
     // TODO: status异常处理
 }
@@ -118,6 +120,8 @@ void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg)
     
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len); // 将字节序列存入发送缓冲区中
+    req->data = (char **) malloc(sizeof(char **));
+    *(char **) (req->data) = send_buf.base;
 //    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     print_dns_string(send_buf.base, len);
 //    string_to_dnsmsg(chkmsg, send_buf.base);

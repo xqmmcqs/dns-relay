@@ -8,7 +8,7 @@
 #include "../include/query_pool.h"
 
 uv_loop_t * loop;
-Rbtree * tree;
+Cache * cache;
 Query_Pool * qpool;
 FILE * log_file;
 
@@ -37,8 +37,8 @@ int main(int argc, char * argv[])
     
     log_info("启动DNS中继服务器")
     loop = uv_default_loop();
-    tree = cache_init(hosts_file);
-    qpool = qpool_init(loop, tree);
+    cache = cache_init(hosts_file);
+    qpool = qpool_init(loop, cache);
     init_client(loop);
     init_server(loop);
     return uv_run(loop, UV_RUN_DEFAULT);
