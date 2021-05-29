@@ -30,7 +30,17 @@ Rbtree * init_cache(FILE * keep_file)
         while (fscanf(keep_file, "%s %s", domain, ip) != EOF)
         {
             Dns_RR * rr = (Dns_RR *) calloc(1, sizeof(Dns_RR));
+            if (!rr)
+            {
+                log_fatal("内存分配错误");
+                exit(1);
+            }
             rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+            if (!rr->name)
+            {
+                log_fatal("内存分配错误");
+                exit(1);
+            }
             memcpy(rr->name, domain, strlen(domain) + 1);
             rr->name[strlen(domain) + 1] = 0;
             rr->name[strlen(domain)] = '.';
@@ -41,6 +51,11 @@ Rbtree * init_cache(FILE * keep_file)
                 rr->type = DNS_TYPE_A;
                 rr->rdlength = 4;
                 rr->rdata = (uint8_t *) calloc(4, sizeof(uint8_t));
+                if (!rr->rdata)
+                {
+                    log_fatal("内存分配错误");
+                    exit(1);
+                }
                 uv_inet_pton(AF_INET, ip, rr->rdata);
 //                for (int iip = 0, ird = 0; iip < strlen(ip); ++iip)
 //                {
@@ -57,9 +72,19 @@ Rbtree * init_cache(FILE * keep_file)
                 rr->type = DNS_TYPE_AAAA;
                 rr->rdlength = 16;
                 rr->rdata = (uint8_t *) calloc(16, sizeof(uint8_t));
+                if (!rr->rdata)
+                {
+                    log_fatal("内存分配错误");
+                    exit(1);
+                }
                 uv_inet_pton(AF_INET6, ip, rr->rdata);
             }
             Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+            if (!value)
+            {
+                log_fatal("内存分配错误");
+                exit(1);
+            }
             value->rr = rr;
             value->ancount = 1;
             value->type = rr->type;
@@ -90,6 +115,11 @@ void insert_cache(Rbtree * tree, const Dns_Msg * msg)
     log_debug("插入cache");
     if (msg->rr == NULL) return;
     Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+    if (!value)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     value->rr = copy_dnsrr(msg->rr);
     value->ancount = msg->header->ancount;
     value->nscount = msg->header->nscount;
@@ -107,6 +137,11 @@ Rbtree_Value * query_cache(Rbtree * tree, const Dns_Que * que)
         if (strcmp(list->value->rr->name, que->qname) == 0 && list->value->type == que->qtype)
         {
             Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
+            if (!value)
+            {
+                log_fatal("内存分配错误");
+                exit(1);
+            }
             memcpy(value, list->value, sizeof(Rbtree_Value));
             value->rr = copy_dnsrr(list->value->rr);
             return value;

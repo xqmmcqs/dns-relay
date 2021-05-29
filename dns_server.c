@@ -36,6 +36,11 @@ extern Query_Pool * qpool; ///< 查询池，定义在main.c中
 static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf)
 {
     buf->base = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
+    if (!buf->base)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     buf->len = DNS_STRING_MAX_SIZE;
 }
 
@@ -72,6 +77,11 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
 //    uv_buf_t send_buf = uv_buf_init((char *) malloc(buf->len), nread);
 //    memcpy(send_buf.base, buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+    if (!msg)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     string_to_dnsmsg(msg, buf->base); // 将字节序列转化为结构体
     print_dns_message(msg);
 //    print_dns_string(send_buf.base, nread);
@@ -95,8 +105,18 @@ void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg)
     log_info("发送DNS回复报文到本地");
     print_dns_message(msg);
     char * str = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char)); // 将DNS结构体转化成字节序列
+    if (!str)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     unsigned int len = dnsmsg_to_string(msg, str);
     uv_udp_send_t * req = malloc(sizeof(uv_udp_send_t));
+    if (!req)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len); // 将字节序列存入发送缓冲区中

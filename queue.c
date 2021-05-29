@@ -6,6 +6,8 @@
 
 #include <stdlib.h>
 
+#include "util.h"
+
 static void queue_push(Queue * this, uint16_t num)
 {
     this->q[++this->tail] = num;
@@ -24,6 +26,11 @@ static void queue_destroy(Queue * this)
 Queue * queue_init()
 {
     Queue * queue = (Queue *) calloc(1, sizeof(Queue));
+    if (!queue)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     queue->head = 0;
     queue->tail = QUEUE_SIZE - 1;
     

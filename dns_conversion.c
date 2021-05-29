@@ -71,6 +71,11 @@ static void string_to_dnshead(Dns_Header * phead, const char * pstring, unsigned
 static void string_to_dnsque(Dns_Que * pque, const char * pstring, unsigned * offset)
 {
     pque->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    if (!pque->qname)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     string_to_rrname(pque->qname, pstring, offset);
     pque->qtype = read_uint16(pstring, offset);
     pque->qclass = read_uint16(pstring, offset);
@@ -79,6 +84,11 @@ static void string_to_dnsque(Dns_Que * pque, const char * pstring, unsigned * of
 static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offset)
 {
     prr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    if (!prr->name)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     string_to_rrname(prr->name, pstring, offset);
     prr->type = read_uint16(pstring, offset);
     prr->class = read_uint16(pstring, offset);
@@ -87,17 +97,37 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
     if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!temp)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         prr->rdlength = string_to_rrname(temp, pstring, offset);
         prr->rdata = (uint8_t *) calloc(prr->rdlength, sizeof(uint8_t));
+        if (!prr->rdata)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(prr->rdata, temp, prr->rdlength);
         free(temp);
     }
     else if (prr->type == DNS_TYPE_SOA)
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!temp)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         prr->rdlength = string_to_rrname(temp, pstring, offset);
         prr->rdlength += string_to_rrname(temp + prr->rdlength, pstring, offset);
         prr->rdata = (uint8_t *) calloc(prr->rdlength + 20, sizeof(uint8_t));
+        if (!prr->rdata)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(prr->rdata, temp, prr->rdlength);
         memcpy(prr->rdata + prr->rdlength, pstring + *offset, 20);
         *offset += 20;
@@ -107,6 +137,11 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
     else
     {
         prr->rdata = (uint8_t *) calloc(prr->rdlength, sizeof(uint8_t));
+        if (!prr->rdata)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(prr->rdata, pstring + *offset, prr->rdlength);
         *offset += prr->rdlength;
     }
@@ -117,11 +152,21 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
 {
     unsigned offset = 0;
     pmsg->header = (Dns_Header *) calloc(1, sizeof(Dns_Header));
+    if (!pmsg->header)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     string_to_dnshead(pmsg->header, pstring, &offset);
     Dns_Que * que_tail = NULL;
     for (int i = 0; i < pmsg->header->qdcount; ++i)
     {
         Dns_Que * temp = (Dns_Que *) calloc(1, sizeof(Dns_Que));
+        if (!temp)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         if (!que_tail)
             pmsg->que = que_tail = temp;
         else
@@ -136,6 +181,11 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
     for (int i = 0; i < tot; ++i)
     {
         Dns_RR * temp = (Dns_RR *) calloc(1, sizeof(Dns_RR));
+        if (!temp)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         if (!rr_tail)
             pmsg->rr = rr_tail = temp;
         else
@@ -277,21 +327,51 @@ Dns_RR * copy_dnsrr(const Dns_RR * src)
 {
     if (src == NULL) return NULL;
     Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
+    if (!new_rr)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     const Dns_RR * old_rr = src;
     memcpy(new_rr, old_rr, sizeof(Dns_RR));
     new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    if (!new_rr->name)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
     new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    if (!new_rr->rdata)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     memcpy(new_rr->rdata, old_rr->rdata, DNS_RR_NAME_MAX_SIZE);
     while (old_rr->next)
     {
         new_rr->next = (Dns_RR *) calloc(1, sizeof(Dns_RR));
+        if (!new_rr->next)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         old_rr = old_rr->next;
         new_rr = new_rr->next;
         memcpy(new_rr, old_rr, sizeof(Dns_RR));
         new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!new_rr->name)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
         new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!new_rr->rdata)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(new_rr->rdata, old_rr->rdata, DNS_RR_NAME_MAX_SIZE);
     }
     return rr;
@@ -301,21 +381,51 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src)
 {
     if (src == NULL) return NULL;
     Dns_Msg * new_msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+    if (!new_msg)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     new_msg->header = (Dns_Header *) calloc(1, sizeof(Dns_Header));
+    if (!new_msg->header)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     memcpy(new_msg->header, src->header, sizeof(Dns_Header));
     
     new_msg->que = (Dns_Que *) calloc(1, sizeof(Dns_Que));
+    if (!new_msg->que)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     Dns_Que * que = new_msg->que, * old_que = src->que;
     memcpy(que, old_que, sizeof(Dns_Que));
     que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+    if (!que->qname)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
     while (old_que->next)
     {
         que->next = (Dns_Que *) calloc(1, sizeof(Dns_Que));
+        if (!que->next)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         old_que = old_que->next;
         que = que->next;
         memcpy(que, old_que, sizeof(Dns_Que));
         que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!que->qname)
+        {
+            log_fatal("内存分配错误");
+            exit(1);
+        }
         memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
     }
     

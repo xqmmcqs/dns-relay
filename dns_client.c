@@ -19,6 +19,11 @@ extern Query_Pool * qpool;
 static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf)
 {
     buf->base = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
+    if (!buf->base)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     buf->len = DNS_STRING_MAX_SIZE;
 }
 
@@ -33,6 +38,11 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     log_info("从服务器接收到消息");
 //    print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
+    if (!msg)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     string_to_dnsmsg(msg, buf->base);
     print_dns_message(msg);
     qpool->finish(qpool, msg);
@@ -50,19 +60,29 @@ void init_client(uv_loop_t * loop)
 {
     log_info("启动client")
     uv_udp_init(loop, &client_socket);
-    uv_ip4_addr("0.0.0.0", 0, &local_addr);
+    uv_ip4_addr("0.0.0.0", CLIENT_PORT, &local_addr);
     uv_udp_bind(&client_socket, (const struct sockaddr *) &local_addr, UV_UDP_REUSEADDR);
     uv_udp_set_broadcast(&client_socket, 1);
-    uv_ip4_addr("10.3.9.4", 53, (struct sockaddr_in *) &send_addr);
+    uv_ip4_addr(REMOTE_HOST, 53, (struct sockaddr_in *) &send_addr);
     uv_udp_recv_start(&client_socket, alloc_buffer, on_read);
 }
 
 void send_to_remote(const Dns_Msg * msg)
 {
     char * str = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
+    if (!str)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     unsigned int len = dnsmsg_to_string(msg, str);
     
     uv_udp_send_t * req = malloc(sizeof(uv_udp_send_t));
+    if (!req)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len);
     log_info("向服务器发送消息");

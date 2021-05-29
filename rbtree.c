@@ -125,6 +125,11 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
 static Dns_RR_LinkList * linklist_init()
 {
     Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
+    if (!list)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     return list;
 }
 
@@ -132,6 +137,11 @@ static Dns_RR_LinkList * linklist_init()
 static void linklist_insert(Dns_RR_LinkList * list, Rbtree_Value * value, time_t ttl)
 {
     Dns_RR_LinkList * new_list_node = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
+    if (!new_list_node)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     new_list_node->expire_time = ttl;
     new_list_node->value = value;
     new_list_node->next = list->next;
@@ -195,6 +205,11 @@ static void insert_case(Rbtree * tree, Rbtree_Node * node)
 static Rbtree_Node * node_init(unsigned int key, Rbtree_Value * value, time_t ttl, Rbtree_Node * fa)
 {
     Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+    if (!node)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     node->key = key;
     node->rr_list = linklist_init();
     linklist_insert(node->rr_list, value, ttl);
@@ -428,8 +443,18 @@ Rbtree * rbtree_init()
 {
     log_debug("初始化红黑树");
     Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));
+    if (!tree)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     tree->root = NULL;
     NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+    if (!NIL)
+    {
+        log_fatal("内存分配错误");
+        exit(1);
+    }
     NIL->color = BLACK;
     NIL->left = NIL->right = NIL;
     

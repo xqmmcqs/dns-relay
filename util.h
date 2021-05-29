@@ -7,38 +7,52 @@
 
 #include <stdio.h>
 
-extern char log_mask;
+#include "config_jar.h"
+
+extern FILE * log_file;
 
 #define log_debug(args...) \
-    if(log_mask & 1) \
+    if (LOG_MASK & 1) \
     { \
-        fprintf(stdout, "\x1b[33m[DEBUG]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
-        fprintf(stdout, args); \
-        fprintf(stdout, "\n"); \
+        if (log_file != stderr) \
+            fprintf(log_file, "[DEBUG] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[37m[DEBUG]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
     }
 
 #define log_info(args...) \
-    if(log_mask & 2) \
+    if (LOG_MASK & 2) \
     { \
-        fprintf(stdout, "\x1b[33m[INFO ]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
-        fprintf(stdout, args); \
-        fprintf(stdout, "\n"); \
+        if (log_file != stderr) \
+            fprintf(log_file, "[INFO ] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[34m[INFO ]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
     }
 
 #define log_error(args...) \
-    if(log_mask & 4) \
+    if (LOG_MASK & 4) \
     { \
-        fprintf(stderr, "\x1b[33m[ERROR]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
-        fprintf(stderr, args); \
-        fprintf(stderr, "\n"); \
+        if (log_file != stderr) \
+            fprintf(log_file, "[ERROR] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[33m[ERROR]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
     }
 
 #define log_fatal(args...) \
-    if(log_mask & 8) \
+    if (LOG_MASK & 8) \
     { \
-        fprintf(stderr, "\x1b[33m[FATAL]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
-        fprintf(stderr, args); \
-        fprintf(stderr, "\n"); \
+        if (log_file != stderr) \
+            fprintf(log_file, "[FATAL] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[31m[FATAL]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
     }
 
 #endif //DNSR_UTIL_H

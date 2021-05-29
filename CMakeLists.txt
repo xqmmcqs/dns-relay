@@ -9,6 +9,7 @@ include_directories(/usr/local/include)
 add_executable(main
         main.c
         config_jar.h
+        config_jar.c
         util.h
         dns_structure.h
         dns_conversion.c
