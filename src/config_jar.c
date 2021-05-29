@@ -29,7 +29,6 @@ static void parse_error(char * error_msg)
 
 void init_config(int argc, char * const * argv)
 {
-    log_debug("解析命令行参数");
     argc--;
     argv++;
     if (argc == 1 && strcmp(*argv, "--help") == 0)

@@ -46,7 +46,7 @@ static void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const
     query->addr = *addr;
     query->msg = copy_dnsmsg(msg);
     
-    Rbtree_Value * value = query_cache(qpool->tree, query->msg->que);
+    Rbtree_Value * value = cache_query(qpool->tree, query->msg->que);
     if (value != NULL)
     {
         log_debug("命中");
@@ -125,7 +125,7 @@ static void qpool_finish(Query_Pool * this, const Dns_Msg * msg)
             if (msg->header->rcode == DNS_RCODE_OK &&
                 (msg->que->qtype == DNS_TYPE_A || msg->que->qtype == DNS_TYPE_CNAME ||
                  msg->que->qtype == DNS_TYPE_AAAA))
-                insert_cache(this->tree, msg);
+                cache_insert(this->tree, msg);
             send_to_local(&query->addr, query->msg);
         }
         this->delete(this, query->id);

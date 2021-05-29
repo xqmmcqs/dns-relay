@@ -15,11 +15,11 @@ FILE * log_file;
 int main(int argc, char * argv[])
 {
     // TODO: 加注释
-    log_file = stderr;
-    log_info("启动DNS中继服务器")
     init_config(argc, argv);
+    log_file = stderr;
     if (LOG_PATH)
     {
+        log_debug("打开log文件");
         log_file = fopen(LOG_PATH, "w");
         if (!log_file)
         {
@@ -27,14 +27,17 @@ int main(int argc, char * argv[])
             exit(1);
         }
     }
-    loop = uv_default_loop();
+    
     FILE * hosts_file = fopen(HOSTS_PATH, "r");
     if (!hosts_file)
     {
         log_fatal("hosts文件打开失败");
         exit(1);
     }
-    tree = init_cache(hosts_file);
+    
+    log_info("启动DNS中继服务器")
+    loop = uv_default_loop();
+    tree = cache_init(hosts_file);
     qpool = qpool_init(loop, tree);
     init_client(loop);
     init_server(loop);

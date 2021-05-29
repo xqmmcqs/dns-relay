@@ -74,8 +74,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     }
     
     log_debug("收到本地DNS查询报文");
-//    uv_buf_t send_buf = uv_buf_init((char *) malloc(buf->len), nread);
-//    memcpy(send_buf.base, buf->base, nread);
+    print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     if (!msg)
     {
@@ -84,7 +83,6 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     }
     string_to_dnsmsg(msg, buf->base); // 将字节序列转化为结构体
     print_dns_message(msg);
-//    print_dns_string(send_buf.base, nread);
     
     qpool->insert(qpool, addr, msg); // 将DNS查询加入查询池
     destroy_dnsmsg(msg);
@@ -121,7 +119,7 @@ void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg)
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len); // 将字节序列存入发送缓冲区中
 //    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
-//    print_dns_string(send_buf.base,len);
+    print_dns_string(send_buf.base, len);
 //    string_to_dnsmsg(chkmsg, send_buf.base);
 //    log_debug("Now printing chkmsg");
 //    print_dns_message(chkmsg);

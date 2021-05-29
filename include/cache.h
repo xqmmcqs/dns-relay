@@ -10,10 +10,10 @@
 #include "dns_structure.h"
 #include "rbtree.h"
 
-Rbtree * init_cache(FILE * keep_file);
+Rbtree * cache_init(FILE * keep_file);
 
-void insert_cache(Rbtree * tree, const Dns_Msg * msg);
+void cache_insert(Rbtree * tree, const Dns_Msg * msg);
 
-Rbtree_Value * query_cache(Rbtree * tree, const Dns_Que * que);
+Rbtree_Value * cache_query(Rbtree * tree, const Dns_Que * que);
 
 #endif //DNSR_CACHE_H

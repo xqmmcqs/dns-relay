@@ -72,7 +72,7 @@ typedef struct rbtree
      * @brief 在红黑树中查找键对应的值
      * @return 如果找到了对应的值，返回一个没有头节点的链表；否则返回NULL
      */
-    Dns_RR_LinkList * (* query)(struct rbtree * tree, unsigned int data);
+    Dns_RR_LinkList * (* query)(struct rbtree * this, unsigned int data);
     
 } Rbtree;
 

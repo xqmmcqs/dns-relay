@@ -36,7 +36,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
         return;
     }
     log_info("从服务器接收到消息");
-//    print_dns_string(buf->base, nread);
+    print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     if (!msg)
     {
@@ -86,12 +86,12 @@ void send_to_remote(const Dns_Msg * msg)
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len);
     log_info("向服务器发送消息");
+    print_dns_message(msg);
 
 //    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
-//    print_dns_string(send_buf.base,len);
+    print_dns_string(send_buf.base, len);
 //    string_to_dnsmsg(chkmsg, send_buf.base);
 //    log_debug("Now printing msg");
-    print_dns_message(msg);
 //    log_debug("Now printing chkmsg");
 //    print_dns_message(chkmsg);
 //    destroy_dnsmsg(chkmsg);

@@ -20,7 +20,7 @@ static unsigned int BKDRHash(uint8_t * str)
     return (hash & 0x7FFFFFFF);
 }
 
-Rbtree * init_cache(FILE * keep_file)
+Rbtree * cache_init(FILE * keep_file)
 {
     log_debug("初始化cache");
     Rbtree * tree = rbtree_init();
@@ -110,7 +110,7 @@ static uint32_t get_min_ttl(Dns_RR * prr)
     return ttl;
 }
 
-void insert_cache(Rbtree * tree, const Dns_Msg * msg)
+void cache_insert(Rbtree * tree, const Dns_Msg * msg)
 {
     log_debug("插入cache");
     if (msg->rr == NULL) return;
@@ -128,7 +128,7 @@ void insert_cache(Rbtree * tree, const Dns_Msg * msg)
     tree->insert(tree, BKDRHash(value->rr->name), value, time(NULL) + get_min_ttl(value->rr));
 }
 
-Rbtree_Value * query_cache(Rbtree * tree, const Dns_Que * que)
+Rbtree_Value * cache_query(Rbtree * tree, const Dns_Que * que)
 {
     log_debug("查询cache");
     Dns_RR_LinkList * list = tree->query(tree, BKDRHash(que->qname));
