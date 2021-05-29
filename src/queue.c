@@ -2,11 +2,11 @@
 // Created by xqmmcqs on 2021/4/5.
 //
 
-#include "queue.h"
+#include "../include/queue.h"
 
 #include <stdlib.h>
 
-#include "util.h"
+#include "../include/util.h"
 
 static void queue_push(Queue * this, uint16_t num)
 {

@@ -2,14 +2,14 @@
 // Created by xqmmcqs on 2021/4/13.
 //
 
-#include "query_pool.h"
+#include "../include/query_pool.h"
 
 #include <stdlib.h>
 
-#include "dns_conversion.h"
-#include "util.h"
-#include "dns_client.h"
-#include "dns_server.h"
+#include "../include/util.h"
+#include "../include/dns_conversion.h"
+#include "../include/dns_client.h"
+#include "../include/dns_server.h"
 
 static bool qpool_full(Query_Pool * this)
 {

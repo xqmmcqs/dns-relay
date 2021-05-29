@@ -2,14 +2,14 @@
 // Created by xqmmcqs on 2021/4/6.
 //
 
-#include "dns_print.h"
+#include "../include/dns_print.h"
 
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "util.h"
+#include "../include/util.h"
 
 void print_dns_string(const char * pstring, unsigned int len)
 {

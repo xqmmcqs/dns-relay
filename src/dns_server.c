@@ -12,14 +12,14 @@
  * 另外文件中包含数个工具函数，如分配缓冲区和发送回调函数
 */
 
-#include "dns_server.h"
+#include "../include/dns_server.h"
 
 #include <stdlib.h>
 
-#include "dns_conversion.h"
-#include "dns_print.h"
-#include "util.h"
-#include "query_pool.h"
+#include "../include/util.h"
+#include "../include/dns_conversion.h"
+#include "../include/dns_print.h"
+#include "../include/query_pool.h"
 
 static uv_udp_t server_socket; ///< 服务器与本地通信的socket
 static struct sockaddr_in recv_addr; ///< 服务器收取DNS查询报文的地址

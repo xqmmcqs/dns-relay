@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <uv.h>
 
-#include "dns_client.h"
-#include "dns_server.h"
-#include "util.h"
-#include "cache.h"
-#include "query_pool.h"
+#include "../include/util.h"
+#include "../include/dns_client.h"
+#include "../include/dns_server.h"
+#include "../include/query_pool.h"
 
 uv_loop_t * loop;
 Rbtree * tree;
@@ -16,9 +15,6 @@ FILE * log_file;
 int main(int argc, char * argv[])
 {
     // TODO: 加注释
-    // TODO: log
-    // TODO: EDNS
-    // TODO: 命令行参数
     log_file = stderr;
     log_info("启动DNS中继服务器")
     init_config(argc, argv);

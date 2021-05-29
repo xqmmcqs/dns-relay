@@ -16,12 +16,12 @@
  * 最后，借助上述函数，程序实现了头文件中声明的初始化、插入和查询操作。
 */
 
-#include "rbtree.h"
+#include "../include/rbtree.h"
 
 #include <stdlib.h>
 
-#include "dns_conversion.h"
-#include "util.h"
+#include "../include/dns_conversion.h"
+#include "../include/util.h"
 
 static Rbtree_Node * NIL; ///< 叶节点
 

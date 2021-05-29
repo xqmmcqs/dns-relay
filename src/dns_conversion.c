@@ -2,14 +2,13 @@
 // Created by xqmmcqs on 2021/4/3.
 //
 
-#include "dns_conversion.h"
+#include "../include/dns_conversion.h"
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "dns_structure.h"
-#include "util.h"
+#include "../include/util.h"
 
 static uint16_t read_uint16(const char * pstring, unsigned * offset)
 {

@@ -7,27 +7,27 @@ link_directories(/usr/local/lib)
 include_directories(/usr/local/include)
 
 add_executable(main
-        main.c
-        config_jar.h
-        config_jar.c
-        util.h
-        dns_structure.h
-        dns_conversion.c
-        dns_conversion.h
-        dns_client.c
-        dns_client.h
-        dns_server.c
-        dns_server.h
-        udp_pool.c
-        udp_pool.h
-        queue.c
-        queue.h
-        dns_print.c
-        dns_print.h
-        rbtree.c
-        rbtree.h
-        cache.c
-        cache.h
-        query_pool.c
-        query_pool.h)
-target_link_libraries(main uv curl)
+        src/main.c
+        include/config_jar.h
+        src/config_jar.c
+        include/util.h
+        include/dns_structure.h
+        src/dns_conversion.c
+        include/dns_conversion.h
+        src/dns_client.c
+        include/dns_client.h
+        src/dns_server.c
+        include/dns_server.h
+        src/udp_pool.c
+        include/udp_pool.h
+        src/queue.c
+        include/queue.h
+        src/dns_print.c
+        include/dns_print.h
+        src/rbtree.c
+        include/rbtree.h
+        src/cache.c
+        include/cache.h
+        src/query_pool.c
+        include/query_pool.h)
+target_link_libraries(main uv)

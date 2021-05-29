@@ -6,14 +6,14 @@
  * @copyright GNU General Public License, version 3 (GPL-3.0)
 */
 
-#include "config_jar.h"
+#include "../include/config_jar.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <uv.h>
 
-#include "util.h"
+#include "../include/util.h"
 
 char * REMOTE_HOST = "10.3.9.4";
 int LOG_MASK = 15;

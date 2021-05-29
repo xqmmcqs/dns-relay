@@ -2,14 +2,14 @@
 // Created by xqmmcqs on 2021/4/12.
 //
 
-#include "cache.h"
+#include "../include/cache.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <uv.h>
 
-#include "dns_conversion.h"
-#include "util.h"
+#include "../include/util.h"
+#include "../include/dns_conversion.h"
 
 static unsigned int BKDRHash(uint8_t * str)
 {

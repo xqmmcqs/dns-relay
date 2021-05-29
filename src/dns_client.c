@@ -2,14 +2,14 @@
 // Created by xqmmcqs on 2021/4/3.
 //
 
-#include "dns_client.h"
+#include "../include/dns_client.h"
 
 #include <stdlib.h>
 
-#include "dns_conversion.h"
-#include "dns_print.h"
-#include "query_pool.h"
-#include "util.h"
+#include "../include/util.h"
+#include "../include/dns_conversion.h"
+#include "../include/dns_print.h"
+#include "../include/query_pool.h"
 
 static uv_udp_t client_socket;
 static struct sockaddr_in local_addr;

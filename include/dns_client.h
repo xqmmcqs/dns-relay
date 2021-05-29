@@ -5,8 +5,9 @@
 #ifndef DNSR_DNS_CLIENT_H
 #define DNSR_DNS_CLIENT_H
 
-#include "dns_structure.h"
 #include <uv.h>
+
+#include "dns_structure.h"
 
 void init_client(uv_loop_t * loop);
 
