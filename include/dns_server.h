@@ -5,11 +5,11 @@
  * @date      2021/4/3
  * @copyright GNU General Public License, version 3 (GPL-3.0)
  *
- * 本文件定义了DNS服务器的接口，包括服务器初始化函数、向本地发送回复的函数和DNS查询超时的回调函数
+ * 本文件定义了DNS服务器的接口，包括服务器初始化函数、向本地发送回复的函数。
  *
- * DNS服务器通过server_socket与本地53端口通信，将收到的DNS查询报文加入查询池
+ * DNS服务器通过server_socket与本地53端口通信，将收到的DNS查询报文加入查询池。
  *
- * 当一个DNS查询的计时器超时的时候，调用超时回调函数销毁这个查询请求
+ * 查询池通过调用接口将回复报文发送到本地。
 */
 
 #ifndef DNSR_DNS_SERVER_H
@@ -21,11 +21,14 @@
 
 /**
  * @brief 服务器初始化
+ *
+ * @param loop 事件循环
  */
 void init_server(uv_loop_t * loop);
 
 /**
  * @brief 将DNS回复报文发送至本地
+ *
  * @param addr 本地地址
  * @param msg DNS回复报文
  */

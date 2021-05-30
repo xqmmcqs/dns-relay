@@ -65,7 +65,7 @@ static unsigned string_to_rrname(uint8_t * pname, const char * pstring, unsigned
             unsigned new_offset = read_uint16(pstring, offset) & 0x3fff;
             return *offset - start_offset - 2 + string_to_rrname(pname, pstring, &new_offset);
         }
-        if (!*(pstring + *offset)) // 处理到0
+        if (!*(pstring + *offset)) // 处理到0，表示NAME字段的结束
         {
             ++*offset;
             *pname = 0;
@@ -142,7 +142,7 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
     prr->class = read_uint16(pstring, offset);
     prr->ttl = read_uint32(pstring, offset);
     prr->rdlength = read_uint16(pstring, offset);
-    if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
+    if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS) // CNAME和NS的RDATA是一个域名
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         if (!temp)
@@ -154,7 +154,7 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
         memcpy(prr->rdata, temp, prr->rdlength);
         free(temp);
     }
-    else if (prr->type == DNS_TYPE_SOA)
+    else if (prr->type == DNS_TYPE_SOA) // RFC1035 3.3.13. SOA RDATA format
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         if (!temp)
@@ -193,7 +193,7 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
         Dns_Que * temp = (Dns_Que *) calloc(1, sizeof(Dns_Que));
         if (!temp)
             log_fatal("内存分配错误")
-        if (!que_tail)
+        if (!que_tail) // 链表的第一个节点
             pmsg->que = que_tail = temp;
         else
         {
@@ -209,7 +209,7 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
         Dns_RR * temp = (Dns_RR *) calloc(1, sizeof(Dns_RR));
         if (!temp)
             log_fatal("内存分配错误")
-        if (!rr_tail)
+        if (!rr_tail) // 链表的第一个节点
             pmsg->rr = rr_tail = temp;
         else
         {
@@ -396,6 +396,7 @@ void destroy_dnsmsg(Dns_Msg * pmsg)
 Dns_RR * copy_dnsrr(const Dns_RR * src)
 {
     if (src == NULL) return NULL;
+    // 复制链表的头节点
     Dns_RR * new_rr = (Dns_RR *) calloc(1, sizeof(Dns_RR)), * rr = new_rr;
     if (!new_rr)
         log_fatal("内存分配错误")
@@ -404,11 +405,12 @@ Dns_RR * copy_dnsrr(const Dns_RR * src)
     new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
     if (!new_rr->name)
         log_fatal("内存分配错误")
-    strcpy(new_rr->name, old_rr->name);
+    memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
     new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
     if (!new_rr->rdata)
         log_fatal("内存分配错误")
     memcpy(new_rr->rdata, old_rr->rdata, DNS_RR_NAME_MAX_SIZE);
+    // 复制链表的剩余节点
     while (old_rr->next)
     {
         new_rr->next = (Dns_RR *) calloc(1, sizeof(Dns_RR));
@@ -420,7 +422,7 @@ Dns_RR * copy_dnsrr(const Dns_RR * src)
         new_rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         if (!new_rr->name)
             log_fatal("内存分配错误")
-        strcpy(new_rr->name, old_rr->name);
+        memcpy(new_rr->name, old_rr->name, DNS_RR_NAME_MAX_SIZE);
         new_rr->rdata = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         if (!new_rr->rdata)
             log_fatal("内存分配错误")
@@ -440,6 +442,7 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src)
         log_fatal("内存分配错误")
     memcpy(new_msg->header, src->header, sizeof(Dns_Header));
     
+    // 复制链表的头节点
     new_msg->que = (Dns_Que *) calloc(1, sizeof(Dns_Que));
     if (!new_msg->que)
         log_fatal("内存分配错误")
@@ -448,7 +451,8 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src)
     que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
     if (!que->qname)
         log_fatal("内存分配错误")
-    strcpy(que->qname, old_que->qname);
+    memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
+    // 复制链表的剩余节点
     while (old_que->next)
     {
         que->next = (Dns_Que *) calloc(1, sizeof(Dns_Que));
@@ -460,7 +464,7 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src)
         que->qname = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
         if (!que->qname)
             log_fatal("内存分配错误")
-        strcpy(que->qname, old_que->qname);
+        memcpy(que->qname, old_que->qname, DNS_RR_NAME_MAX_SIZE);
     }
     
     new_msg->rr = copy_dnsrr(src->rr);

@@ -1,6 +1,12 @@
-//
-// Created by xqmmcqs on 2021/4/3.
-//
+/**
+ * @file      dns_client.c
+ * @brief     DNS客户端
+ * @author    Ziheng Mao
+ * @date      2021/4/3
+ * @copyright GNU General Public License, version 3 (GPL-3.0)
+ *
+ * 本文件的内容是DNS客户端的实现。
+*/
 
 #include "../include/dns_client.h"
 
@@ -11,11 +17,20 @@
 #include "../include/dns_print.h"
 #include "../include/query_pool.h"
 
-static uv_udp_t client_socket;
-static struct sockaddr_in local_addr;
-static struct sockaddr send_addr;
-extern Query_Pool * qpool;
+static uv_udp_t client_socket; ///< 客户端与远程通信的socket
+static struct sockaddr_in local_addr; ///< 本地地址
+static struct sockaddr send_addr; ///< 远程服务器地址
+extern Query_Pool * qpool; ///< 查询池
 
+/**
+ * @brief 为缓冲区分配空间
+ *
+ * @param handle 分配句柄
+ * @param suggested_size 期望缓冲区大小
+ * @param buf 缓冲区
+ *
+ * 分配大小固定为DNS_STRING_MAX_SIZE的缓冲区，用于从远程接收DNS回复报文
+ */
 static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t * buf)
 {
     buf->base = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
@@ -24,6 +39,15 @@ static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t *
     buf->len = DNS_STRING_MAX_SIZE;
 }
 
+/**
+ * @brief 从远程接收回复报文的回调函数
+ *
+ * @param handle 查询句柄
+ * @param nread 收到报文的字节数
+ * @param buf 缓冲区，存放收到的报文
+ * @param addr 发送方的地址
+ * @param flags 标志
+ */
 static void
 on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct sockaddr * addr, unsigned flags)
 {
@@ -44,12 +68,19 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     free(buf->base);
 }
 
+/**
+ * @brief 向远程发送查询报文的回调函数
+ *
+ * @param req 发送句柄
+ * @param status 发送状态
+ */
 static void on_send(uv_udp_send_t * req, int status)
 {
     free(*(char **) req->data);
     free(req->data);
     free(req);
-    // TODO: status异常处理
+    if (status)
+        log_error("发送状态异常 %d", status)
 }
 
 void init_client(uv_loop_t * loop)

@@ -81,7 +81,7 @@ typedef struct dns_rr
 /// DNS报文结构体
 typedef struct
 {
-    Dns_Header * header;
+    Dns_Header * header; ///< 指向Header Section
     Dns_Que * que; ///< 指向Question Section链表的头节点
     Dns_RR * rr; ///< 指向Resource Record链表的头节点
 } Dns_Msg;

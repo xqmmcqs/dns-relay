@@ -1,7 +1,7 @@
 /**
  * @file      rbtree.h
  * @brief     红黑树
- * @author    xqmmcqs
+ * @author    Ziheng Mao
  * @date      2021/4/14
  * @copyright GNU General Public License, version 3 (GPL-3.0)
  *
@@ -39,17 +39,35 @@ typedef struct
     uint8_t type; ///< RR对应的Question的类型
 } Rbtree_Value;
 
-/// 红黑树节点链表的节点
+/// 红黑树节点链表
 typedef struct dns_rr_linklist
 {
     Rbtree_Value * value; ///< 指向当前链表节点的值
     time_t expire_time; ///< 过期的时刻
     struct dns_rr_linklist * next; ///< 链表的下一个节点
     
+    /**
+     * @brief 向链表中插入结点
+     * @param list 当前节点
+     * @param new_list_node 新节点
+     */
     void (* insert)(struct dns_rr_linklist * list, struct dns_rr_linklist * new_list_node);
     
+    /**
+     * @brief 删除链表中当前节点的下一个结点
+     *
+     * @param list 当前节点
+     */
     void (* delete_next)(struct dns_rr_linklist * list);
     
+    /**
+     * @brief 在链表中查找特定的值
+     *
+     * @param list 链表起始节点
+     * @param qname NAME字段
+     * @param qtype type字段
+     * @return 如果查找到节点，返回该节点在链表中的前驱，否则返回NULL
+     */
     struct dns_rr_linklist * (* query_next)(struct dns_rr_linklist * list, const uint8_t * qname, const uint16_t qtype);
 } Dns_RR_LinkList;
 
@@ -71,24 +89,40 @@ typedef struct rbtree
     
     /**
      * @brief 向红黑树中插入键-值对
+     *
+     * @param tree 红黑树
+     * @param key 键
+     * @param list 值
+     *
+     * 此函数从根节点开始迭代查找插入位置，如果该键对应的节点不存在，则创建一个新节点，并且维护树的平衡；否则在原有节点的链表上插入新元素。
      */
-    void (* insert)(struct rbtree * this, unsigned int key, Dns_RR_LinkList * list);
+    void (* insert)(struct rbtree * tree, unsigned int key, Dns_RR_LinkList * list);
     
     /**
      * @brief 在红黑树中查找键对应的值
+     *
+     * @param tree 红黑树
+     * @param data 键
      * @return 如果找到了对应的值，返回一个没有头节点的链表；否则返回NULL
+     *
+     * 此函数查找给定键的节点，如果该节点存在，则删去节点链表中已经超时的部分，此时若链表不为空，则返回该链表；否则删除该节点并返回NULL。
      */
-    Dns_RR_LinkList * (* query)(struct rbtree * this, unsigned int data);
-    
+    Dns_RR_LinkList * (* query)(struct rbtree * tree, unsigned int data);
 } Rbtree;
 
 /**
- * @brief 初始化红黑树，分配内存，初始化叶节点
- * @return 指向新红黑树的指针
+ * @brief 创建链表节点
+ *
+ * @return 新的链表节点
  */
-Rbtree * rbtree_init();
+Dns_RR_LinkList * new_linklist();
 
-Dns_RR_LinkList * linklist_init();
+/**
+ * @brief 创建红黑树
+ *
+ * @return 新的红黑树
+ */
+Rbtree * new_rbtree();
 
 #endif //DNSR_RBTREE_H
 

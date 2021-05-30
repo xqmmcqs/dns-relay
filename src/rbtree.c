@@ -1,19 +1,11 @@
 /**
  * @file      rbtree.c
- * @brief     红黑树的实现
- * @author    xqmmcqs
+ * @brief     红黑树
+ * @author    Ziheng Mao
  * @date      2021/4/14
  * @copyright GNU General Public License, version 3 (GPL-3.0)
  *
- * 本文件的内容是红黑树的实现。
- *
- * 文件中实现了对红黑树节点的操作，包括初始化、删除、释放内存；
- *
- * 文件中还定义了对红黑树节点的链表的操作，包括初始化、插入、删除；
- *
- * 文件中实现了数个功能函数，包括求祖父节点、求叔父节点、求兄弟节点、求前驱、左旋、右旋、在插入和删除后维护红黑树的平衡、查找特定键的节点；
- *
- * 最后，借助上述函数，程序实现了头文件中声明的初始化、插入和查询操作。
+ * 本文件的内容是红黑树及节点链表的实现。
 */
 
 #include "../include/rbtree.h"
@@ -26,7 +18,6 @@
 
 static Rbtree_Node * NIL; ///< 叶节点
 
-/// 向链表中给定节点后插入一个新节点，分配内存
 static void linklist_insert(Dns_RR_LinkList * list, Dns_RR_LinkList * new_list_node)
 {
     log_debug("链表中插入新元素")
@@ -34,7 +25,6 @@ static void linklist_insert(Dns_RR_LinkList * list, Dns_RR_LinkList * new_list_n
     list->next = new_list_node;
 }
 
-/// 删除链表中给定节点的下一个节点，释放内存
 static void linklist_delete_next(Dns_RR_LinkList * list)
 {
     log_debug("删除链表中的元素")
@@ -61,11 +51,7 @@ static Dns_RR_LinkList * linklist_query_next(Dns_RR_LinkList * list, const uint8
     return NULL;
 }
 
-/**
- * @brief 初始化一个链表，分配内存
- * @return 指向新链表的指针
- */
-Dns_RR_LinkList * linklist_init()
+Dns_RR_LinkList * new_linklist()
 {
     Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
     if (!list)
@@ -78,7 +64,12 @@ Dns_RR_LinkList * linklist_init()
     return list;
 }
 
-/// 求节点的祖父节点
+/**
+ * @brief 求节点的祖父节点
+ *
+ * @param node 当前节点
+ * @return 如果存在，则返回祖父节点，否则返回NULL
+ */
 static inline Rbtree_Node * grandparent(Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -86,7 +77,12 @@ static inline Rbtree_Node * grandparent(Rbtree_Node * node)
     return node->parent->parent;
 }
 
-/// 求节点的叔父节点
+/**
+ * @brief 求节点的叔父节点
+ *
+ * @param node 当前节点
+ * @return 如果存在，则返回叔父节点，否则返回NULL
+ */
 static inline Rbtree_Node * uncle(Rbtree_Node * node)
 {
     if (grandparent(node) == NULL)
@@ -96,7 +92,12 @@ static inline Rbtree_Node * uncle(Rbtree_Node * node)
     return grandparent(node)->right;
 }
 
-/// 求节点的兄弟节点
+/**
+ * @brief 求节点的兄弟节点
+ *
+ * @param node 当前节点
+ * @return 如果存在，则返回兄弟节点，否则返回NULL
+ */
 static inline Rbtree_Node * sibling(Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -107,7 +108,12 @@ static inline Rbtree_Node * sibling(Rbtree_Node * node)
         return node->parent->left;
 }
 
-/// 求树中最小的节点
+/**
+ * @brief 求子树的最小节点
+ *
+ * @param node 子树的根
+ * @return 子树的最小节点
+ */
 static Rbtree_Node * smallest_child(Rbtree_Node * node)
 {
     if (node->left == NIL)
@@ -115,7 +121,12 @@ static Rbtree_Node * smallest_child(Rbtree_Node * node)
     return smallest_child(node->left);
 }
 
-/// 将节点右旋
+/**
+ * @brief 将节点右旋
+ *
+ * @param tree 节点所在的树
+ * @param node 当前节点
+ */
 static void rotate_right(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -143,7 +154,12 @@ static void rotate_right(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/// 将节点左旋
+/**
+ * @brief 将节点左旋
+ *
+ * @param tree 节点所在的树
+ * @param node 当前节点
+ */
 static void rotate_left(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -171,7 +187,12 @@ static void rotate_left(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/// 依照不同情况调整红黑树的形态，使其平衡
+/**
+ * @brief 依照不同情况调整红黑树的形态，使其平衡
+ *
+ * @param tree 节点所在的树
+ * @param node 当前节点
+ */
 static void insert_case(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -221,8 +242,11 @@ static void insert_case(Rbtree * tree, Rbtree_Node * node)
 }
 
 /**
- * @brief 初始化一个节点，分配内存，并向节点的链表中插入值
- * @param fa 新节点的父亲节点
+ * @brief 初始化一个节点，分配内存
+ *
+ * @param key 节点的键
+ * @param list 节点的值
+ * @param fa 节点的父亲节点
  * @return 指向新节点的指针
  */
 static Rbtree_Node * node_init(unsigned int key, Dns_RR_LinkList * list, Rbtree_Node * fa)
@@ -231,7 +255,7 @@ static Rbtree_Node * node_init(unsigned int key, Dns_RR_LinkList * list, Rbtree_
     if (!node)
         log_fatal("内存分配错误")
     node->key = key;
-    node->rr_list = linklist_init();
+    node->rr_list = new_linklist();
     node->rr_list->insert(node->rr_list, list);
     node->color = RED;
     node->left = node->right = NIL;
@@ -239,12 +263,9 @@ static Rbtree_Node * node_init(unsigned int key, Dns_RR_LinkList * list, Rbtree_
     return node;
 }
 
-/**
- * @details 此函数从根节点开始迭代查找插入位置，如果该键对应的节点不存在，则创建一个新节点，并且维护树的平衡；否则在原有节点的链表上插入新元素。
- */
 void rbtree_insert(Rbtree * tree, unsigned int key, Dns_RR_LinkList * list)
 {
-    log_debug("向红黑树中插入值")
+    log_debug("插入红黑树")
     Rbtree_Node * node = tree->root;
     if (node == NULL)
     {
@@ -286,25 +307,30 @@ void rbtree_insert(Rbtree * tree, unsigned int key, Dns_RR_LinkList * list)
 
 /**
  * @brief 从给定节点开始递归查找键为给定值的节点
+ *
+ * @param node 当前节点
+ * @param key 键
  * @return 如果找到了这样的节点，返回指向该节点的指针，否则返回NULL
  */
-static Rbtree_Node * rbtree_find(Rbtree_Node * node, unsigned int data)
+static Rbtree_Node * rbtree_find(Rbtree_Node * node, unsigned int key)
 {
-    if (node->key > data)
+    if (node->key > key)
     {
         if (node->left == NIL)return NULL;
-        return rbtree_find(node->left, data);
+        return rbtree_find(node->left, key);
     }
-    else if (node->key < data)
+    else if (node->key < key)
     {
         if (node->right == NIL)return NULL;
-        return rbtree_find(node->right, data);
+        return rbtree_find(node->right, key);
     }
     else return node;
 }
 
 /**
- * @brief 释放红黑树中的节点内存
+ * @brief 销毁红黑树中的节点
+ *
+ * @param node 待销毁的节点
  * @note 默认该节点的链表为空（即只有一个头节点）
  */
 static void destroy_node(Rbtree_Node * node)
@@ -314,7 +340,12 @@ static void destroy_node(Rbtree_Node * node)
     node = NULL;
 }
 
-/// 依照不同情况调整红黑树的形态，使其平衡
+/**
+ * @brief 依照不同情况调整红黑树的形态，使其平衡
+ *
+ * @param tree 节点所在的树
+ * @param node 当前节点
+ */
 static void delete_case(Rbtree * tree, Rbtree_Node * node)
 {
     if (node->parent == NULL)
@@ -377,7 +408,12 @@ static void delete_case(Rbtree * tree, Rbtree_Node * node)
     }
 }
 
-/// 删除红黑树中的节点
+/**
+ * @brief 删除红黑树中的节点
+ *
+ * @param tree 节点所在的树
+ * @param node 待删除的节点
+ */
 static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
 {
     log_debug("删除红黑树中的节点")
@@ -422,12 +458,9 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
     destroy_node(node);
 }
 
-/**
- * @details 此函数查找给定键的节点，如果该节点存在，则删去节点链表中已经超时的部分，此时若链表不为空，则返回该链表；否则删除该节点并返回NULL。
- */
 Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int key)
 {
-    log_debug("在红黑树中查询")
+    log_debug("查询红黑树")
     Rbtree_Node * node = rbtree_find(tree->root, key);
     if (node == NULL)return NULL;
     time_t now_time = time(NULL);
@@ -448,7 +481,7 @@ Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int key)
     }
 }
 
-Rbtree * rbtree_init()
+Rbtree * new_rbtree()
 {
     log_debug("初始化红黑树")
     Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));

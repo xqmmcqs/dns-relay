@@ -18,8 +18,8 @@ add_executable(main
         include/dns_client.h
         src/dns_server.c
         include/dns_server.h
-        src/udp_pool.c
-        include/udp_pool.h
+        src/index_pool.c
+        include/index_pool.h
         src/queue.c
         include/queue.h
         src/dns_print.c

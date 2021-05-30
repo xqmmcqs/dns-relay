@@ -1,3 +1,10 @@
+/**
+ * @file      main.c
+ * @author    Ziheng Mao
+ * @date      2021/4/3
+ * @copyright GNU General Public License, version 3 (GPL-3.0)
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <uv.h>
@@ -14,7 +21,6 @@ FILE * log_file;
 
 int main(int argc, char * argv[])
 {
-    // TODO: 加注释
     init_config(argc, argv);
     log_file = stderr;
     if (LOG_PATH)
@@ -37,8 +43,8 @@ int main(int argc, char * argv[])
     
     log_info("启动DNS中继服务器")
     loop = uv_default_loop();
-    cache = cache_init(hosts_file);
-    qpool = qpool_init(loop, cache);
+    cache = new_cache(hosts_file);
+    qpool = new_qpool(loop, cache);
     init_client(loop);
     init_server(loop);
     return uv_run(loop, UV_RUN_DEFAULT);

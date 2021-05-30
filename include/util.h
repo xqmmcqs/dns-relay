@@ -1,6 +1,14 @@
-//
-// Created by xqmmcqs on 2021/4/3.
-//
+/**
+ * @file      util.h
+ * @brief     输出调试信息
+ * @author    Ziheng Mao
+ * @date      2021/4/3
+ * @copyright GNU General Public License, version 3 (GPL-3.0)
+ *
+ * 本文件中定义了四个宏，用于输出四个等级的调试信息。
+ *
+ * 如果检测到向stderr中输出信息，则会加上颜色信息，增强可读性。
+*/
 
 #ifndef DNSR_UTIL_H
 #define DNSR_UTIL_H

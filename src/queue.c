@@ -1,6 +1,12 @@
-//
-// Created by xqmmcqs on 2021/4/5.
-//
+/**
+ * @file      queue.c
+ * @brief     队列
+ * @author    Ziheng Mao
+ * @date      2021/4/5
+ * @copyright GNU General Public License, version 3 (GPL-3.0)
+ *
+ * 本文件的内容是队列的实现。
+*/
 
 #include "../include/queue.h"
 
@@ -8,28 +14,28 @@
 
 #include "../include/util.h"
 
-static void queue_push(Queue * this, uint16_t num)
+static void queue_push(Queue * queue, uint16_t num)
 {
-    this->q[++this->tail] = num;
+    queue->q[++queue->tail] = num;
 }
 
-static uint16_t queue_pop(Queue * this)
+static uint16_t queue_pop(Queue * queue)
 {
-    return this->q[this->head++];
+    return queue->q[queue->head++];
 }
 
-static void queue_destroy(Queue * this)
+static void queue_destroy(Queue * queue)
 {
-    free(this);
+    free(queue);
 }
 
-Queue * queue_init()
+Queue * new_queue()
 {
     Queue * queue = (Queue *) calloc(1, sizeof(Queue));
     if (!queue)
         log_fatal("内存分配错误")
     queue->head = 0;
-    queue->tail = QUEUE_SIZE - 1;
+    queue->tail = QUEUE_MAX_SIZE - 1;
     
     queue->push = &queue_push;
     queue->pop = &queue_pop;
