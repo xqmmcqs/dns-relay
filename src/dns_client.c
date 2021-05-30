@@ -20,10 +20,7 @@ static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t *
 {
     buf->base = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
     if (!buf->base)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     buf->len = DNS_STRING_MAX_SIZE;
 }
 
@@ -35,14 +32,11 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
         free(buf->base);
         return;
     }
-    log_info("从服务器接收到消息");
+    log_info("从服务器接收到消息")
     print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
     if (!msg)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     string_to_dnsmsg(msg, buf->base);
     print_dns_message(msg);
     qpool->finish(qpool, msg);
@@ -73,33 +67,20 @@ void send_to_remote(const Dns_Msg * msg)
 {
     char * str = (char *) calloc(DNS_STRING_MAX_SIZE, sizeof(char));
     if (!str)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     unsigned int len = dnsmsg_to_string(msg, str);
     
     uv_udp_send_t * req = malloc(sizeof(uv_udp_send_t));
     if (!req)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     uv_buf_t send_buf = uv_buf_init((char *) malloc(len), len);
     memcpy(send_buf.base, str, len);
     req->data = (char **) malloc(sizeof(char **));
     *(char **) (req->data) = send_buf.base;
-    log_info("向服务器发送消息");
-    print_dns_message(msg);
-
-//    Dns_Msg * chkmsg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
-    print_dns_string(send_buf.base, len);
-//    string_to_dnsmsg(chkmsg, send_buf.base);
-//    log_debug("Now printing msg");
-//    log_debug("Now printing chkmsg");
-//    print_dns_message(chkmsg);
-//    destroy_dnsmsg(chkmsg);
     
+    log_info("向服务器发送消息")
+    print_dns_message(msg);
+    print_dns_string(send_buf.base, len);
     uv_udp_send(req, &client_socket, &send_buf, 1, &send_addr, on_send);
     free(str);
 }

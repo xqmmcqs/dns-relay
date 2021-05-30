@@ -45,10 +45,7 @@ Udp_Pool * upool_init()
 {
     Udp_Pool * upool = (Udp_Pool *) calloc(1, sizeof(Udp_Pool));
     if (!upool)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     upool->count = 0;
     upool->queue = queue_init();
     for (uint16_t i = 0; i < UDP_POOL_SIZE; ++i)

@@ -42,10 +42,7 @@ static void cache_insert(Cache * cache, const Dns_Msg * msg)
     
     Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
     if (!value)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     value->rr = copy_dnsrr(msg->rr);
     value->ancount = msg->header->ancount;
     value->nscount = msg->header->nscount;
@@ -60,17 +57,13 @@ static void cache_insert(Cache * cache, const Dns_Msg * msg)
         cache->head->delete_next(cache->head);
         --cache->size;
     }
-    log_debug("插入cache")
     cache->tail->insert(cache->tail, new_list_node);
     cache->tail = cache->tail->next;
     ++cache->size;
     
     value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
     if (!value)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     value->rr = copy_dnsrr(msg->rr);
     value->ancount = msg->header->ancount;
     value->nscount = msg->header->nscount;
@@ -85,12 +78,6 @@ static void cache_insert(Cache * cache, const Dns_Msg * msg)
 static Rbtree_Value * cache_query(Cache * cache, const Dns_Que * que)
 {
     log_debug("查询cache")
-    
-    if (que->qtype == DNS_TYPE_PTR)
-    {
-        log_debug("%s", que->qname + strlen(que->qname) - 12);
-    }
-    
     Dns_RR_LinkList * list = cache->head->query_next(cache->head, que->qname, que->qtype);
     if (list != NULL)
     {
@@ -105,10 +92,7 @@ static Rbtree_Value * cache_query(Cache * cache, const Dns_Que * que)
         
         Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
         if (!value)
-        {
             log_fatal("内存分配错误")
-            exit(1);
-        }
         memcpy(value, temp->value, sizeof(Rbtree_Value));
         value->rr = copy_dnsrr(temp->value->rr);
         return value;
@@ -122,10 +106,7 @@ static Rbtree_Value * cache_query(Cache * cache, const Dns_Que * que)
         {
             Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
             if (!value)
-            {
                 log_fatal("内存分配错误")
-                exit(1);
-            }
             memcpy(value, list->value, sizeof(Rbtree_Value));
             value->rr = copy_dnsrr(list->value->rr);
             Dns_RR_LinkList * new_list_node = linklist_init();
@@ -137,17 +118,13 @@ static Rbtree_Value * cache_query(Cache * cache, const Dns_Que * que)
                 cache->head->delete_next(cache->head);
                 --cache->size;
             }
-            log_debug("插入cache")
             cache->tail->insert(cache->tail, new_list_node);
             cache->tail = cache->tail->next;
             ++cache->size;
             
             value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
             if (!value)
-            {
                 log_fatal("内存分配错误")
-                exit(1);
-            }
             memcpy(value, list->value, sizeof(Rbtree_Value));
             value->rr = copy_dnsrr(list->value->rr);
             return value;
@@ -162,10 +139,7 @@ Cache * cache_init(FILE * keep_file)
     log_debug("初始化cache")
     Cache * cache = (Cache *) malloc(sizeof(Cache));
     if (!cache)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     Rbtree * tree = rbtree_init();
     if (keep_file != NULL)
     {
@@ -174,16 +148,10 @@ Cache * cache_init(FILE * keep_file)
         {
             Dns_RR * rr = (Dns_RR *) calloc(1, sizeof(Dns_RR));
             if (!rr)
-            {
                 log_fatal("内存分配错误")
-                exit(1);
-            }
             rr->name = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
             if (!rr->name)
-            {
                 log_fatal("内存分配错误")
-                exit(1);
-            }
             memcpy(rr->name, domain, strlen(domain) + 1);
             rr->name[strlen(domain) + 1] = 0;
             rr->name[strlen(domain)] = '.';
@@ -207,18 +175,12 @@ Cache * cache_init(FILE * keep_file)
                 rr->rdlength = 16;
                 rr->rdata = (uint8_t *) calloc(16, sizeof(uint8_t));
                 if (!rr->rdata)
-                {
                     log_fatal("内存分配错误")
-                    exit(1);
-                }
                 uv_inet_pton(AF_INET6, ip, rr->rdata);
             }
             Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
             if (!value)
-            {
                 log_fatal("内存分配错误")
-                exit(1);
-            }
             value->rr = rr;
             value->ancount = 1;
             value->type = rr->type;

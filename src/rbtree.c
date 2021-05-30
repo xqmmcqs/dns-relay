@@ -29,6 +29,7 @@ static Rbtree_Node * NIL; ///< 叶节点
 /// 向链表中给定节点后插入一个新节点，分配内存
 static void linklist_insert(Dns_RR_LinkList * list, Dns_RR_LinkList * new_list_node)
 {
+    log_debug("链表中插入新元素")
     new_list_node->next = list->next;
     list->next = new_list_node;
 }
@@ -68,10 +69,7 @@ Dns_RR_LinkList * linklist_init()
 {
     Dns_RR_LinkList * list = (Dns_RR_LinkList *) calloc(1, sizeof(Dns_RR_LinkList));
     if (!list)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     list->next = NULL;
     
     list->insert = &linklist_insert;
@@ -231,10 +229,7 @@ static Rbtree_Node * node_init(unsigned int key, Dns_RR_LinkList * list, Rbtree_
 {
     Rbtree_Node * node = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     if (!node)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     node->key = key;
     node->rr_list = linklist_init();
     node->rr_list->insert(node->rr_list, list);
@@ -430,10 +425,10 @@ static void rbtree_delete(Rbtree * tree, Rbtree_Node * node)
 /**
  * @details 此函数查找给定键的节点，如果该节点存在，则删去节点链表中已经超时的部分，此时若链表不为空，则返回该链表；否则删除该节点并返回NULL。
  */
-Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int data)
+Dns_RR_LinkList * rbtree_query(Rbtree * tree, unsigned int key)
 {
     log_debug("在红黑树中查询")
-    Rbtree_Node * node = rbtree_find(tree->root, data);
+    Rbtree_Node * node = rbtree_find(tree->root, key);
     if (node == NULL)return NULL;
     time_t now_time = time(NULL);
     Dns_RR_LinkList * list = node->rr_list;
@@ -458,17 +453,11 @@ Rbtree * rbtree_init()
     log_debug("初始化红黑树")
     Rbtree * tree = (Rbtree *) calloc(1, sizeof(Rbtree));
     if (!tree)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     tree->root = NULL;
     NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     if (!NIL)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     NIL->color = BLACK;
     NIL->left = NIL->right = NIL;
     

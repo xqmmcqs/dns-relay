@@ -53,6 +53,7 @@ extern FILE * log_file;
             fprintf(log_file, "\x1b[31m[FATAL]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
         fprintf(log_file, args); \
         fprintf(log_file, "\n"); \
+        exit(EXIT_FAILURE); \
     }
 
 #endif //DNSR_UTIL_H

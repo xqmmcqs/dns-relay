@@ -27,10 +27,7 @@ Queue * queue_init()
 {
     Queue * queue = (Queue *) calloc(1, sizeof(Queue));
     if (!queue)
-    {
-        log_fatal("内存分配错误");
-        exit(1);
-    }
+        log_fatal("内存分配错误")
     queue->head = 0;
     queue->tail = QUEUE_SIZE - 1;
     

@@ -33,6 +33,7 @@ void init_config(int argc, char * const * argv)
     argv++;
     if (argc == 1 && strcmp(*argv, "--help") == 0)
     {
+        //TODO: help
         exit(0);
     }
     int i = 0;

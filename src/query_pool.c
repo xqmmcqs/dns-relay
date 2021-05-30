@@ -33,10 +33,7 @@ static void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const
     log_debug("添加新查询请求")
     Dns_Query * query = (Dns_Query *) calloc(1, sizeof(Dns_Query));
     if (!query)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     uint16_t id = qpool->queue->pop(qpool->queue);
     qpool->pool[id % QUERY_POOL_SIZE] = query;
     qpool->count++;
@@ -81,20 +78,14 @@ static void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const
         }
         Udp_Req * ureq = (Udp_Req *) calloc(1, sizeof(Udp_Req));
         if (!ureq)
-        {
             log_fatal("内存分配错误")
-            exit(1);
-        }
         ureq->id = qpool->upool->insert(qpool->upool, ureq);
         ureq->prev_id = id;
         query->msg->header->id = ureq->id;
         uv_timer_init(qpool->loop, &query->timer);
         query->timer.data = malloc(sizeof(uint16_t) + sizeof(Query_Pool *));
         if (!query->timer.data)
-        {
             log_fatal("内存分配错误")
-            exit(1);
-        }
         *(uint16_t *) query->timer.data = query->id;
         *(Query_Pool **) (query->timer.data + sizeof(uint16_t)) = qpool;
         uv_timer_start(&query->timer, timeout_cb, 5000, 5000);
@@ -122,8 +113,6 @@ static void qpool_finish(Query_Pool * qpool, const Dns_Msg * msg)
         
         if (strcmp(msg->que->qname, query->msg->que->qname) == 0)
         {
-            if (msg->que->qtype == DNS_TYPE_CNAME)
-                exit(1);
             destroy_dnsmsg(query->msg);
             query->msg = copy_dnsmsg(msg);
             query->msg->header->id = query->prev_id;
@@ -160,10 +149,7 @@ Query_Pool * qpool_init(uv_loop_t * loop, Cache * cache)
     log_debug("初始化query pool")
     Query_Pool * qpool = (Query_Pool *) calloc(1, sizeof(Query_Pool));
     if (!qpool)
-    {
         log_fatal("内存分配错误")
-        exit(1);
-    }
     qpool->count = 0;
     qpool->queue = queue_init();
     for (uint16_t i = 0; i < QUERY_POOL_SIZE; ++i)
