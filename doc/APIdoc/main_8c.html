@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: src/main.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('main_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">main.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;uv.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">../include/util.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dns__client_8h_source.html">../include/dns_client.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dns__server_8h_source.html">../include/dns_server.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="query__pool_8h_source.html">../include/query_pool.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+main.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c__incl.png" border="0" usemap="#asrc_2main_8c" alt=""/></div>
+<map name="asrc_2main_8c" id="asrc_2main_8c">
+<area shape="rect" title=" " alt="" coords="425,5,508,32"/>
+<area shape="rect" title=" " alt="" coords="5,229,67,256"/>
+<area shape="rect" title=" " alt="" coords="795,80,859,107"/>
+<area shape="rect" title=" " alt="" coords="555,155,600,181"/>
+<area shape="rect" href="util_8h.html" title="输出调试信息" alt="" coords="64,80,171,107"/>
+<area shape="rect" href="dns__client_8h.html" title="DNS客户端" alt="" coords="392,80,541,107"/>
+<area shape="rect" href="dns__server_8h.html" title="DNS服务器" alt="" coords="617,80,770,107"/>
+<area shape="rect" href="query__pool_8h.html" title="查询池" alt="" coords="214,80,367,107"/>
+<area shape="rect" href="config__jar_8h.html" title="命令行参数解析" alt="" coords="73,155,161,181"/>
+<area shape="rect" href="dns__structure_8h.html" title="DNS报文结构" alt="" coords="229,304,341,331"/>
+<area shape="rect" title=" " alt="" coords="310,379,375,405"/>
+<area shape="rect" title=" " alt="" coords="404,229,479,256"/>
+<area shape="rect" href="index__pool_8h.html" title="序号池" alt="" coords="330,155,425,181"/>
+<area shape="rect" href="cache_8h.html" title="缓存" alt="" coords="186,155,254,181"/>
+<area shape="rect" href="queue_8h.html" title="队列" alt="" coords="366,304,434,331"/>
+<area shape="rect" href="rbtree_8h.html" title="红黑树" alt="" coords="137,229,204,256"/>
+<area shape="rect" title=" " alt="" coords="141,304,200,331"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:add769cb3887f840e6e7be962492de960"><td class="memItemLeft" align="right" valign="top">uv_loop_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#add769cb3887f840e6e7be962492de960">loop</a></td></tr>
+<tr class="separator:add769cb3887f840e6e7be962492de960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a219405a7efb1068433bdef1efa916e8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a></td></tr>
+<tr class="separator:a219405a7efb1068433bdef1efa916e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72e226b504514a1ea5a74389ad36ece6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a></td></tr>
+<tr class="memdesc:a72e226b504514a1ea5a74389ad36ece6"><td class="mdescLeft">&#160;</td><td class="mdescRight">查询池  <a href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">更多...</a><br /></td></tr>
+<tr class="separator:a72e226b504514a1ea5a74389ad36ece6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab936051f5aaca44c6c3c41dee0d19c36"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ab936051f5aaca44c6c3c41dee0d19c36">log_file</a></td></tr>
+<tr class="separator:ab936051f5aaca44c6c3c41dee0d19c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/4/3 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0) </dd></dl>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="a0ddf1224851353fc92bfbff6f499fa97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ddf1224851353fc92bfbff6f499fa97">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph.png" border="0" usemap="#amain_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph" alt=""/></div>
+<map name="amain_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph" id="amain_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph">
+<area shape="rect" title=" " alt="" coords="5,588,56,615"/>
+<area shape="rect" href="dns__client_8h.html#a4976b0d7477e15d42c27429fe3138598" title="客户端初始化" alt="" coords="109,512,187,539"/>
+<area shape="rect" href="config__jar_8h.html#ac93dfd9f4c9f842917b45c609c8c2da9" title="解析命令行参数" alt="" coords="107,1120,189,1147"/>
+<area shape="rect" href="dns__server_8h.html#a79a2c087d5c414b08de43d6344a1950a" title="服务器初始化" alt="" coords="107,436,189,463"/>
+<area shape="rect" href="cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2" title="创建缓存" alt="" coords="104,1069,192,1096"/>
+<area shape="rect" href="query__pool_8h.html#a51738c1bb6b8a5ad3200f33efe37d9d0" title="创建查询池" alt="" coords="106,588,190,615"/>
+<area shape="rect" href="dns__client_8c.html#a55af4a4772ee42f239e2befc7b1190c7" title="为缓冲区分配空间" alt="" coords="243,157,333,184"/>
+<area shape="rect" href="dns__client_8c.html#a3f5c9971834e8a6c273a8584c42c46a3" title="从远程接收回复报文的回调函数" alt="" coords="254,512,322,539"/>
+<area shape="rect" href="dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="387,563,506,589"/>
+<area shape="rect" href="dns__print_8h.html#a33a39397e0f2e1a98b86b6d85321ee79" title="打印DNS报文结构体" alt="" coords="557,512,692,539"/>
+<area shape="rect" href="dns__print_8h.html#aa26d00d719a693f6d7e0789bee44f22c" title="打印DNS报文字节流" alt="" coords="567,689,682,716"/>
+<area shape="rect" href="dns__conversion_8h.html#a0f89102e256c499ffa19784791cb68f6" title="DNS报文字节流转换到结构体" alt="" coords="384,461,509,488"/>
+<area shape="rect" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="574,563,675,589"/>
+<area shape="rect" href="dns__print_8c.html#ac6e3eb285185ea15710afc5bd43296e9" title="打印Header Section" alt="" coords="745,512,866,539"/>
+<area shape="rect" href="dns__print_8c.html#a81671f953008d8cae7d6401e26a2c529" title="打印Question Section" alt="" coords="740,563,871,589"/>
+<area shape="rect" href="dns__print_8c.html#a27420aa71c1505035590b710e06778ad" title="打印Resource Record" alt="" coords="760,461,851,488"/>
+<area shape="rect" href="dns__server_8c.html#a55af4a4772ee42f239e2befc7b1190c7" title="为缓冲区分配空间" alt="" coords="243,107,333,133"/>
+<area shape="rect" href="dns__server_8c.html#a3f5c9971834e8a6c273a8584c42c46a3" title="从本地接收查询报文的回调函数" alt="" coords="254,436,322,463"/>
+<area shape="rect" href="cache_8c.html#a3aa8d6fa65bbd42c0b6327c67362234d" title="字符串哈希" alt="" coords="401,1221,492,1248"/>
+<area shape="rect" href="cache_8c.html#a6ced4e1f620d2e750fb0c2c049962fa8" title=" " alt="" coords="240,1120,336,1147"/>
+<area shape="rect" href="rbtree_8h.html#a7340708ace3866264b6c8a96a8c685b5" title="创建链表节点" alt="" coords="401,1120,492,1147"/>
+<area shape="rect" href="cache_8c.html#a1abbd81313d8d7e8b25446d7921121e0" title=" " alt="" coords="240,1171,336,1197"/>
+<area shape="rect" href="rbtree_8h.html#a471ee3c523122a7b5a47c91e1ec1252d" title="创建红黑树" alt="" coords="245,1019,331,1045"/>
+<area shape="rect" href="dns__conversion_8h.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="403,1171,490,1197"/>
+<area shape="rect" href="cache_8c.html#a8c6dd0d6aa6f172b089056e27c11e7da" title="获取一串RR中的最小ttl" alt="" coords="403,1069,490,1096"/>
+<area shape="rect" href="rbtree_8c.html#a8e0bfadc9752f04f500905a85c47e74e" title=" " alt="" coords="558,980,691,1007"/>
+<area shape="rect" href="rbtree_8c.html#a41e95176ba82f906d4ecc38a385f66f7" title=" " alt="" coords="575,1095,674,1121"/>
+<area shape="rect" href="rbtree_8c.html#a26d08eac00f23b0ed859451a4adc109b" title=" " alt="" coords="559,1145,690,1172"/>
+<area shape="rect" href="dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="755,923,856,949"/>
+<area shape="rect" href="rbtree_8c.html#ae46c23eec5c1ea21ebab9279843de3a3" title=" " alt="" coords="399,968,494,995"/>
+<area shape="rect" href="rbtree_8c.html#a7460cf092b0132ece0a692cd84a26456" title=" " alt="" coords="399,1019,494,1045"/>
+<area shape="rect" href="index__pool_8h.html#a041c5d7e1d6c75cc71123f03e794cc86" title="创建序号池" alt="" coords="248,259,328,285"/>
+<area shape="rect" href="queue_8h.html#a006f6f78be980ad0795d143f1d22b176" title="创建队列" alt="" coords="403,56,491,83"/>
+<area shape="rect" href="query__pool_8c.html#afe80fdfc4dbed6be1af52c4d86f41815" title=" " alt="" coords="241,613,335,640"/>
+<area shape="rect" href="query__pool_8c.html#ac14d02ff69a3027ad45c2357e6843c76" title=" " alt="" coords="243,664,333,691"/>
+<area shape="rect" href="query__pool_8c.html#a98ed93362bda867f294541c1c24b2840" title=" " alt="" coords="249,563,327,589"/>
+<area shape="rect" href="query__pool_8c.html#ae29fc3e8ee2f57c983e01704d4b945ce" title=" " alt="" coords="242,791,334,817"/>
+<area shape="rect" href="index__pool_8c.html#a67139b5f1ddded8783211a8d57e71fab" title=" " alt="" coords="401,309,492,336"/>
+<area shape="rect" href="index__pool_8c.html#a93abf5419ea71a6b050003b38ffb7ef3" title=" " alt="" coords="397,107,496,133"/>
+<area shape="rect" href="index__pool_8c.html#a8f4fe4d0639c462591edd3247a3ade7c" title=" " alt="" coords="410,157,483,184"/>
+<area shape="rect" href="index__pool_8c.html#afa69a2380bfa539177eb075d2f2564e5" title=" " alt="" coords="403,208,491,235"/>
+<area shape="rect" href="index__pool_8c.html#aee0d0705b3aaf7312a3fc36875289264" title=" " alt="" coords="403,259,491,285"/>
+<area shape="rect" href="queue_8c.html#a8c760f06145555b0d570887ec34bf203" title=" " alt="" coords="571,56,678,83"/>
+<area shape="rect" href="queue_8c.html#a3a869f22498176901c490b54847df661" title=" " alt="" coords="582,107,667,133"/>
+<area shape="rect" href="queue_8c.html#a5ffeb87322621208687bcc72cedd36e8" title=" " alt="" coords="579,5,671,32"/>
+<area shape="rect" href="query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5" title=" " alt="" coords="401,664,493,691"/>
+<area shape="rect" href="dns__conversion_8h.html#ad4f423fc9dae75749c48394d2c5fd059" title="复制DNS报文结构体" alt="" coords="395,715,498,741"/>
+<area shape="rect" href="dns__server_8h.html#a9c27be19d71612df0b60fd5c68d0502a" title="将DNS回复报文发送至本地" alt="" coords="395,765,498,792"/>
+<area shape="rect" href="dns__client_8h.html#a83db4163d6fd4b94b1e5e983dd042b28" title="将DNS请求报文发送至远程" alt="" coords="389,816,504,843"/>
+<area shape="rect" href="query__pool_8c.html#a11c119d460e6f8c5dbb16cd5bdccbc5a" title="超时回调函数" alt="" coords="403,917,490,944"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a219405a7efb1068433bdef1efa916e8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a219405a7efb1068433bdef1efa916e8a">&#9670;&nbsp;</a></span>cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a>* cache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab936051f5aaca44c6c3c41dee0d19c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab936051f5aaca44c6c3c41dee0d19c36">&#9670;&nbsp;</a></span>log_file</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FILE* log_file</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add769cb3887f840e6e7be962492de960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add769cb3887f840e6e7be962492de960">&#9670;&nbsp;</a></span>loop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uv_loop_t* loop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72e226b504514a1ea5a74389ad36ece6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72e226b504514a1ea5a74389ad36ece6">&#9670;&nbsp;</a></span>qpool</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a>* qpool</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>查询池 </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="main_8c.html">main.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

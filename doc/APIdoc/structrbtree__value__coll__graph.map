@@ -1,0 +1,4 @@
+<map id="rbtree_value" name="rbtree_value">
+<area shape="rect" id="node1" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="5,95,99,121"/>
+<area shape="rect" id="node2" href="$structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="23,5,81,32"/>
+</map>

@@ -29,7 +29,7 @@
 #define QUERY_POOL_MAX_SIZE 256
 
 /// DNS查询结构体
-typedef struct
+typedef struct dns_query
 {
     uint16_t id; ///< 查询ID
     uint16_t prev_id; ///< 原本DNS查询报文的ID

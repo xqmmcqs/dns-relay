@@ -116,7 +116,7 @@ static void qpool_finish(Query_Pool * qpool, const Dns_Msg * msg)
     if (qpool_query(qpool, index->prev_id))
     {
         Dns_Query * query = qpool->pool[index->prev_id % QUERY_POOL_MAX_SIZE];
-        log_debug("结束查询 ID: 0x%4x", query->id)
+        log_debug("结束查询 ID: 0x%04x", query->id)
         
         if (strcmp(msg->que->qname, query->msg->que->qname) == 0)
         {

@@ -1,0 +1,5 @@
+<map id="dns_rr_linklist" name="dns_rr_linklist">
+<area shape="rect" id="node1" title="红黑树节点链表" alt="" coords="5,185,108,212"/>
+<area shape="rect" id="node2" href="$structrbtree__value.html" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="10,95,103,121"/>
+<area shape="rect" id="node3" href="$structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="27,5,86,32"/>
+</map>

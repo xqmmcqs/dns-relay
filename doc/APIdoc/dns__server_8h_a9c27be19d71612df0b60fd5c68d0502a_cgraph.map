@@ -1,0 +1,21 @@
+<map id="send_to_local" name="send_to_local">
+<area shape="rect" id="node1" title="将DNS回复报文发送至本地" alt="" coords="5,157,108,184"/>
+<area shape="rect" id="node2" href="$dns__conversion_8h.html#aa893e182a92c2ccf5644c1f8a12fba37" title="DNS报文结构体转换到字节流" alt="" coords="161,69,286,96"/>
+<area shape="rect" id="node9" href="$dns__server_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向本地发送回复报文的回调函数" alt="" coords="188,132,259,159"/>
+<area shape="rect" id="node10" href="$dns__print_8h.html#a33a39397e0f2e1a98b86b6d85321ee79" title="打印DNS报文结构体" alt="" coords="156,183,291,209"/>
+<area shape="rect" id="node19" href="$dns__print_8h.html#aa26d00d719a693f6d7e0789bee44f22c" title="打印DNS报文字节流" alt="" coords="166,233,281,260"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="340,5,468,32"/>
+<area shape="rect" id="node5" href="$dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="343,56,465,83"/>
+<area shape="rect" id="node7" href="$dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="350,107,458,133"/>
+<area shape="rect" id="node4" href="$dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="531,5,623,32"/>
+<area shape="rect" id="node6" href="$dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="517,56,636,83"/>
+<area shape="rect" id="node8" href="$dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="531,107,623,133"/>
+<area shape="rect" id="node11" href="$dns__print_8c.html#ac6e3eb285185ea15710afc5bd43296e9" title="打印Header Section" alt="" coords="343,157,465,184"/>
+<area shape="rect" id="node12" href="$dns__print_8c.html#a81671f953008d8cae7d6401e26a2c529" title="打印Question Section" alt="" coords="339,208,469,235"/>
+<area shape="rect" id="node13" href="$dns__print_8c.html#a27420aa71c1505035590b710e06778ad" title="打印Resource Record" alt="" coords="359,259,449,285"/>
+<area shape="rect" id="node14" href="$dns__print_8c.html#ac21f9aaff6cb58fc94996ab28134dd4e" title="打印A类型RR的rdata字段" alt="" coords="537,360,616,387"/>
+<area shape="rect" id="node15" href="$dns__print_8c.html#a1762e54b4c8f5b77fd05f11a587c668e" title="打印AAAA类型RR的rdata字段" alt="" coords="524,157,629,184"/>
+<area shape="rect" id="node16" href="$dns__print_8c.html#a51cb3312021d99b0f9d1f3f680750baf" title="打印CNAME类型RR的rdata字段" alt="" coords="684,259,803,285"/>
+<area shape="rect" id="node17" href="$dns__print_8c.html#a7d2f7aadf05efe5e1736eeae47b4f9b7" title="打印MX类型RR的rdata字段" alt="" coords="532,259,621,285"/>
+<area shape="rect" id="node18" href="$dns__print_8c.html#a5bc6e539fe23203d4a35b5ecba60fe7c" title="打印SOA类型RR的rdata字段" alt="" coords="528,309,625,336"/>
+</map>

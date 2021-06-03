@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: dns_rr_linklist结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structdns__rr__linklist.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">成员变量</a>  </div>
+  <div class="headertitle">
+<div class="title">dns_rr_linklist结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>红黑树节点链表  
+ <a href="structdns__rr__linklist.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="rbtree_8h_source.html">rbtree.h</a>&gt;</code></p>
+<div class="dynheader">
+dns_rr_linklist 的协作图:</div>
+<div class="dyncontent">
+<div class="center"><img src="structdns__rr__linklist__coll__graph.png" border="0" usemap="#adns__rr__linklist_coll__map" alt="Collaboration graph"/></div>
+<map name="adns__rr__linklist_coll__map" id="adns__rr__linklist_coll__map">
+<area shape="rect" title="红黑树节点链表" alt="" coords="5,185,108,212"/>
+<area shape="rect" href="structrbtree__value.html" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="10,95,103,121"/>
+<area shape="rect" href="structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="27,5,86,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">图例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+成员变量</h2></td></tr>
+<tr class="memitem:a4b4166651ac3380d5a07e79b9c0ab309"><td class="memItemLeft" align="right" valign="top"><a class="el" href="rbtree_8h.html#a3ad9484222f2163212fb74af65a20935">Rbtree_Value</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#a4b4166651ac3380d5a07e79b9c0ab309">value</a></td></tr>
+<tr class="memdesc:a4b4166651ac3380d5a07e79b9c0ab309"><td class="mdescLeft">&#160;</td><td class="mdescRight">指向当前链表节点的值  <a href="structdns__rr__linklist.html#a4b4166651ac3380d5a07e79b9c0ab309">更多...</a><br /></td></tr>
+<tr class="separator:a4b4166651ac3380d5a07e79b9c0ab309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66d02cb7e807973430bfd886f6f8950f"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#a66d02cb7e807973430bfd886f6f8950f">expire_time</a></td></tr>
+<tr class="memdesc:a66d02cb7e807973430bfd886f6f8950f"><td class="mdescLeft">&#160;</td><td class="mdescRight">过期的时刻  <a href="structdns__rr__linklist.html#a66d02cb7e807973430bfd886f6f8950f">更多...</a><br /></td></tr>
+<tr class="separator:a66d02cb7e807973430bfd886f6f8950f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9a2df278fdc066438864ee9ccd3654"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#a5a9a2df278fdc066438864ee9ccd3654">next</a></td></tr>
+<tr class="memdesc:a5a9a2df278fdc066438864ee9ccd3654"><td class="mdescLeft">&#160;</td><td class="mdescRight">链表的下一个节点  <a href="structdns__rr__linklist.html#a5a9a2df278fdc066438864ee9ccd3654">更多...</a><br /></td></tr>
+<tr class="separator:a5a9a2df278fdc066438864ee9ccd3654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abae45b0aeaca4038b755730b3e2a4e4c"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#abae45b0aeaca4038b755730b3e2a4e4c">insert</a> )(struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list, struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *new_list_node)</td></tr>
+<tr class="memdesc:abae45b0aeaca4038b755730b3e2a4e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">向链表中插入结点  <a href="structdns__rr__linklist.html#abae45b0aeaca4038b755730b3e2a4e4c">更多...</a><br /></td></tr>
+<tr class="separator:abae45b0aeaca4038b755730b3e2a4e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d9bd561cb1e3de763a0c8b14b2a386"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#a54d9bd561cb1e3de763a0c8b14b2a386">delete_next</a> )(struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list)</td></tr>
+<tr class="memdesc:a54d9bd561cb1e3de763a0c8b14b2a386"><td class="mdescLeft">&#160;</td><td class="mdescRight">删除链表中当前节点的下一个结点  <a href="structdns__rr__linklist.html#a54d9bd561cb1e3de763a0c8b14b2a386">更多...</a><br /></td></tr>
+<tr class="separator:a54d9bd561cb1e3de763a0c8b14b2a386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed760f4d810543c704bbc48b5a826ab3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr__linklist.html#aed760f4d810543c704bbc48b5a826ab3">query_next</a> )(struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list, const uint8_t *qname, const uint16_t qtype)</td></tr>
+<tr class="memdesc:aed760f4d810543c704bbc48b5a826ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">在链表中查找特定的值  <a href="structdns__rr__linklist.html#aed760f4d810543c704bbc48b5a826ab3">更多...</a><br /></td></tr>
+<tr class="separator:aed760f4d810543c704bbc48b5a826ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>红黑树节点链表 </p>
+</div><h2 class="groupheader">结构体成员变量说明</h2>
+<a id="a54d9bd561cb1e3de763a0c8b14b2a386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d9bd561cb1e3de763a0c8b14b2a386">&#9670;&nbsp;</a></span>delete_next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* dns_rr_linklist::delete_next) (struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>删除链表中当前节点的下一个结点 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>当前节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a66d02cb7e807973430bfd886f6f8950f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66d02cb7e807973430bfd886f6f8950f">&#9670;&nbsp;</a></span>expire_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">time_t dns_rr_linklist::expire_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>过期的时刻 </p>
+
+</div>
+</div>
+<a id="abae45b0aeaca4038b755730b3e2a4e4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae45b0aeaca4038b755730b3e2a4e4c">&#9670;&nbsp;</a></span>insert</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* dns_rr_linklist::insert) (struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list, struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *new_list_node)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>向链表中插入结点 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>当前节点 </td></tr>
+    <tr><td class="paramname">new_list_node</td><td>新节点 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a9a2df278fdc066438864ee9ccd3654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9a2df278fdc066438864ee9ccd3654">&#9670;&nbsp;</a></span>next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a>* dns_rr_linklist::next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>链表的下一个节点 </p>
+
+</div>
+</div>
+<a id="aed760f4d810543c704bbc48b5a826ab3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed760f4d810543c704bbc48b5a826ab3">&#9670;&nbsp;</a></span>query_next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a>*(* dns_rr_linklist::query_next) (struct <a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a> *list, const uint8_t *qname, const uint16_t qtype)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>在链表中查找特定的值 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>链表起始节点 </td></tr>
+    <tr><td class="paramname">qname</td><td>NAME字段 </td></tr>
+    <tr><td class="paramname">qtype</td><td>type字段 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>如果查找到节点，返回该节点在链表中的前驱，否则返回NULL </dd></dl>
+
+</div>
+</div>
+<a id="a4b4166651ac3380d5a07e79b9c0ab309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b4166651ac3380d5a07e79b9c0ab309">&#9670;&nbsp;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="rbtree_8h.html#a3ad9484222f2163212fb74af65a20935">Rbtree_Value</a>* dns_rr_linklist::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>指向当前链表节点的值 </p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>include/<a class="el" href="rbtree_8h_source.html">rbtree.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structdns__rr__linklist.html">dns_rr_linklist</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

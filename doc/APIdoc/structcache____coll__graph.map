@@ -1,0 +1,8 @@
+<map id="cache_" name="cache_">
+<area shape="rect" id="node1" title="缓存结构体" alt="" coords="73,487,137,513"/>
+<area shape="rect" id="node2" href="$structdns__rr__linklist.html" title="红黑树节点链表" alt="" coords="93,185,195,212"/>
+<area shape="rect" id="node5" href="$structrbtree.html" title="红黑树" alt="" coords="143,397,198,424"/>
+<area shape="rect" id="node6" href="$structrbtree__node.html" title="红黑树的节点" alt="" coords="228,285,319,311"/>
+<area shape="rect" id="node3" href="$structrbtree__value.html" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="5,95,99,121"/>
+<area shape="rect" id="node4" href="$structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="23,5,81,32"/>
+</map>

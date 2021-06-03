@@ -1,0 +1,6 @@
+<map id="dns_msg" name="dns_msg">
+<area shape="rect" id="node1" title="DNS报文结构体" alt="" coords="111,95,186,121"/>
+<area shape="rect" id="node2" href="$structdns__header.html" title="报文Header Section结构体" alt="" coords="5,5,95,32"/>
+<area shape="rect" id="node3" href="$structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="119,5,178,32"/>
+<area shape="rect" id="node4" href="$structdns__question.html" title="报文Question Section结构体，以链表表示" alt="" coords="255,5,354,32"/>
+</map>

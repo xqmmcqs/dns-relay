@@ -1,0 +1,5 @@
+<map id="string_to_dnsque" name="string_to_dnsque">
+<area shape="rect" id="node1" title="从字节流中读入一个Question Section" alt="" coords="5,5,127,32"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="341,5,431,32"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913" title="从字节流中读入一个NAME字段" alt="" coords="175,31,293,57"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="string_to_dnshead" name="string_to_dnshead">
+<area shape="rect" id="node1" title="从字节流中读入一个Header Section" alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="181,5,271,32"/>
+</map>

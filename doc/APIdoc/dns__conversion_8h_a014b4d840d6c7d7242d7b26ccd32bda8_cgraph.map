@@ -1,0 +1,4 @@
+<map id="destroy_dnsmsg" name="destroy_dnsmsg">
+<area shape="rect" id="node1" title="释放DNS报文结构体的空间" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="172,5,273,32"/>
+</map>

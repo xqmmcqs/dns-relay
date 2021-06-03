@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: include/dns_structure.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dns__structure_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">结构体</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#typedef-members">类型定义</a>  </div>
+  <div class="headertitle">
+<div class="title">dns_structure.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>DNS报文结构  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+dns_structure.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__structure_8h__incl.png" border="0" usemap="#ainclude_2dns__structure_8h" alt=""/></div>
+<map name="ainclude_2dns__structure_8h" id="ainclude_2dns__structure_8h">
+<area shape="rect" title="DNS报文结构" alt="" coords="5,5,163,32"/>
+<area shape="rect" title=" " alt="" coords="51,80,117,107"/>
+</map>
+</div>
+</div>
+<p><a href="dns__structure_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__header.html">dns_header</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Header Section结构体  <a href="structdns__header.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__question.html">dns_question</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Question Section结构体，以链表表示  <a href="structdns__question.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__rr.html">dns_rr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Resource Record结构体，以链表表示  <a href="structdns__rr.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdns__msg.html">dns_msg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNS报文结构体  <a href="structdns__msg.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a2bd5802847beb235c76918125853b8b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a2bd5802847beb235c76918125853b8b7">DNS_STRING_MAX_SIZE</a>&#160;&#160;&#160;8192</td></tr>
+<tr class="separator:a2bd5802847beb235c76918125853b8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ec07c77bc0fd3047ae31f28e57f12f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a65ec07c77bc0fd3047ae31f28e57f12f">DNS_RR_NAME_MAX_SIZE</a>&#160;&#160;&#160;512</td></tr>
+<tr class="separator:a65ec07c77bc0fd3047ae31f28e57f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf915a2fdac4c684ca586ab7e5eb6493"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#aaf915a2fdac4c684ca586ab7e5eb6493">DNS_QR_QUERY</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:aaf915a2fdac4c684ca586ab7e5eb6493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cb3a611448b9b455237c49d10c11f1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a2cb3a611448b9b455237c49d10c11f1f">DNS_QR_ANSWER</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a2cb3a611448b9b455237c49d10c11f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae60a6af0e581d7b126763e92bb3a16e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#ae60a6af0e581d7b126763e92bb3a16e9">DNS_OPCODE_QUERY</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ae60a6af0e581d7b126763e92bb3a16e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e78a72fd4b728fd9b3d197906062eda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a3e78a72fd4b728fd9b3d197906062eda">DNS_OPCODE_IQUERY</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a3e78a72fd4b728fd9b3d197906062eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3505ec1c6b5e896532baa146b5f12778"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a3505ec1c6b5e896532baa146b5f12778">DNS_OPCODE_STATUS</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a3505ec1c6b5e896532baa146b5f12778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe9f7ff23f3feba2776dcfa366f53c3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#afe9f7ff23f3feba2776dcfa366f53c3f">DNS_TYPE_A</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:afe9f7ff23f3feba2776dcfa366f53c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76921a21844be80847aaccde77bb7d75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a76921a21844be80847aaccde77bb7d75">DNS_TYPE_NS</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a76921a21844be80847aaccde77bb7d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d717fd39f72756ba00a61bc0279e76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a71d717fd39f72756ba00a61bc0279e76">DNS_TYPE_CNAME</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a71d717fd39f72756ba00a61bc0279e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a794df4821da86953f8b5448f3962ac04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a794df4821da86953f8b5448f3962ac04">DNS_TYPE_SOA</a>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:a794df4821da86953f8b5448f3962ac04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3afdb36ca805590d57ace8cee38a1b01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a3afdb36ca805590d57ace8cee38a1b01">DNS_TYPE_PTR</a>&#160;&#160;&#160;12</td></tr>
+<tr class="separator:a3afdb36ca805590d57ace8cee38a1b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169ea4755db82670fbe2ad186a3acd50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a169ea4755db82670fbe2ad186a3acd50">DNS_TYPE_HINFO</a>&#160;&#160;&#160;13</td></tr>
+<tr class="separator:a169ea4755db82670fbe2ad186a3acd50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dc8fca3beb07776d91f57e6bf34c819"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a0dc8fca3beb07776d91f57e6bf34c819">DNS_TYPE_MINFO</a>&#160;&#160;&#160;15</td></tr>
+<tr class="separator:a0dc8fca3beb07776d91f57e6bf34c819"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a854d4623c4a82c242773058be7612c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a1a854d4623c4a82c242773058be7612c">DNS_TYPE_MX</a>&#160;&#160;&#160;15</td></tr>
+<tr class="separator:a1a854d4623c4a82c242773058be7612c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a031f145dfe0b1498c03e07af10be3c23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a031f145dfe0b1498c03e07af10be3c23">DNS_TYPE_TXT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:a031f145dfe0b1498c03e07af10be3c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb2eb201eadb88b54ae795a01fd34cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#acfb2eb201eadb88b54ae795a01fd34cd">DNS_TYPE_AAAA</a>&#160;&#160;&#160;28</td></tr>
+<tr class="separator:acfb2eb201eadb88b54ae795a01fd34cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc84b120d830f184e7249db81ed1736"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a9cc84b120d830f184e7249db81ed1736">DNS_CLASS_IN</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a9cc84b120d830f184e7249db81ed1736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b25630f59f33b736e58109da9eba2a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#ab4b25630f59f33b736e58109da9eba2a">DNS_RCODE_OK</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ab4b25630f59f33b736e58109da9eba2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0140dcc3668721e92cde4e81ed9e66f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a0140dcc3668721e92cde4e81ed9e66f1">DNS_RCODE_NXDOMAIN</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a0140dcc3668721e92cde4e81ed9e66f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:aa4f1febe6cb2e2e716f373385a3566dd"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdns__header.html">dns_header</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a></td></tr>
+<tr class="memdesc:aa4f1febe6cb2e2e716f373385a3566dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Header Section结构体  <a href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">更多...</a><br /></td></tr>
+<tr class="separator:aa4f1febe6cb2e2e716f373385a3566dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06e3c3727e6fc5c1df11c165d649df5c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdns__question.html">dns_question</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a></td></tr>
+<tr class="memdesc:a06e3c3727e6fc5c1df11c165d649df5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Question Section结构体，以链表表示  <a href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">更多...</a><br /></td></tr>
+<tr class="separator:a06e3c3727e6fc5c1df11c165d649df5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa587ac980f7833500ee4367842bda36"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdns__rr.html">dns_rr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a></td></tr>
+<tr class="memdesc:aaa587ac980f7833500ee4367842bda36"><td class="mdescLeft">&#160;</td><td class="mdescRight">报文Resource Record结构体，以链表表示  <a href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">更多...</a><br /></td></tr>
+<tr class="separator:aaa587ac980f7833500ee4367842bda36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9793e5f9c4dc6b1a90865331e9fe741"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdns__msg.html">dns_msg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a></td></tr>
+<tr class="memdesc:af9793e5f9c4dc6b1a90865331e9fe741"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNS报文结构体  <a href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">更多...</a><br /></td></tr>
+<tr class="separator:af9793e5f9c4dc6b1a90865331e9fe741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>DNS报文结构 </p>
+<dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/4/3 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
+<p>本文件定义了DNS报文中部分字段的常量，以及DNS报文结构体。</p>
+<p>报文结构体中每个字段长度均与RFC1035中规定的字段长度一致，但是采用小端法存储。 </p>
+</div><h2 class="groupheader">宏定义说明</h2>
+<a id="a9cc84b120d830f184e7249db81ed1736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc84b120d830f184e7249db81ed1736">&#9670;&nbsp;</a></span>DNS_CLASS_IN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_CLASS_IN&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e78a72fd4b728fd9b3d197906062eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e78a72fd4b728fd9b3d197906062eda">&#9670;&nbsp;</a></span>DNS_OPCODE_IQUERY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_OPCODE_IQUERY&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae60a6af0e581d7b126763e92bb3a16e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae60a6af0e581d7b126763e92bb3a16e9">&#9670;&nbsp;</a></span>DNS_OPCODE_QUERY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_OPCODE_QUERY&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3505ec1c6b5e896532baa146b5f12778"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3505ec1c6b5e896532baa146b5f12778">&#9670;&nbsp;</a></span>DNS_OPCODE_STATUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_OPCODE_STATUS&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2cb3a611448b9b455237c49d10c11f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cb3a611448b9b455237c49d10c11f1f">&#9670;&nbsp;</a></span>DNS_QR_ANSWER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_QR_ANSWER&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf915a2fdac4c684ca586ab7e5eb6493"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf915a2fdac4c684ca586ab7e5eb6493">&#9670;&nbsp;</a></span>DNS_QR_QUERY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_QR_QUERY&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0140dcc3668721e92cde4e81ed9e66f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0140dcc3668721e92cde4e81ed9e66f1">&#9670;&nbsp;</a></span>DNS_RCODE_NXDOMAIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_RCODE_NXDOMAIN&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4b25630f59f33b736e58109da9eba2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b25630f59f33b736e58109da9eba2a">&#9670;&nbsp;</a></span>DNS_RCODE_OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_RCODE_OK&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65ec07c77bc0fd3047ae31f28e57f12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65ec07c77bc0fd3047ae31f28e57f12f">&#9670;&nbsp;</a></span>DNS_RR_NAME_MAX_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_RR_NAME_MAX_SIZE&#160;&#160;&#160;512</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2bd5802847beb235c76918125853b8b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd5802847beb235c76918125853b8b7">&#9670;&nbsp;</a></span>DNS_STRING_MAX_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_STRING_MAX_SIZE&#160;&#160;&#160;8192</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe9f7ff23f3feba2776dcfa366f53c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe9f7ff23f3feba2776dcfa366f53c3f">&#9670;&nbsp;</a></span>DNS_TYPE_A</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_A&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acfb2eb201eadb88b54ae795a01fd34cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfb2eb201eadb88b54ae795a01fd34cd">&#9670;&nbsp;</a></span>DNS_TYPE_AAAA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_AAAA&#160;&#160;&#160;28</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a71d717fd39f72756ba00a61bc0279e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71d717fd39f72756ba00a61bc0279e76">&#9670;&nbsp;</a></span>DNS_TYPE_CNAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_CNAME&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a169ea4755db82670fbe2ad186a3acd50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a169ea4755db82670fbe2ad186a3acd50">&#9670;&nbsp;</a></span>DNS_TYPE_HINFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_HINFO&#160;&#160;&#160;13</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0dc8fca3beb07776d91f57e6bf34c819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dc8fca3beb07776d91f57e6bf34c819">&#9670;&nbsp;</a></span>DNS_TYPE_MINFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_MINFO&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a854d4623c4a82c242773058be7612c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a854d4623c4a82c242773058be7612c">&#9670;&nbsp;</a></span>DNS_TYPE_MX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_MX&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76921a21844be80847aaccde77bb7d75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76921a21844be80847aaccde77bb7d75">&#9670;&nbsp;</a></span>DNS_TYPE_NS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_NS&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3afdb36ca805590d57ace8cee38a1b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3afdb36ca805590d57ace8cee38a1b01">&#9670;&nbsp;</a></span>DNS_TYPE_PTR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_PTR&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a794df4821da86953f8b5448f3962ac04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a794df4821da86953f8b5448f3962ac04">&#9670;&nbsp;</a></span>DNS_TYPE_SOA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_SOA&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a031f145dfe0b1498c03e07af10be3c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a031f145dfe0b1498c03e07af10be3c23">&#9670;&nbsp;</a></span>DNS_TYPE_TXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DNS_TYPE_TXT&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="aa4f1febe6cb2e2e716f373385a3566dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4f1febe6cb2e2e716f373385a3566dd">&#9670;&nbsp;</a></span>Dns_Header</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdns__header.html">dns_header</a> <a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>报文Header Section结构体 </p>
+
+</div>
+</div>
+<a id="af9793e5f9c4dc6b1a90865331e9fe741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9793e5f9c4dc6b1a90865331e9fe741">&#9670;&nbsp;</a></span>Dns_Msg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdns__msg.html">dns_msg</a> <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DNS报文结构体 </p>
+
+</div>
+</div>
+<a id="a06e3c3727e6fc5c1df11c165d649df5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06e3c3727e6fc5c1df11c165d649df5c">&#9670;&nbsp;</a></span>Dns_Que</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdns__question.html">dns_question</a> <a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>报文Question Section结构体，以链表表示 </p>
+
+</div>
+</div>
+<a id="aaa587ac980f7833500ee4367842bda36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa587ac980f7833500ee4367842bda36">&#9670;&nbsp;</a></span>Dns_RR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdns__rr.html">dns_rr</a> <a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>报文Resource Record结构体，以链表表示 </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dns__structure_8h.html">dns_structure.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

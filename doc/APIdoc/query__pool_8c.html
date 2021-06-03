@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: src/query_pool.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('query__pool_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">query_pool.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>查询池  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="query__pool_8h_source.html">../include/query_pool.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">../include/util.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dns__conversion_8h_source.html">../include/dns_conversion.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dns__client_8h_source.html">../include/dns_client.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dns__server_8h_source.html">../include/dns_server.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+query_pool.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="query__pool_8c__incl.png" border="0" usemap="#asrc_2query__pool_8c" alt=""/></div>
+<map name="asrc_2query__pool_8c" id="asrc_2query__pool_8c">
+<area shape="rect" title="查询池" alt="" coords="521,5,640,32"/>
+<area shape="rect" href="query__pool_8h.html" title="查询池" alt="" coords="75,80,228,107"/>
+<area shape="rect" title=" " alt="" coords="785,80,849,107"/>
+<area shape="rect" href="util_8h.html" title="输出调试信息" alt="" coords="603,80,710,107"/>
+<area shape="rect" href="dns__conversion_8h.html" title="DNS报文格式转换" alt="" coords="670,155,851,181"/>
+<area shape="rect" href="dns__client_8h.html" title="DNS客户端" alt="" coords="430,80,579,107"/>
+<area shape="rect" href="dns__server_8h.html" title="DNS服务器" alt="" coords="252,80,405,107"/>
+<area shape="rect" title=" " alt="" coords="77,229,151,256"/>
+<area shape="rect" title=" " alt="" coords="319,155,365,181"/>
+<area shape="rect" href="dns__structure_8h.html" title="DNS报文结构" alt="" coords="299,304,411,331"/>
+<area shape="rect" href="index__pool_8h.html" title="序号池" alt="" coords="5,155,100,181"/>
+<area shape="rect" href="cache_8h.html" title="缓存" alt="" coords="227,155,295,181"/>
+<area shape="rect" title=" " alt="" coords="172,379,237,405"/>
+<area shape="rect" href="queue_8h.html" title="队列" alt="" coords="72,304,140,331"/>
+<area shape="rect" title=" " alt="" coords="490,229,551,256"/>
+<area shape="rect" href="rbtree_8h.html" title="红黑树" alt="" coords="227,229,294,256"/>
+<area shape="rect" title=" " alt="" coords="217,304,275,331"/>
+<area shape="rect" href="config__jar_8h.html" title="命令行参数解析" alt="" coords="558,155,646,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a11c119d460e6f8c5dbb16cd5bdccbc5a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#a11c119d460e6f8c5dbb16cd5bdccbc5a">timeout_cb</a> (uv_timer_t *timer)</td></tr>
+<tr class="memdesc:a11c119d460e6f8c5dbb16cd5bdccbc5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">超时回调函数  <a href="query__pool_8c.html#a11c119d460e6f8c5dbb16cd5bdccbc5a">更多...</a><br /></td></tr>
+<tr class="separator:a11c119d460e6f8c5dbb16cd5bdccbc5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98ed93362bda867f294541c1c24b2840"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#a98ed93362bda867f294541c1c24b2840">qpool_full</a> (<a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *this)</td></tr>
+<tr class="separator:a98ed93362bda867f294541c1c24b2840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae29fc3e8ee2f57c983e01704d4b945ce"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#ae29fc3e8ee2f57c983e01704d4b945ce">qpool_insert</a> (<a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const struct sockaddr *addr, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td></tr>
+<tr class="separator:ae29fc3e8ee2f57c983e01704d4b945ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6285828da50c58660b6e523ecf3668b5"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5">qpool_query</a> (<a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, uint16_t id)</td></tr>
+<tr class="separator:a6285828da50c58660b6e523ecf3668b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac14d02ff69a3027ad45c2357e6843c76"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#ac14d02ff69a3027ad45c2357e6843c76">qpool_finish</a> (<a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td></tr>
+<tr class="separator:ac14d02ff69a3027ad45c2357e6843c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe80fdfc4dbed6be1af52c4d86f41815"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#afe80fdfc4dbed6be1af52c4d86f41815">qpool_delete</a> (<a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, uint16_t id)</td></tr>
+<tr class="separator:afe80fdfc4dbed6be1af52c4d86f41815"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51738c1bb6b8a5ad3200f33efe37d9d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="query__pool_8c.html#a51738c1bb6b8a5ad3200f33efe37d9d0">new_qpool</a> (uv_loop_t *<a class="el" href="main_8c.html#add769cb3887f840e6e7be962492de960">loop</a>, <a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a> *<a class="el" href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a>)</td></tr>
+<tr class="memdesc:a51738c1bb6b8a5ad3200f33efe37d9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">创建查询池  <a href="query__pool_8c.html#a51738c1bb6b8a5ad3200f33efe37d9d0">更多...</a><br /></td></tr>
+<tr class="separator:a51738c1bb6b8a5ad3200f33efe37d9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>查询池 </p>
+<dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/4/13 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
+<p>本文件的内容是查询池的实现。 </p>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="a51738c1bb6b8a5ad3200f33efe37d9d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51738c1bb6b8a5ad3200f33efe37d9d0">&#9670;&nbsp;</a></span>new_qpool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a>* new_qpool </td>
+          <td>(</td>
+          <td class="paramtype">uv_loop_t *&#160;</td>
+          <td class="paramname"><em>loop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a> *&#160;</td>
+          <td class="paramname"><em>cache</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>创建查询池 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loop</td><td>事件循环 </td></tr>
+    <tr><td class="paramname">cache</td><td>缓存 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>新的查询池 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="query__pool_8c_a51738c1bb6b8a5ad3200f33efe37d9d0_cgraph.png" border="0" usemap="#aquery__pool_8c_a51738c1bb6b8a5ad3200f33efe37d9d0_cgraph" alt=""/></div>
+<map name="aquery__pool_8c_a51738c1bb6b8a5ad3200f33efe37d9d0_cgraph" id="aquery__pool_8c_a51738c1bb6b8a5ad3200f33efe37d9d0_cgraph">
+<area shape="rect" title="创建查询池" alt="" coords="5,360,89,387"/>
+<area shape="rect" href="index__pool_8h.html#a041c5d7e1d6c75cc71123f03e794cc86" title="创建序号池" alt="" coords="145,157,225,184"/>
+<area shape="rect" href="queue_8h.html#a006f6f78be980ad0795d143f1d22b176" title="创建队列" alt="" coords="295,259,383,285"/>
+<area shape="rect" href="query__pool_8c.html#afe80fdfc4dbed6be1af52c4d86f41815" title=" " alt="" coords="137,335,232,361"/>
+<area shape="rect" href="query__pool_8c.html#ac14d02ff69a3027ad45c2357e6843c76" title=" " alt="" coords="139,385,230,412"/>
+<area shape="rect" href="query__pool_8c.html#a98ed93362bda867f294541c1c24b2840" title=" " alt="" coords="146,512,223,539"/>
+<area shape="rect" href="query__pool_8c.html#ae29fc3e8ee2f57c983e01704d4b945ce" title=" " alt="" coords="139,461,231,488"/>
+<area shape="rect" href="index__pool_8c.html#a67139b5f1ddded8783211a8d57e71fab" title=" " alt="" coords="294,208,385,235"/>
+<area shape="rect" href="index__pool_8c.html#a93abf5419ea71a6b050003b38ffb7ef3" title=" " alt="" coords="290,5,389,32"/>
+<area shape="rect" href="index__pool_8c.html#a8f4fe4d0639c462591edd3247a3ade7c" title=" " alt="" coords="303,56,376,83"/>
+<area shape="rect" href="index__pool_8c.html#afa69a2380bfa539177eb075d2f2564e5" title=" " alt="" coords="295,107,383,133"/>
+<area shape="rect" href="index__pool_8c.html#aee0d0705b3aaf7312a3fc36875289264" title=" " alt="" coords="295,157,383,184"/>
+<area shape="rect" href="queue_8c.html#a8c760f06145555b0d570887ec34bf203" title=" " alt="" coords="461,157,567,184"/>
+<area shape="rect" href="queue_8c.html#a3a869f22498176901c490b54847df661" title=" " alt="" coords="471,208,557,235"/>
+<area shape="rect" href="queue_8c.html#a5ffeb87322621208687bcc72cedd36e8" title=" " alt="" coords="468,259,560,285"/>
+<area shape="rect" href="dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="280,360,399,387"/>
+<area shape="rect" href="query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5" title=" " alt="" coords="293,309,385,336"/>
+<area shape="rect" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="463,309,565,336"/>
+<area shape="rect" href="dns__conversion_8h.html#ad4f423fc9dae75749c48394d2c5fd059" title="复制DNS报文结构体" alt="" coords="288,411,391,437"/>
+<area shape="rect" href="dns__server_8h.html#a9c27be19d71612df0b60fd5c68d0502a" title="将DNS回复报文发送至本地" alt="" coords="288,461,391,488"/>
+<area shape="rect" href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="471,360,557,387"/>
+<area shape="rect" href="dns__conversion_8h.html#aa893e182a92c2ccf5644c1f8a12fba37" title="DNS报文结构体转换到字节流" alt="" coords="451,563,577,589"/>
+<area shape="rect" href="dns__server_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向本地发送回复报文的回调函数" alt="" coords="479,411,549,437"/>
+<area shape="rect" href="dns__print_8h.html#a33a39397e0f2e1a98b86b6d85321ee79" title="打印DNS报文结构体" alt="" coords="447,512,581,539"/>
+<area shape="rect" href="dns__print_8h.html#aa26d00d719a693f6d7e0789bee44f22c" title="打印DNS报文字节流" alt="" coords="457,461,571,488"/>
+<area shape="rect" href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="631,563,759,589"/>
+<area shape="rect" href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="634,613,755,640"/>
+<area shape="rect" href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="641,664,749,691"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="821,613,913,640"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="808,664,927,691"/>
+<area shape="rect" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="821,715,913,741"/>
+<area shape="rect" href="dns__print_8c.html#ac6e3eb285185ea15710afc5bd43296e9" title="打印Header Section" alt="" coords="634,411,755,437"/>
+<area shape="rect" href="dns__print_8c.html#a81671f953008d8cae7d6401e26a2c529" title="打印Question Section" alt="" coords="629,461,760,488"/>
+<area shape="rect" href="dns__print_8c.html#a27420aa71c1505035590b710e06778ad" title="打印Resource Record" alt="" coords="649,512,740,539"/>
+<area shape="rect" href="dns__print_8c.html#ac21f9aaff6cb58fc94996ab28134dd4e" title="打印A类型RR的rdata字段" alt="" coords="828,563,907,589"/>
+<area shape="rect" href="dns__print_8c.html#a1762e54b4c8f5b77fd05f11a587c668e" title="打印AAAA类型RR的rdata字段" alt="" coords="815,360,920,387"/>
+<area shape="rect" href="dns__print_8c.html#a51cb3312021d99b0f9d1f3f680750baf" title="打印CNAME类型RR的rdata字段" alt="" coords="975,461,1093,488"/>
+<area shape="rect" href="dns__print_8c.html#a7d2f7aadf05efe5e1736eeae47b4f9b7" title="打印MX类型RR的rdata字段" alt="" coords="823,461,912,488"/>
+<area shape="rect" href="dns__print_8c.html#a5bc6e539fe23203d4a35b5ecba60fe7c" title="打印SOA类型RR的rdata字段" alt="" coords="819,512,916,539"/>
+<area shape="rect" href="dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="289,563,390,589"/>
+<area shape="rect" href="dns__client_8h.html#a83db4163d6fd4b94b1e5e983dd042b28" title="将DNS请求报文发送至远程" alt="" coords="282,512,397,539"/>
+<area shape="rect" href="query__pool_8c.html#a11c119d460e6f8c5dbb16cd5bdccbc5a" title="超时回调函数" alt="" coords="296,613,383,640"/>
+<area shape="rect" href="dns__client_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向远程发送查询报文的回调函数" alt="" coords="479,613,549,640"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afe80fdfc4dbed6be1af52c4d86f41815"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe80fdfc4dbed6be1af52c4d86f41815">&#9670;&nbsp;</a></span>qpool_delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void qpool_delete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td>
+          <td class="paramname"><em>qpool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="query__pool_8c_afe80fdfc4dbed6be1af52c4d86f41815_cgraph.png" border="0" usemap="#aquery__pool_8c_afe80fdfc4dbed6be1af52c4d86f41815_cgraph" alt=""/></div>
+<map name="aquery__pool_8c_afe80fdfc4dbed6be1af52c4d86f41815_cgraph" id="aquery__pool_8c_afe80fdfc4dbed6be1af52c4d86f41815_cgraph">
+<area shape="rect" title=" " alt="" coords="5,31,100,57"/>
+<area shape="rect" href="dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="148,5,267,32"/>
+<area shape="rect" href="query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5" title=" " alt="" coords="161,56,253,83"/>
+<area shape="rect" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="315,5,416,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac14d02ff69a3027ad45c2357e6843c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14d02ff69a3027ad45c2357e6843c76">&#9670;&nbsp;</a></span>qpool_finish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void qpool_finish </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td>
+          <td class="paramname"><em>qpool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="query__pool_8c_ac14d02ff69a3027ad45c2357e6843c76_cgraph.png" border="0" usemap="#aquery__pool_8c_ac14d02ff69a3027ad45c2357e6843c76_cgraph" alt=""/></div>
+<map name="aquery__pool_8c_ac14d02ff69a3027ad45c2357e6843c76_cgraph" id="aquery__pool_8c_ac14d02ff69a3027ad45c2357e6843c76_cgraph">
+<area shape="rect" title=" " alt="" coords="5,95,96,121"/>
+<area shape="rect" href="dns__conversion_8h.html#ad4f423fc9dae75749c48394d2c5fd059" title="复制DNS报文结构体" alt="" coords="152,19,255,45"/>
+<area shape="rect" href="dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="144,69,263,96"/>
+<area shape="rect" href="query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5" title=" " alt="" coords="157,120,249,147"/>
+<area shape="rect" href="dns__server_8h.html#a9c27be19d71612df0b60fd5c68d0502a" title="将DNS回复报文发送至本地" alt="" coords="152,171,255,197"/>
+<area shape="rect" href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="335,19,421,45"/>
+<area shape="rect" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="327,69,429,96"/>
+<area shape="rect" href="dns__conversion_8h.html#aa893e182a92c2ccf5644c1f8a12fba37" title="DNS报文结构体转换到字节流" alt="" coords="315,221,441,248"/>
+<area shape="rect" href="dns__server_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向本地发送回复报文的回调函数" alt="" coords="343,272,413,299"/>
+<area shape="rect" href="dns__print_8h.html#a33a39397e0f2e1a98b86b6d85321ee79" title="打印DNS报文结构体" alt="" coords="311,120,445,147"/>
+<area shape="rect" href="dns__print_8h.html#aa26d00d719a693f6d7e0789bee44f22c" title="打印DNS报文字节流" alt="" coords="321,171,435,197"/>
+<area shape="rect" href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="495,208,623,235"/>
+<area shape="rect" href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="498,259,619,285"/>
+<area shape="rect" href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="505,309,613,336"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="685,259,777,285"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="672,309,791,336"/>
+<area shape="rect" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="685,360,777,387"/>
+<area shape="rect" href="dns__print_8c.html#ac6e3eb285185ea15710afc5bd43296e9" title="打印Header Section" alt="" coords="498,31,619,57"/>
+<area shape="rect" href="dns__print_8c.html#a81671f953008d8cae7d6401e26a2c529" title="打印Question Section" alt="" coords="493,81,624,108"/>
+<area shape="rect" href="dns__print_8c.html#a27420aa71c1505035590b710e06778ad" title="打印Resource Record" alt="" coords="513,132,604,159"/>
+<area shape="rect" href="dns__print_8c.html#ac21f9aaff6cb58fc94996ab28134dd4e" title="打印A类型RR的rdata字段" alt="" coords="692,56,771,83"/>
+<area shape="rect" href="dns__print_8c.html#a1762e54b4c8f5b77fd05f11a587c668e" title="打印AAAA类型RR的rdata字段" alt="" coords="679,107,784,133"/>
+<area shape="rect" href="dns__print_8c.html#a51cb3312021d99b0f9d1f3f680750baf" title="打印CNAME类型RR的rdata字段" alt="" coords="839,157,957,184"/>
+<area shape="rect" href="dns__print_8c.html#a7d2f7aadf05efe5e1736eeae47b4f9b7" title="打印MX类型RR的rdata字段" alt="" coords="687,208,776,235"/>
+<area shape="rect" href="dns__print_8c.html#a5bc6e539fe23203d4a35b5ecba60fe7c" title="打印SOA类型RR的rdata字段" alt="" coords="683,5,780,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a98ed93362bda867f294541c1c24b2840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ed93362bda867f294541c1c24b2840">&#9670;&nbsp;</a></span>qpool_full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool qpool_full </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae29fc3e8ee2f57c983e01704d4b945ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae29fc3e8ee2f57c983e01704d4b945ce">&#9670;&nbsp;</a></span>qpool_insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void qpool_insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td>
+          <td class="paramname"><em>qpool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct sockaddr *&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="query__pool_8c_ae29fc3e8ee2f57c983e01704d4b945ce_cgraph.png" border="0" usemap="#aquery__pool_8c_ae29fc3e8ee2f57c983e01704d4b945ce_cgraph" alt=""/></div>
+<map name="aquery__pool_8c_ae29fc3e8ee2f57c983e01704d4b945ce_cgraph" id="aquery__pool_8c_ae29fc3e8ee2f57c983e01704d4b945ce_cgraph">
+<area shape="rect" title=" " alt="" coords="5,107,97,133"/>
+<area shape="rect" href="dns__conversion_8h.html#ad4f423fc9dae75749c48394d2c5fd059" title="复制DNS报文结构体" alt="" coords="151,5,254,32"/>
+<area shape="rect" href="dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="152,56,253,83"/>
+<area shape="rect" href="dns__server_8h.html#a9c27be19d71612df0b60fd5c68d0502a" title="将DNS回复报文发送至本地" alt="" coords="151,157,254,184"/>
+<area shape="rect" href="dns__client_8h.html#a83db4163d6fd4b94b1e5e983dd042b28" title="将DNS请求报文发送至远程" alt="" coords="145,107,260,133"/>
+<area shape="rect" href="query__pool_8c.html#a11c119d460e6f8c5dbb16cd5bdccbc5a" title="超时回调函数" alt="" coords="159,208,246,235"/>
+<area shape="rect" href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="332,5,419,32"/>
+<area shape="rect" href="dns__conversion_8h.html#aa893e182a92c2ccf5644c1f8a12fba37" title="DNS报文结构体转换到字节流" alt="" coords="313,107,438,133"/>
+<area shape="rect" href="dns__server_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向本地发送回复报文的回调函数" alt="" coords="340,259,411,285"/>
+<area shape="rect" href="dns__print_8h.html#a33a39397e0f2e1a98b86b6d85321ee79" title="打印DNS报文结构体" alt="" coords="308,157,443,184"/>
+<area shape="rect" href="dns__print_8h.html#aa26d00d719a693f6d7e0789bee44f22c" title="打印DNS报文字节流" alt="" coords="318,208,433,235"/>
+<area shape="rect" href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="492,5,620,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="495,56,617,83"/>
+<area shape="rect" href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="502,107,610,133"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="683,5,775,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="669,56,788,83"/>
+<area shape="rect" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="683,107,775,133"/>
+<area shape="rect" href="dns__print_8c.html#ac6e3eb285185ea15710afc5bd43296e9" title="打印Header Section" alt="" coords="495,157,617,184"/>
+<area shape="rect" href="dns__print_8c.html#a81671f953008d8cae7d6401e26a2c529" title="打印Question Section" alt="" coords="491,208,621,235"/>
+<area shape="rect" href="dns__print_8c.html#a27420aa71c1505035590b710e06778ad" title="打印Resource Record" alt="" coords="511,259,601,285"/>
+<area shape="rect" href="dns__print_8c.html#ac21f9aaff6cb58fc94996ab28134dd4e" title="打印A类型RR的rdata字段" alt="" coords="689,360,768,387"/>
+<area shape="rect" href="dns__print_8c.html#a1762e54b4c8f5b77fd05f11a587c668e" title="打印AAAA类型RR的rdata字段" alt="" coords="676,157,781,184"/>
+<area shape="rect" href="dns__print_8c.html#a51cb3312021d99b0f9d1f3f680750baf" title="打印CNAME类型RR的rdata字段" alt="" coords="836,259,955,285"/>
+<area shape="rect" href="dns__print_8c.html#a7d2f7aadf05efe5e1736eeae47b4f9b7" title="打印MX类型RR的rdata字段" alt="" coords="684,259,773,285"/>
+<area shape="rect" href="dns__print_8c.html#a5bc6e539fe23203d4a35b5ecba60fe7c" title="打印SOA类型RR的rdata字段" alt="" coords="680,309,777,336"/>
+<area shape="rect" href="dns__client_8c.html#a10ad14f6993fac66edbf5d2f6a75aa62" title="向远程发送查询报文的回调函数" alt="" coords="340,56,411,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6285828da50c58660b6e523ecf3668b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6285828da50c58660b6e523ecf3668b5">&#9670;&nbsp;</a></span>qpool_query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool qpool_query </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td>
+          <td class="paramname"><em>qpool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11c119d460e6f8c5dbb16cd5bdccbc5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11c119d460e6f8c5dbb16cd5bdccbc5a">&#9670;&nbsp;</a></span>timeout_cb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void timeout_cb </td>
+          <td>(</td>
+          <td class="paramtype">uv_timer_t *&#160;</td>
+          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>超时回调函数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timer</td><td>超时的计时器 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="query__pool_8c.html">query_pool.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

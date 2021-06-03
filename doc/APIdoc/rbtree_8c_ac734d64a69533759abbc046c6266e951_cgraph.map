@@ -1,0 +1,7 @@
+<map id="delete_case" name="delete_case">
+<area shape="rect" id="node1" title="依照不同情况调整红黑树的形态，使其平衡" alt="" coords="5,56,97,83"/>
+<area shape="rect" id="node2" href="$rbtree_8c.html#ab62e652e4fc283a274b30e1f1f08c211" title="将节点左旋" alt="" coords="149,5,229,32"/>
+<area shape="rect" id="node4" href="$rbtree_8c.html#aef6fab1149a4f11067237f95c7bdb41f" title="将节点右旋" alt="" coords="145,56,232,83"/>
+<area shape="rect" id="node5" href="$rbtree_8c.html#a4dd4bda21d33193ea5d725f28033e7e3" title="求节点的兄弟节点" alt="" coords="159,107,218,133"/>
+<area shape="rect" id="node3" href="$rbtree_8c.html#a4e57b2a3dc11c51ba425457a45fc44fd" title="求节点的祖父节点" alt="" coords="280,31,371,57"/>
+</map>

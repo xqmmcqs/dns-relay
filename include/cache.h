@@ -23,7 +23,7 @@
 #define CACHE_SIZE 30
 
 /// 缓存结构体
-typedef struct _cache
+typedef struct cache_
 {
     Dns_RR_LinkList * head; ///< LRU头结点
     Dns_RR_LinkList * tail; ///< LRU尾节点
@@ -36,7 +36,7 @@ typedef struct _cache
      * @param cache 缓存
      * @param msg DNS回复报文
      */
-    void (* insert)(struct _cache * cache, const Dns_Msg * msg);
+    void (* insert)(struct cache_ * cache, const Dns_Msg * msg);
     
     /**
      * @brief 在缓存中查询
@@ -45,7 +45,7 @@ typedef struct _cache
      * @param que DNS Question Section
      * @return 如果查询到回复，则返回，否则返回NULL
      */
-    Rbtree_Value * (* query)(struct _cache * cache, const Dns_Que * que);
+    Rbtree_Value * (* query)(struct cache_ * cache, const Dns_Que * que);
 } Cache;
 
 /**

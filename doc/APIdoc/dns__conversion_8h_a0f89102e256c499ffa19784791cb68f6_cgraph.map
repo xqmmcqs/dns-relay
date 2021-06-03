@@ -1,0 +1,9 @@
+<map id="string_to_dnsmsg" name="string_to_dnsmsg">
+<area shape="rect" id="node1" title="DNS报文字节流转换到结构体" alt="" coords="5,69,131,96"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#aba15da5b80dcab3ce985bc3f2270d84b" title="从字节流中读入一个Header Section" alt="" coords="348,5,476,32"/>
+<area shape="rect" id="node4" href="$dns__conversion_8c.html#a05e0c813cb5f66334e4e27b7bd571698" title="从字节流中读入一个Question Section" alt="" coords="179,69,300,96"/>
+<area shape="rect" id="node6" href="$dns__conversion_8c.html#a1cfb0c409e3ec519e218b7f8a709f8bd" title="从字节流中读入一个Resource Record" alt="" coords="185,132,293,159"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="524,81,613,108"/>
+<area shape="rect" id="node5" href="$dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913" title="从字节流中读入一个NAME字段" alt="" coords="353,107,471,133"/>
+<area shape="rect" id="node7" href="$dns__conversion_8c.html#a8bc6db15347c892e31a6e9162b25fc8b" title="从字节流中读入一个大端法表示的32位数字" alt="" coords="367,208,457,235"/>
+</map>

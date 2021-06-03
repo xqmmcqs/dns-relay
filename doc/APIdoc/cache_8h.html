@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/xhtml;charset=UTF-8" http-equiv="Content-Type"/>
+<meta content="IE=9" http-equiv="X-UA-Compatible"/>
+<meta content="Doxygen 1.9.1" name="generator"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>DNS中继服务器: include/cache.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="dynsections.js" type="text/javascript"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script src="resize.js" type="text/javascript"></script>
+<script src="navtreedata.js" type="text/javascript"></script>
+<script src="navtree.js" type="text/javascript"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script src="search/searchdata.js" type="text/javascript"></script>
+<script src="search/search.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js" type="text/javascript"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellpadding="0" cellspacing="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script src="menudata.js" type="text/javascript"></script>
+<script src="menu.js" type="text/javascript"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="ui-resizable side-nav-resizable" id="side-nav">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div class="sync" id="nav-sync"></div>
+    </div>
+  </div>
+  <div class="ui-resizable-handle" id="splitbar"
+       style="-moz-user-select:none;">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('cache_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onkeydown="return searchBox.OnSearchSelectKey(event)"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onmouseover="return searchBox.OnSearchSelectShow()">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe frameborder="0" id="MSearchResults"
+        name="MSearchResults" src="javascript:void(0)">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">结构体</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">cache.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>缓存  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="dns__structure_8h_source.html">dns_structure.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rbtree_8h_source.html">rbtree.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+cache.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img alt="" border="0" src="cache_8h__incl.png" usemap="#ainclude_2cache_8h"/></div>
+<map id="ainclude_2cache_8h" name="ainclude_2cache_8h">
+<area alt="" coords="47,5,161,32" shape="rect" title="缓存"/>
+<area alt="" coords="5,80,67,107" shape="rect" title=" "/>
+<area alt="" coords="48,155,160,181" href="dns__structure_8h.html" shape="rect" title="DNS报文结构"/>
+<area alt="" coords="141,80,208,107" href="rbtree_8h.html" shape="rect" title="红黑树"/>
+<area alt="" coords="71,229,137,256" shape="rect" title=" "/>
+<area alt="" coords="184,155,243,181" shape="rect" title=" "/>
+</map>
+</div>
+</div>
+<p><a href="cache_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+结构体</h2></td></tr>
+<tr class="memitem:"><td align="right" class="memItemLeft" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcache__.html">cache_</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">缓存结构体  <a href="structcache__.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a8a6befd630ea1c2ab260266f7466540c"><td align="right" class="memItemLeft" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a8a6befd630ea1c2ab260266f7466540c">CACHE_SIZE</a>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a8a6befd630ea1c2ab260266f7466540c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:aacb3cd9ae53f433578c171271fb89409"><td align="right" class="memItemLeft" valign="top">typedef struct <a class="el" href="structcache__.html">cache_</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a></td></tr>
+<tr class="memdesc:aacb3cd9ae53f433578c171271fb89409"><td class="mdescLeft">&#160;</td><td class="mdescRight">缓存结构体  <a href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">更多...</a><br /></td></tr>
+<tr class="separator:aacb3cd9ae53f433578c171271fb89409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aec8c9137815dd993a99a9c1e1d4a06f2"><td align="right" class="memItemLeft" valign="top"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2">new_cache</a> (FILE *hosts_file)</td></tr>
+<tr class="memdesc:aec8c9137815dd993a99a9c1e1d4a06f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">创建缓存  <a href="cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2">更多...</a><br /></td></tr>
+<tr class="separator:aec8c9137815dd993a99a9c1e1d4a06f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a id="details" name="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>缓存 </p>
+<dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/4/12 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
+<p>本文件定义了缓存的结构体和接口。</p>
+<p>缓存是一个大小为CACHE_SIZE的LRU，采用链表实现，每次命中时将链表中的节点移到链表末尾，当缓存满时，优先移出链表头的节点。</p>
+<p>如果LRU未命中，将在红黑树中查询，并且根据QNAME和QTYPE筛选红黑树的查询结果 </p>
+</div><h2 class="groupheader">宏定义说明</h2>
+<a id="a8a6befd630ea1c2ab260266f7466540c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a6befd630ea1c2ab260266f7466540c">&#9670;&nbsp;</a></span>CACHE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CACHE_SIZE&#160;&#160;&#160;30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="aacb3cd9ae53f433578c171271fb89409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb3cd9ae53f433578c171271fb89409">&#9670;&nbsp;</a></span>Cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structcache__.html">cache_</a> <a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>缓存结构体 </p>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="aec8c9137815dd993a99a9c1e1d4a06f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec8c9137815dd993a99a9c1e1d4a06f2">&#9670;&nbsp;</a></span>new_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a>* new_cache </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>hosts_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>创建缓存 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hosts_file</td><td>hosts文件路径 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>新的缓存结构体 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img alt="" border="0" src="cache_8h_aec8c9137815dd993a99a9c1e1d4a06f2_cgraph.png" usemap="#acache_8h_aec8c9137815dd993a99a9c1e1d4a06f2_cgraph"/></div>
+<map id="acache_8h_aec8c9137815dd993a99a9c1e1d4a06f2_cgraph" name="acache_8h_aec8c9137815dd993a99a9c1e1d4a06f2_cgraph">
+<area alt="" coords="5,183,93,209" shape="rect" title="创建缓存"/>
+<area alt="" coords="287,132,378,159" href="cache_8c.html#a3aa8d6fa65bbd42c0b6327c67362234d" shape="rect" title="字符串哈希"/>
+<area alt="" coords="141,81,237,108" href="cache_8c.html#a6ced4e1f620d2e750fb0c2c049962fa8" shape="rect" title=" "/>
+<area alt="" coords="431,157,522,184" href="rbtree_8h.html#a7340708ace3866264b6c8a96a8c685b5" shape="rect" title="创建链表节点"/>
+<area alt="" coords="141,132,237,159" href="cache_8c.html#a1abbd81313d8d7e8b25446d7921121e0" shape="rect" title=" "/>
+<area alt="" coords="146,296,233,323" href="rbtree_8h.html#a471ee3c523122a7b5a47c91e1ec1252d" shape="rect" title="创建红黑树"/>
+<area alt="" coords="289,81,376,108" href="dns__conversion_8h.html#a574100917e06ad98a9e6274a41cddcef" shape="rect" title="复制DNS报文RR结构体"/>
+<area alt="" coords="289,31,376,57" href="cache_8c.html#a8c6dd0d6aa6f172b089056e27c11e7da" shape="rect" title="获取一串RR中的最小ttl"/>
+<area alt="" coords="727,103,860,129" href="rbtree_8c.html#a8e0bfadc9752f04f500905a85c47e74e" shape="rect" title=" "/>
+<area alt="" coords="744,153,843,180" href="rbtree_8c.html#a41e95176ba82f906d4ecc38a385f66f7" shape="rect" title=" "/>
+<area alt="" coords="728,204,859,231" href="rbtree_8c.html#a26d08eac00f23b0ed859451a4adc109b" shape="rect" title=" "/>
+<area alt="" coords="908,103,1009,129" href="dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" shape="rect" title="释放DNS报文RR结构体的空间"/>
+<area alt="" coords="285,296,380,323" href="rbtree_8c.html#ae46c23eec5c1ea21ebab9279843de3a3" shape="rect" title=" "/>
+<area alt="" coords="285,353,380,380" href="rbtree_8c.html#a7460cf092b0132ece0a692cd84a26456" shape="rect" title=" "/>
+<area alt="" coords="581,305,671,332" href="rbtree_8c.html#a2003ed64d170c0cf2c2b3a9899eb2557" shape="rect" title="依照不同情况调整红黑树的形态，使其平衡"/>
+<area alt="" coords="439,252,514,279" href="rbtree_8c.html#a426e8daa917b6df3f56525d9b579c9c3" shape="rect" title="初始化一个节点，分配内存"/>
+<area alt="" coords="913,331,1004,357" href="rbtree_8c.html#a4e57b2a3dc11c51ba425457a45fc44fd" shape="rect" title="求节点的祖父节点"/>
+<area alt="" coords="753,356,833,383" href="rbtree_8c.html#ab62e652e4fc283a274b30e1f1f08c211" shape="rect" title="将节点左旋"/>
+<area alt="" coords="750,407,837,433" href="rbtree_8c.html#aef6fab1149a4f11067237f95c7bdb41f" shape="rect" title="将节点右旋"/>
+<area alt="" coords="767,305,820,332" href="rbtree_8c.html#abbdf04b2e38fd0f124c55b0e21eceebb" shape="rect" title="求节点的叔父节点"/>
+<area alt="" coords="581,204,671,231" href="rbtree_8c.html#a7340708ace3866264b6c8a96a8c685b5" shape="rect" title="创建链表节点"/>
+<area alt="" coords="428,432,525,459" href="rbtree_8c.html#a787a8de67855978e27d86ddcc1dfc2fc" shape="rect" title="删除红黑树中的节点"/>
+<area alt="" coords="435,353,518,380" href="rbtree_8c.html#a369cc502f7bae385bc4b26ac9f8df87e" shape="rect" title="从给定节点开始递归查找键为给定值的节点"/>
+<area alt="" coords="580,381,672,408" href="rbtree_8c.html#ac734d64a69533759abbc046c6266e951" shape="rect" title="依照不同情况调整红黑树的形态，使其平衡"/>
+<area alt="" coords="576,432,676,459" href="rbtree_8c.html#a05ef0ed79d24a2628b928224a4139c3b" shape="rect" title="销毁红黑树中的节点"/>
+<area alt="" coords="573,483,679,509" href="rbtree_8c.html#a959b13831afca5020b0f054c12554410" shape="rect" title="求子树的最小节点"/>
+<area alt="" coords="764,457,823,484" href="rbtree_8c.html#a4dd4bda21d33193ea5d725f28033e7e3" shape="rect" title="求节点的兄弟节点"/>
+</map>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="cache_8h.html">cache.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img alt="doxygen" class="footer" height="31" src="doxygen.svg" width="104"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

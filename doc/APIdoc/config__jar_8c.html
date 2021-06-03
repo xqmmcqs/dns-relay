@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/xhtml;charset=UTF-8" http-equiv="Content-Type"/>
+<meta content="IE=9" http-equiv="X-UA-Compatible"/>
+<meta content="Doxygen 1.9.1" name="generator"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>DNS中继服务器: src/config_jar.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="dynsections.js" type="text/javascript"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script src="resize.js" type="text/javascript"></script>
+<script src="navtreedata.js" type="text/javascript"></script>
+<script src="navtree.js" type="text/javascript"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script src="search/searchdata.js" type="text/javascript"></script>
+<script src="search/search.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js" type="text/javascript"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellpadding="0" cellspacing="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script src="menudata.js" type="text/javascript"></script>
+<script src="menu.js" type="text/javascript"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="ui-resizable side-nav-resizable" id="side-nav">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div class="sync" id="nav-sync"></div>
+    </div>
+  </div>
+  <div class="ui-resizable-handle" id="splitbar"
+       style="-moz-user-select:none;">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('config__jar_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onkeydown="return searchBox.OnSearchSelectKey(event)"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onmouseover="return searchBox.OnSearchSelectShow()">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe frameborder="0" id="MSearchResults"
+        name="MSearchResults" src="javascript:void(0)">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">config_jar.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>命令行参数解析  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="config__jar_8h_source.html">../include/config_jar.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;uv.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">../include/util.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+config_jar.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img alt="" border="0" src="config__jar_8c__incl.png" usemap="#asrc_2config__jar_8c"/></div>
+<map id="asrc_2config__jar_8c" name="asrc_2config__jar_8c">
+<area alt="" coords="223,5,333,32" shape="rect" title="命令行参数解析"/>
+<area alt="" coords="5,155,151,181" href="config__jar_8h.html" shape="rect" title="命令行参数解析"/>
+<area alt="" coords="303,155,365,181" shape="rect" title=" "/>
+<area alt="" coords="201,80,267,107" shape="rect" title=" "/>
+<area alt="" coords="291,80,355,107" shape="rect" title=" "/>
+<area alt="" coords="379,80,425,107" shape="rect" title=" "/>
+<area alt="" coords="70,80,177,107" href="util_8h.html" shape="rect" title="输出调试信息"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ac93dfd9f4c9f842917b45c609c8c2da9"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#ac93dfd9f4c9f842917b45c609c8c2da9">init_config</a> (int argc, char *const *argv)</td></tr>
+<tr class="memdesc:ac93dfd9f4c9f842917b45c609c8c2da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">解析命令行参数  <a href="config__jar_8c.html#ac93dfd9f4c9f842917b45c609c8c2da9">更多...</a><br /></td></tr>
+<tr class="separator:ac93dfd9f4c9f842917b45c609c8c2da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:ad3c5e55d6c17521f90d62fb06fd2d77d"><td align="right" class="memItemLeft" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#ad3c5e55d6c17521f90d62fb06fd2d77d">REMOTE_HOST</a> = &quot;10.3.9.4&quot;</td></tr>
+<tr class="memdesc:ad3c5e55d6c17521f90d62fb06fd2d77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">远程DNS服务器地址  <a href="config__jar_8c.html#ad3c5e55d6c17521f90d62fb06fd2d77d">更多...</a><br /></td></tr>
+<tr class="separator:ad3c5e55d6c17521f90d62fb06fd2d77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ceaf97c18080fa36e2636b7c36b3999"><td align="right" class="memItemLeft" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#a1ceaf97c18080fa36e2636b7c36b3999">LOG_MASK</a> = 15</td></tr>
+<tr class="memdesc:a1ceaf97c18080fa36e2636b7c36b3999"><td class="mdescLeft">&#160;</td><td class="mdescRight">log打印等级，一个四位二进制数，从低位到高位依次表示DEBUG、INFO、ERROR、FATAL  <a href="config__jar_8c.html#a1ceaf97c18080fa36e2636b7c36b3999">更多...</a><br /></td></tr>
+<tr class="separator:a1ceaf97c18080fa36e2636b7c36b3999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d269af16502c465a9c5aa13eb8ac90e"><td align="right" class="memItemLeft" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#a3d269af16502c465a9c5aa13eb8ac90e">CLIENT_PORT</a> = 0</td></tr>
+<tr class="memdesc:a3d269af16502c465a9c5aa13eb8ac90e"><td class="mdescLeft">&#160;</td><td class="mdescRight">本地DNS客户端端口  <a href="config__jar_8c.html#a3d269af16502c465a9c5aa13eb8ac90e">更多...</a><br /></td></tr>
+<tr class="separator:a3d269af16502c465a9c5aa13eb8ac90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f53b19665cd5805e73fb7642671f76"><td align="right" class="memItemLeft" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#a38f53b19665cd5805e73fb7642671f76">HOSTS_PATH</a> = &quot;./hosts.txt&quot;</td></tr>
+<tr class="memdesc:a38f53b19665cd5805e73fb7642671f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">hosts文件路径  <a href="config__jar_8c.html#a38f53b19665cd5805e73fb7642671f76">更多...</a><br /></td></tr>
+<tr class="separator:a38f53b19665cd5805e73fb7642671f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bba0e579808f14a30bdc2e7f9e6481b"><td align="right" class="memItemLeft" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__jar_8c.html#a1bba0e579808f14a30bdc2e7f9e6481b">LOG_PATH</a> = NULL</td></tr>
+<tr class="memdesc:a1bba0e579808f14a30bdc2e7f9e6481b"><td class="mdescLeft">&#160;</td><td class="mdescRight">日志文件路径  <a href="config__jar_8c.html#a1bba0e579808f14a30bdc2e7f9e6481b">更多...</a><br /></td></tr>
+<tr class="separator:a1bba0e579808f14a30bdc2e7f9e6481b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a id="details" name="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>命令行参数解析 </p>
+<dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/5/29 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
+<p>本文件中实现了命令行参数解析函数。 </p>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="ac93dfd9f4c9f842917b45c609c8c2da9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93dfd9f4c9f842917b45c609c8c2da9">&#9670;&nbsp;</a></span>init_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_config </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *const *&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>解析命令行参数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>参数个数 </td></tr>
+    <tr><td class="paramname">argv</td><td>参数字符串的数组 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a3d269af16502c465a9c5aa13eb8ac90e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d269af16502c465a9c5aa13eb8ac90e">&#9670;&nbsp;</a></span>CLIENT_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLIENT_PORT = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>本地DNS客户端端口 </p>
+
+</div>
+</div>
+<a id="a38f53b19665cd5805e73fb7642671f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f53b19665cd5805e73fb7642671f76">&#9670;&nbsp;</a></span>HOSTS_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* HOSTS_PATH = &quot;./hosts.txt&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>hosts文件路径 </p>
+
+</div>
+</div>
+<a id="a1ceaf97c18080fa36e2636b7c36b3999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ceaf97c18080fa36e2636b7c36b3999">&#9670;&nbsp;</a></span>LOG_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int LOG_MASK = 15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>log打印等级，一个四位二进制数，从低位到高位依次表示DEBUG、INFO、ERROR、FATAL </p>
+
+</div>
+</div>
+<a id="a1bba0e579808f14a30bdc2e7f9e6481b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bba0e579808f14a30bdc2e7f9e6481b">&#9670;&nbsp;</a></span>LOG_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* LOG_PATH = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>日志文件路径 </p>
+
+</div>
+</div>
+<a id="ad3c5e55d6c17521f90d62fb06fd2d77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3c5e55d6c17521f90d62fb06fd2d77d">&#9670;&nbsp;</a></span>REMOTE_HOST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* REMOTE_HOST = &quot;10.3.9.4&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>远程DNS服务器地址 </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="config__jar_8c.html">config_jar.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img alt="doxygen" class="footer" height="31" src="doxygen.svg" width="104"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

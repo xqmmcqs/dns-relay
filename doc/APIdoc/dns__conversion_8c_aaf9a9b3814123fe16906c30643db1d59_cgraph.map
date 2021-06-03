@@ -1,0 +1,6 @@
+<map id="dnsrr_to_string" name="dnsrr_to_string">
+<area shape="rect" id="node1" title="向字节流中写入一个Resource Record" alt="" coords="5,56,113,83"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="161,5,280,32"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="175,56,267,83"/>
+<area shape="rect" id="node4" href="$dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="175,107,267,133"/>
+</map>

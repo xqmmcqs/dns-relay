@@ -29,7 +29,7 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring);
  * @param pstring DNS报文字节流
  * @return 报文字节流的长度
  */
-unsigned int dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring);
+unsigned dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring);
 
 /**
  * @brief 释放DNS报文RR结构体的空间

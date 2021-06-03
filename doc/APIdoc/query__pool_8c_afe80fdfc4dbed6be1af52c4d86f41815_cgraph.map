@@ -1,0 +1,6 @@
+<map id="qpool_delete" name="qpool_delete">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,100,57"/>
+<area shape="rect" id="node2" href="$dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="148,5,267,32"/>
+<area shape="rect" id="node4" href="$query__pool_8c.html#a6285828da50c58660b6e523ecf3668b5" title=" " alt="" coords="161,56,253,83"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="315,5,416,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="copy_dnsmsg" name="copy_dnsmsg">
+<area shape="rect" id="node1" title="复制DNS报文结构体" alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="156,5,243,32"/>
+</map>

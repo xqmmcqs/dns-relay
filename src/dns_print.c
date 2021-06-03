@@ -20,7 +20,7 @@
 void print_dns_string(const char * pstring, unsigned int len)
 {
     if (!(LOG_MASK & 1))return;
-    log_debug("DNS报文字节流：");
+    log_debug("DNS报文字节流：")
     for (unsigned int i = 0; i < len; i++)
     {
         if (i % 16 == 0)
@@ -87,6 +87,18 @@ static void print_rr_SOA(uint16_t rdlength, const uint8_t * rdata)
 }
 
 /**
+ * @brief 打印MX类型RR的rdata字段
+ *
+ * @param rdlength rdlength字段
+ * @param rdata rdata字段
+ */
+static void print_rr_MX(const uint8_t * rdata)
+{
+    fprintf(log_file, "%" PRIu32 " ", ntohl(*(uint32_t *) rdata));
+    print_rr_CNAME(rdata + 2);
+}
+
+/**
  * @brief 打印Header Section
  *
  * @param phead Header Section
@@ -136,6 +148,8 @@ static void print_dns_rr(const Dns_RR * prr)
         print_rr_A(prr->rdata);
     else if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
         print_rr_CNAME(prr->rdata);
+    else if (prr->type == DNS_TYPE_MX)
+        print_rr_MX(prr->rdata);
     else if (prr->type == DNS_TYPE_AAAA)
         print_rr_AAAA(prr->rdata);
     else if (prr->type == DNS_TYPE_SOA)
@@ -149,7 +163,7 @@ static void print_dns_rr(const Dns_RR * prr)
 void print_dns_message(const Dns_Msg * pmsg)
 {
     if (!(LOG_MASK & 1))return;
-    log_debug("DNS报文内容：");
+    log_debug("DNS报文内容：")
     fprintf(log_file, "=======Header==========\n");
     print_dns_header(pmsg->header);
     fprintf(log_file, "\n");

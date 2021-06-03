@@ -1,0 +1,13 @@
+<map id="include/query_pool.h" name="include/query_pool.h">
+<area shape="rect" id="node1" title="查询池" alt="" coords="81,5,223,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,80,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="35,80,80,107"/>
+<area shape="rect" id="node4" href="$dns__structure_8h.html" title="DNS报文结构" alt="" coords="229,229,341,256"/>
+<area shape="rect" id="node6" href="$index__pool_8h.html" title="序号池" alt="" coords="105,80,199,107"/>
+<area shape="rect" id="node8" href="$cache_8h.html" title="缓存" alt="" coords="299,80,367,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="185,304,250,331"/>
+<area shape="rect" id="node7" href="$queue_8h.html" title="队列" alt="" coords="126,229,194,256"/>
+<area shape="rect" id="node9" title=" " alt="" coords="325,155,387,181"/>
+<area shape="rect" id="node10" href="$rbtree_8h.html" title="红黑树" alt="" coords="411,155,477,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="415,229,473,256"/>
+</map>

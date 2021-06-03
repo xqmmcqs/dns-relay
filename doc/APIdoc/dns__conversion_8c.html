@@ -1,0 +1,1121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: src/dns_conversion.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dns__conversion_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">dns_conversion.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>DNS报文格式转换  
+<a href="#details">更多...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="dns__conversion_8h_source.html">../include/dns_conversion.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">../include/util.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+dns_conversion.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c__incl.png" border="0" usemap="#asrc_2dns__conversion_8c" alt=""/></div>
+<map name="asrc_2dns__conversion_8c" id="asrc_2dns__conversion_8c">
+<area shape="rect" title="DNS报文格式转换" alt="" coords="260,5,407,32"/>
+<area shape="rect" href="dns__conversion_8h.html" title="DNS报文格式转换" alt="" coords="5,80,187,107"/>
+<area shape="rect" title=" " alt="" coords="211,80,277,107"/>
+<area shape="rect" title=" " alt="" coords="301,80,365,107"/>
+<area shape="rect" title=" " alt="" coords="389,80,464,107"/>
+<area shape="rect" href="util_8h.html" title="输出调试信息" alt="" coords="488,80,595,107"/>
+<area shape="rect" href="dns__structure_8h.html" title="DNS报文结构" alt="" coords="40,155,152,181"/>
+<area shape="rect" title=" " alt="" coords="63,229,129,256"/>
+<area shape="rect" title=" " alt="" coords="461,155,523,181"/>
+<area shape="rect" href="config__jar_8h.html" title="命令行参数解析" alt="" coords="547,155,635,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a26eb64cb4cd82b2070e8fe7f000ff6ae"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae">read_uint16</a> (const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a26eb64cb4cd82b2070e8fe7f000ff6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个大端法表示的16位数字  <a href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae">更多...</a><br /></td></tr>
+<tr class="separator:a26eb64cb4cd82b2070e8fe7f000ff6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc6db15347c892e31a6e9162b25fc8b"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a8bc6db15347c892e31a6e9162b25fc8b">read_uint32</a> (const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a8bc6db15347c892e31a6e9162b25fc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个大端法表示的32位数字  <a href="dns__conversion_8c.html#a8bc6db15347c892e31a6e9162b25fc8b">更多...</a><br /></td></tr>
+<tr class="separator:a8bc6db15347c892e31a6e9162b25fc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add1ca591f936273329c3e34668cc7913"><td class="memItemLeft" align="right" valign="top">static unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913">string_to_rrname</a> (uint8_t *pname, const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:add1ca591f936273329c3e34668cc7913"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个NAME字段  <a href="dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913">更多...</a><br /></td></tr>
+<tr class="separator:add1ca591f936273329c3e34668cc7913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba15da5b80dcab3ce985bc3f2270d84b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#aba15da5b80dcab3ce985bc3f2270d84b">string_to_dnshead</a> (<a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a> *phead, const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:aba15da5b80dcab3ce985bc3f2270d84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个Header Section  <a href="dns__conversion_8c.html#aba15da5b80dcab3ce985bc3f2270d84b">更多...</a><br /></td></tr>
+<tr class="separator:aba15da5b80dcab3ce985bc3f2270d84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e0c813cb5f66334e4e27b7bd571698"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a05e0c813cb5f66334e4e27b7bd571698">string_to_dnsque</a> (<a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a> *pque, const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a05e0c813cb5f66334e4e27b7bd571698"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个Question Section  <a href="dns__conversion_8c.html#a05e0c813cb5f66334e4e27b7bd571698">更多...</a><br /></td></tr>
+<tr class="separator:a05e0c813cb5f66334e4e27b7bd571698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cfb0c409e3ec519e218b7f8a709f8bd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a1cfb0c409e3ec519e218b7f8a709f8bd">string_to_dnsrr</a> (<a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *prr, const char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a1cfb0c409e3ec519e218b7f8a709f8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">从字节流中读入一个Resource Record  <a href="dns__conversion_8c.html#a1cfb0c409e3ec519e218b7f8a709f8bd">更多...</a><br /></td></tr>
+<tr class="separator:a1cfb0c409e3ec519e218b7f8a709f8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f89102e256c499ffa19784791cb68f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a0f89102e256c499ffa19784791cb68f6">string_to_dnsmsg</a> (<a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *pmsg, const char *pstring)</td></tr>
+<tr class="memdesc:a0f89102e256c499ffa19784791cb68f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNS报文字节流转换到结构体  <a href="dns__conversion_8c.html#a0f89102e256c499ffa19784791cb68f6">更多...</a><br /></td></tr>
+<tr class="separator:a0f89102e256c499ffa19784791cb68f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892deea8e33cb7ce2c0f336d112abe4e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e">write_uint16</a> (const char *pstring, unsigned *offset, uint16_t num)</td></tr>
+<tr class="memdesc:a892deea8e33cb7ce2c0f336d112abe4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个小端法表示的16位数字  <a href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e">更多...</a><br /></td></tr>
+<tr class="separator:a892deea8e33cb7ce2c0f336d112abe4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803502b08c76912cbf1a675d1d3890a5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5">write_uint32</a> (const char *pstring, unsigned *offset, uint32_t num)</td></tr>
+<tr class="memdesc:a803502b08c76912cbf1a675d1d3890a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个小端法表示的32位数字  <a href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5">更多...</a><br /></td></tr>
+<tr class="separator:a803502b08c76912cbf1a675d1d3890a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b904ddd10df7128f7ec9b1aab19b85c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c">rrname_to_string</a> (const uint8_t *pname, char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a7b904ddd10df7128f7ec9b1aab19b85c"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个NAME字段  <a href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c">更多...</a><br /></td></tr>
+<tr class="separator:a7b904ddd10df7128f7ec9b1aab19b85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51e454f1437c9575b97f84d3d77a1b9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9">dnshead_to_string</a> (const <a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a> *phead, char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:ad51e454f1437c9575b97f84d3d77a1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个Header Section  <a href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9">更多...</a><br /></td></tr>
+<tr class="separator:ad51e454f1437c9575b97f84d3d77a1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b54cf6f19477718d5286330d0cb0cae"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae">dnsque_to_string</a> (const <a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a> *pque, char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:a2b54cf6f19477718d5286330d0cb0cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个Question Section  <a href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae">更多...</a><br /></td></tr>
+<tr class="separator:a2b54cf6f19477718d5286330d0cb0cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf9a9b3814123fe16906c30643db1d59"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59">dnsrr_to_string</a> (const <a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *prr, char *pstring, unsigned *offset)</td></tr>
+<tr class="memdesc:aaf9a9b3814123fe16906c30643db1d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">向字节流中写入一个Resource Record  <a href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59">更多...</a><br /></td></tr>
+<tr class="separator:aaf9a9b3814123fe16906c30643db1d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa893e182a92c2ccf5644c1f8a12fba37"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#aa893e182a92c2ccf5644c1f8a12fba37">dnsmsg_to_string</a> (const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *pmsg, char *pstring)</td></tr>
+<tr class="memdesc:aa893e182a92c2ccf5644c1f8a12fba37"><td class="mdescLeft">&#160;</td><td class="mdescRight">DNS报文结构体转换到字节流  <a href="dns__conversion_8c.html#aa893e182a92c2ccf5644c1f8a12fba37">更多...</a><br /></td></tr>
+<tr class="separator:aa893e182a92c2ccf5644c1f8a12fba37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70f17de617dc9a8a1a87e966b35bf273"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273">destroy_dnsrr</a> (<a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *prr)</td></tr>
+<tr class="memdesc:a70f17de617dc9a8a1a87e966b35bf273"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放DNS报文RR结构体的空间  <a href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273">更多...</a><br /></td></tr>
+<tr class="separator:a70f17de617dc9a8a1a87e966b35bf273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a014b4d840d6c7d7242d7b26ccd32bda8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a014b4d840d6c7d7242d7b26ccd32bda8">destroy_dnsmsg</a> (<a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *pmsg)</td></tr>
+<tr class="memdesc:a014b4d840d6c7d7242d7b26ccd32bda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">释放DNS报文结构体的空间  <a href="dns__conversion_8c.html#a014b4d840d6c7d7242d7b26ccd32bda8">更多...</a><br /></td></tr>
+<tr class="separator:a014b4d840d6c7d7242d7b26ccd32bda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574100917e06ad98a9e6274a41cddcef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef">copy_dnsrr</a> (const <a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *src)</td></tr>
+<tr class="memdesc:a574100917e06ad98a9e6274a41cddcef"><td class="mdescLeft">&#160;</td><td class="mdescRight">复制DNS报文RR结构体  <a href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef">更多...</a><br /></td></tr>
+<tr class="separator:a574100917e06ad98a9e6274a41cddcef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f423fc9dae75749c48394d2c5fd059"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__conversion_8c.html#ad4f423fc9dae75749c48394d2c5fd059">copy_dnsmsg</a> (const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *src)</td></tr>
+<tr class="memdesc:ad4f423fc9dae75749c48394d2c5fd059"><td class="mdescLeft">&#160;</td><td class="mdescRight">复制DNS报文结构体  <a href="dns__conversion_8c.html#ad4f423fc9dae75749c48394d2c5fd059">更多...</a><br /></td></tr>
+<tr class="separator:ad4f423fc9dae75749c48394d2c5fd059"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>DNS报文格式转换 </p>
+<dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
+<dl class="section date"><dt>日期</dt><dd>2021/4/3 </dd></dl>
+<dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
+<p>本文件的内容是DNS报文结构体与字节流之间的转换、释放报文结构体空间和复制报文结构体的实现。 </p>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="ad4f423fc9dae75749c48394d2c5fd059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f423fc9dae75749c48394d2c5fd059">&#9670;&nbsp;</a></span>copy_dnsmsg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a>* copy_dnsmsg </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>复制DNS报文结构体 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>源结构体 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>复制后的结构体 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>为新的结构体分配了空间 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_ad4f423fc9dae75749c48394d2c5fd059_cgraph.png" border="0" usemap="#adns__conversion_8c_ad4f423fc9dae75749c48394d2c5fd059_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_ad4f423fc9dae75749c48394d2c5fd059_cgraph" id="adns__conversion_8c_ad4f423fc9dae75749c48394d2c5fd059_cgraph">
+<area shape="rect" title="复制DNS报文结构体" alt="" coords="5,5,108,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="156,5,243,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a574100917e06ad98a9e6274a41cddcef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574100917e06ad98a9e6274a41cddcef">&#9670;&nbsp;</a></span>copy_dnsrr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a>* copy_dnsrr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>复制DNS报文RR结构体 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>源RR结构体 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>复制后的RR结构体 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>为新的RR结构体分配了空间 </dd></dl>
+
+</div>
+</div>
+<a id="a014b4d840d6c7d7242d7b26ccd32bda8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a014b4d840d6c7d7242d7b26ccd32bda8">&#9670;&nbsp;</a></span>destroy_dnsmsg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void destroy_dnsmsg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>pmsg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>释放DNS报文结构体的空间 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pmsg</td><td>DNS报文结构体 </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_a014b4d840d6c7d7242d7b26ccd32bda8_cgraph.png" border="0" usemap="#adns__conversion_8c_a014b4d840d6c7d7242d7b26ccd32bda8_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_a014b4d840d6c7d7242d7b26ccd32bda8_cgraph" id="adns__conversion_8c_a014b4d840d6c7d7242d7b26ccd32bda8_cgraph">
+<area shape="rect" title="释放DNS报文结构体的空间" alt="" coords="5,5,124,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="172,5,273,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a70f17de617dc9a8a1a87e966b35bf273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70f17de617dc9a8a1a87e966b35bf273">&#9670;&nbsp;</a></span>destroy_dnsrr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void destroy_dnsrr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *&#160;</td>
+          <td class="paramname"><em>prr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>释放DNS报文RR结构体的空间 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prr</td><td>DNS报文RR结构体 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad51e454f1437c9575b97f84d3d77a1b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51e454f1437c9575b97f84d3d77a1b9">&#9670;&nbsp;</a></span>dnshead_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void dnshead_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a> *&#160;</td>
+          <td class="paramname"><em>phead</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个Header Section </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">phead</td><td>Header Section </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加到Header Section后一个位置 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_ad51e454f1437c9575b97f84d3d77a1b9_cgraph.png" border="0" usemap="#adns__conversion_8c_ad51e454f1437c9575b97f84d3d77a1b9_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_ad51e454f1437c9575b97f84d3d77a1b9_cgraph" id="adns__conversion_8c_ad51e454f1437c9575b97f84d3d77a1b9_cgraph">
+<area shape="rect" title="向字节流中写入一个Header Section" alt="" coords="5,5,133,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="181,5,273,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa893e182a92c2ccf5644c1f8a12fba37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa893e182a92c2ccf5644c1f8a12fba37">&#9670;&nbsp;</a></span>dnsmsg_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned dnsmsg_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>pmsg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pstring</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DNS报文结构体转换到字节流 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pmsg</td><td>DNS报文结构体 </td></tr>
+    <tr><td class="paramname">pstring</td><td>DNS报文字节流 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>报文字节流的长度 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_aa893e182a92c2ccf5644c1f8a12fba37_cgraph.png" border="0" usemap="#adns__conversion_8c_aa893e182a92c2ccf5644c1f8a12fba37_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_aa893e182a92c2ccf5644c1f8a12fba37_cgraph" id="adns__conversion_8c_aa893e182a92c2ccf5644c1f8a12fba37_cgraph">
+<area shape="rect" title="DNS报文结构体转换到字节流" alt="" coords="5,56,131,83"/>
+<area shape="rect" href="dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="179,5,307,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="182,56,303,83"/>
+<area shape="rect" href="dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="189,107,297,133"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="368,31,460,57"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="355,81,473,108"/>
+<area shape="rect" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="368,132,460,159"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2b54cf6f19477718d5286330d0cb0cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b54cf6f19477718d5286330d0cb0cae">&#9670;&nbsp;</a></span>dnsque_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void dnsque_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a> *&#160;</td>
+          <td class="paramname"><em>pque</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个Question Section </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pque</td><td>Question Section </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加到Question Section后一个位置 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_a2b54cf6f19477718d5286330d0cb0cae_cgraph.png" border="0" usemap="#adns__conversion_8c_a2b54cf6f19477718d5286330d0cb0cae_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_a2b54cf6f19477718d5286330d0cb0cae_cgraph" id="adns__conversion_8c_a2b54cf6f19477718d5286330d0cb0cae_cgraph">
+<area shape="rect" title="向字节流中写入一个Question Section" alt="" coords="5,31,127,57"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="175,5,293,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="188,56,280,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aaf9a9b3814123fe16906c30643db1d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf9a9b3814123fe16906c30643db1d59">&#9670;&nbsp;</a></span>dnsrr_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void dnsrr_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *&#160;</td>
+          <td class="paramname"><em>prr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个Resource Record </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prr</td><td>Resource Record </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加到Resource Record后一个位置 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_aaf9a9b3814123fe16906c30643db1d59_cgraph.png" border="0" usemap="#adns__conversion_8c_aaf9a9b3814123fe16906c30643db1d59_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_aaf9a9b3814123fe16906c30643db1d59_cgraph" id="adns__conversion_8c_aaf9a9b3814123fe16906c30643db1d59_cgraph">
+<area shape="rect" title="向字节流中写入一个Resource Record" alt="" coords="5,56,113,83"/>
+<area shape="rect" href="dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="161,5,280,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="175,56,267,83"/>
+<area shape="rect" href="dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="175,107,267,133"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a26eb64cb4cd82b2070e8fe7f000ff6ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26eb64cb4cd82b2070e8fe7f000ff6ae">&#9670;&nbsp;</a></span>read_uint16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint16_t read_uint16 </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个大端法表示的16位数字 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>从(pstring + *offset)开始的16位数字 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加2 </dd></dl>
+
+</div>
+</div>
+<a id="a8bc6db15347c892e31a6e9162b25fc8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bc6db15347c892e31a6e9162b25fc8b">&#9670;&nbsp;</a></span>read_uint32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t read_uint32 </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个大端法表示的32位数字 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>从(pstring + *offset)开始的32位数字 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加4 </dd></dl>
+
+</div>
+</div>
+<a id="a7b904ddd10df7128f7ec9b1aab19b85c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b904ddd10df7128f7ec9b1aab19b85c">&#9670;&nbsp;</a></span>rrname_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void rrname_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>pname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个NAME字段 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pname</td><td>NAME字段 </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加到NAME字段后一个位置 </dd></dl>
+
+</div>
+</div>
+<a id="aba15da5b80dcab3ce985bc3f2270d84b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba15da5b80dcab3ce985bc3f2270d84b">&#9670;&nbsp;</a></span>string_to_dnshead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void string_to_dnshead </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#aa4f1febe6cb2e2e716f373385a3566dd">Dns_Header</a> *&#160;</td>
+          <td class="paramname"><em>phead</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个Header Section </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">phead</td><td>Header Section </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加到Header Section后一个位置 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_aba15da5b80dcab3ce985bc3f2270d84b_cgraph.png" border="0" usemap="#adns__conversion_8c_aba15da5b80dcab3ce985bc3f2270d84b_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_aba15da5b80dcab3ce985bc3f2270d84b_cgraph" id="adns__conversion_8c_aba15da5b80dcab3ce985bc3f2270d84b_cgraph">
+<area shape="rect" title="从字节流中读入一个Header Section" alt="" coords="5,5,133,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="181,5,271,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0f89102e256c499ffa19784791cb68f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f89102e256c499ffa19784791cb68f6">&#9670;&nbsp;</a></span>string_to_dnsmsg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void string_to_dnsmsg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *&#160;</td>
+          <td class="paramname"><em>pmsg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DNS报文字节流转换到结构体 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pmsg</td><td>DNS报文结构体 </td></tr>
+    <tr><td class="paramname">pstring</td><td>DNS报文字节流 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>为Header Section、Question Section和Resource Record分配了空间 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph.png" border="0" usemap="#adns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph" id="adns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph">
+<area shape="rect" title="DNS报文字节流转换到结构体" alt="" coords="5,69,131,96"/>
+<area shape="rect" href="dns__conversion_8c.html#aba15da5b80dcab3ce985bc3f2270d84b" title="从字节流中读入一个Header Section" alt="" coords="348,5,476,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a05e0c813cb5f66334e4e27b7bd571698" title="从字节流中读入一个Question Section" alt="" coords="179,69,300,96"/>
+<area shape="rect" href="dns__conversion_8c.html#a1cfb0c409e3ec519e218b7f8a709f8bd" title="从字节流中读入一个Resource Record" alt="" coords="185,132,293,159"/>
+<area shape="rect" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="524,81,613,108"/>
+<area shape="rect" href="dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913" title="从字节流中读入一个NAME字段" alt="" coords="353,107,471,133"/>
+<area shape="rect" href="dns__conversion_8c.html#a8bc6db15347c892e31a6e9162b25fc8b" title="从字节流中读入一个大端法表示的32位数字" alt="" coords="367,208,457,235"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a05e0c813cb5f66334e4e27b7bd571698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e0c813cb5f66334e4e27b7bd571698">&#9670;&nbsp;</a></span>string_to_dnsque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void string_to_dnsque </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#a06e3c3727e6fc5c1df11c165d649df5c">Dns_Que</a> *&#160;</td>
+          <td class="paramname"><em>pque</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个Question Section </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pque</td><td>Question Section </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加到Question Section后一个位置；为QNAME字段分配了空间 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_a05e0c813cb5f66334e4e27b7bd571698_cgraph.png" border="0" usemap="#adns__conversion_8c_a05e0c813cb5f66334e4e27b7bd571698_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_a05e0c813cb5f66334e4e27b7bd571698_cgraph" id="adns__conversion_8c_a05e0c813cb5f66334e4e27b7bd571698_cgraph">
+<area shape="rect" title="从字节流中读入一个Question Section" alt="" coords="5,5,127,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="341,5,431,32"/>
+<area shape="rect" href="dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913" title="从字节流中读入一个NAME字段" alt="" coords="175,31,293,57"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1cfb0c409e3ec519e218b7f8a709f8bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cfb0c409e3ec519e218b7f8a709f8bd">&#9670;&nbsp;</a></span>string_to_dnsrr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void string_to_dnsrr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="dns__structure_8h.html#aaa587ac980f7833500ee4367842bda36">Dns_RR</a> *&#160;</td>
+          <td class="paramname"><em>prr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个Resource Record </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prr</td><td>Resource Record </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加到Resource Record后一个位置；为NAME字段和RDATA字段分配了空间 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_a1cfb0c409e3ec519e218b7f8a709f8bd_cgraph.png" border="0" usemap="#adns__conversion_8c_a1cfb0c409e3ec519e218b7f8a709f8bd_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_a1cfb0c409e3ec519e218b7f8a709f8bd_cgraph" id="adns__conversion_8c_a1cfb0c409e3ec519e218b7f8a709f8bd_cgraph">
+<area shape="rect" title="从字节流中读入一个Resource Record" alt="" coords="5,23,113,49"/>
+<area shape="rect" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="328,23,417,49"/>
+<area shape="rect" href="dns__conversion_8c.html#a8bc6db15347c892e31a6e9162b25fc8b" title="从字节流中读入一个大端法表示的32位数字" alt="" coords="176,23,265,49"/>
+<area shape="rect" href="dns__conversion_8c.html#add1ca591f936273329c3e34668cc7913" title="从字节流中读入一个NAME字段" alt="" coords="161,73,280,100"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="add1ca591f936273329c3e34668cc7913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add1ca591f936273329c3e34668cc7913">&#9670;&nbsp;</a></span>string_to_rrname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static unsigned string_to_rrname </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>pname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>从字节流中读入一个NAME字段 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pname</td><td>NAME字段 </td></tr>
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>NAME字段总长度 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>读入后，偏移量增加到NAME字段后一个位置 </dd></dl>
+<div class="dynheader">
+函数调用图:</div>
+<div class="dyncontent">
+<div class="center"><img src="dns__conversion_8c_add1ca591f936273329c3e34668cc7913_cgraph.png" border="0" usemap="#adns__conversion_8c_add1ca591f936273329c3e34668cc7913_cgraph" alt=""/></div>
+<map name="adns__conversion_8c_add1ca591f936273329c3e34668cc7913_cgraph" id="adns__conversion_8c_add1ca591f936273329c3e34668cc7913_cgraph">
+<area shape="rect" title="从字节流中读入一个NAME字段" alt="" coords="5,5,124,32"/>
+<area shape="rect" href="dns__conversion_8c.html#a26eb64cb4cd82b2070e8fe7f000ff6ae" title="从字节流中读入一个大端法表示的16位数字" alt="" coords="172,5,261,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a892deea8e33cb7ce2c0f336d112abe4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a892deea8e33cb7ce2c0f336d112abe4e">&#9670;&nbsp;</a></span>write_uint16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void write_uint16 </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个小端法表示的16位数字 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+    <tr><td class="paramname">num</td><td>待写入的数字 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加2 </dd></dl>
+
+</div>
+</div>
+<a id="a803502b08c76912cbf1a675d1d3890a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803502b08c76912cbf1a675d1d3890a5">&#9670;&nbsp;</a></span>write_uint32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void write_uint32 </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pstring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned *&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>向字节流中写入一个小端法表示的32位数字 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstring</td><td>字节流起点 </td></tr>
+    <tr><td class="paramname">offset</td><td>字节流偏移量 </td></tr>
+    <tr><td class="paramname">num</td><td>待写入的数字 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>写入后，偏移量增加4 </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dns__conversion_8c.html">dns_conversion.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

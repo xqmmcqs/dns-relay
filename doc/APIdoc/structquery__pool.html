@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: query_pool结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structquery__pool.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">成员变量</a>  </div>
+  <div class="headertitle">
+<div class="title">query_pool结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>DNS查询池  
+ <a href="structquery__pool.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="query__pool_8h_source.html">query_pool.h</a>&gt;</code></p>
+<div class="dynheader">
+query_pool 的协作图:</div>
+<div class="dyncontent">
+<div class="center"><img src="structquery__pool__coll__graph.png" border="0" usemap="#aquery__pool_coll__map" alt="Collaboration graph"/></div>
+<map name="aquery__pool_coll__map" id="aquery__pool_coll__map">
+<area shape="rect" title="DNS查询池" alt="" coords="327,603,413,629"/>
+<area shape="rect" href="structdns__query.html" title="DNS查询结构体" alt="" coords="127,237,210,264"/>
+<area shape="rect" href="structdns__msg.html" title="DNS报文结构体" alt="" coords="131,95,206,121"/>
+<area shape="rect" href="structdns__header.html" title="报文Header Section结构体" alt="" coords="5,5,95,32"/>
+<area shape="rect" href="structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="295,5,354,32"/>
+<area shape="rect" href="structrbtree__value.html" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="278,95,371,121"/>
+<area shape="rect" href="structdns__question.html" title="报文Question Section结构体，以链表表示" alt="" coords="119,5,218,32"/>
+<area shape="rect" href="structindex__pool.html" title="序号池" alt="" coords="465,513,549,540"/>
+<area shape="rect" href="structqueue.html" title="循环队列" alt="" coords="435,409,492,436"/>
+<area shape="rect" href="structindex__.html" title="序号结构体" alt="" coords="516,409,576,436"/>
+<area shape="rect" href="structcache__.html" title="缓存结构体" alt="" coords="283,513,347,540"/>
+<area shape="rect" href="structdns__rr__linklist.html" title="红黑树节点链表" alt="" coords="311,185,413,212"/>
+<area shape="rect" href="structrbtree.html" title="红黑树" alt="" coords="356,409,411,436"/>
+<area shape="rect" href="structrbtree__node.html" title="红黑树的节点" alt="" coords="347,297,438,323"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">图例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+成员变量</h2></td></tr>
+<tr class="memitem:a7f9f953747a71094cb8d56e4a034e2af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="query__pool_8h.html#ad1d0c498b52e34a79840d0a07ba5db36">Dns_Query</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a7f9f953747a71094cb8d56e4a034e2af">pool</a> [<a class="el" href="query__pool_8h.html#ac92c63ca2d642f94c4ce70367b172f0b">QUERY_POOL_MAX_SIZE</a>]</td></tr>
+<tr class="memdesc:a7f9f953747a71094cb8d56e4a034e2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">查询池  <a href="structquery__pool.html#a7f9f953747a71094cb8d56e4a034e2af">更多...</a><br /></td></tr>
+<tr class="separator:a7f9f953747a71094cb8d56e4a034e2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bb533ff216fb17d67d1cf6571176750"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a3bb533ff216fb17d67d1cf6571176750">count</a></td></tr>
+<tr class="memdesc:a3bb533ff216fb17d67d1cf6571176750"><td class="mdescLeft">&#160;</td><td class="mdescRight">池内查询数量  <a href="structquery__pool.html#a3bb533ff216fb17d67d1cf6571176750">更多...</a><br /></td></tr>
+<tr class="separator:a3bb533ff216fb17d67d1cf6571176750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4264b4238f5a6e65cb0eceadb97736"><td class="memItemLeft" align="right" valign="top"><a class="el" href="queue_8h.html#a8560ae2ddf510ea6643f85a929bffa48">Queue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a2a4264b4238f5a6e65cb0eceadb97736">queue</a></td></tr>
+<tr class="memdesc:a2a4264b4238f5a6e65cb0eceadb97736"><td class="mdescLeft">&#160;</td><td class="mdescRight">未分配的查询ID的队列  <a href="structquery__pool.html#a2a4264b4238f5a6e65cb0eceadb97736">更多...</a><br /></td></tr>
+<tr class="separator:a2a4264b4238f5a6e65cb0eceadb97736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69aa7a98cbcba537a4e41aa96ddca5a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="index__pool_8h.html#ab81c1ac5334273e44196a19a27a2bf20">Index_Pool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a69aa7a98cbcba537a4e41aa96ddca5a4">ipool</a></td></tr>
+<tr class="memdesc:a69aa7a98cbcba537a4e41aa96ddca5a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">序号池  <a href="structquery__pool.html#a69aa7a98cbcba537a4e41aa96ddca5a4">更多...</a><br /></td></tr>
+<tr class="separator:a69aa7a98cbcba537a4e41aa96ddca5a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a978d7fe82bc7edb1089fc5642062fd66"><td class="memItemLeft" align="right" valign="top">uv_loop_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a978d7fe82bc7edb1089fc5642062fd66">loop</a></td></tr>
+<tr class="memdesc:a978d7fe82bc7edb1089fc5642062fd66"><td class="mdescLeft">&#160;</td><td class="mdescRight">事件循环  <a href="structquery__pool.html#a978d7fe82bc7edb1089fc5642062fd66">更多...</a><br /></td></tr>
+<tr class="separator:a978d7fe82bc7edb1089fc5642062fd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1a374ebd2f9080b03bb20c618565d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#aef1a374ebd2f9080b03bb20c618565d7">cache</a></td></tr>
+<tr class="memdesc:aef1a374ebd2f9080b03bb20c618565d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">缓存  <a href="structquery__pool.html#aef1a374ebd2f9080b03bb20c618565d7">更多...</a><br /></td></tr>
+<tr class="separator:aef1a374ebd2f9080b03bb20c618565d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a713b0ec1429d9c019ddfff562ecdea"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a5a713b0ec1429d9c019ddfff562ecdea">full</a> )(struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>)</td></tr>
+<tr class="memdesc:a5a713b0ec1429d9c019ddfff562ecdea"><td class="mdescLeft">&#160;</td><td class="mdescRight">判断查询池是否已满  <a href="structquery__pool.html#a5a713b0ec1429d9c019ddfff562ecdea">更多...</a><br /></td></tr>
+<tr class="separator:a5a713b0ec1429d9c019ddfff562ecdea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6302249a25719dc18f725c4b19555da8"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a6302249a25719dc18f725c4b19555da8">insert</a> )(struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const struct sockaddr *addr, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td></tr>
+<tr class="memdesc:a6302249a25719dc18f725c4b19555da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">向查询池中加入新查询  <a href="structquery__pool.html#a6302249a25719dc18f725c4b19555da8">更多...</a><br /></td></tr>
+<tr class="separator:a6302249a25719dc18f725c4b19555da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2779e835edd34265fa9d0cf89ae7465a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a2779e835edd34265fa9d0cf89ae7465a">finish</a> )(struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td></tr>
+<tr class="memdesc:a2779e835edd34265fa9d0cf89ae7465a"><td class="mdescLeft">&#160;</td><td class="mdescRight">结束查询  <a href="structquery__pool.html#a2779e835edd34265fa9d0cf89ae7465a">更多...</a><br /></td></tr>
+<tr class="separator:a2779e835edd34265fa9d0cf89ae7465a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a989f35457d5e3c08c38c35bbc70db2a4"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structquery__pool.html#a989f35457d5e3c08c38c35bbc70db2a4">delete</a> )(struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, uint16_t id)</td></tr>
+<tr class="memdesc:a989f35457d5e3c08c38c35bbc70db2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">删除查询  <a href="structquery__pool.html#a989f35457d5e3c08c38c35bbc70db2a4">更多...</a><br /></td></tr>
+<tr class="separator:a989f35457d5e3c08c38c35bbc70db2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>DNS查询池 </p>
+</div><h2 class="groupheader">结构体成员变量说明</h2>
+<a id="aef1a374ebd2f9080b03bb20c618565d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1a374ebd2f9080b03bb20c618565d7">&#9670;&nbsp;</a></span>cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a>* query_pool::cache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>缓存 </p>
+
+</div>
+</div>
+<a id="a3bb533ff216fb17d67d1cf6571176750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bb533ff216fb17d67d1cf6571176750">&#9670;&nbsp;</a></span>count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned short query_pool::count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>池内查询数量 </p>
+
+</div>
+</div>
+<a id="a989f35457d5e3c08c38c35bbc70db2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a989f35457d5e3c08c38c35bbc70db2a4">&#9670;&nbsp;</a></span>delete</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* query_pool::delete) (struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, uint16_t id)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>删除查询 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qpool</td><td>查询池 </td></tr>
+    <tr><td class="paramname">id</td><td>待删除的查询ID </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2779e835edd34265fa9d0cf89ae7465a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2779e835edd34265fa9d0cf89ae7465a">&#9670;&nbsp;</a></span>finish</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* query_pool::finish) (struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>结束查询 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qpool</td><td>查询池 </td></tr>
+    <tr><td class="paramname">msg</td><td>查询报文 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a713b0ec1429d9c019ddfff562ecdea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a713b0ec1429d9c019ddfff562ecdea">&#9670;&nbsp;</a></span>full</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool(* query_pool::full) (struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>判断查询池是否已满 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qpool</td><td>查询池 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>如果查询池已满，返回true </dd></dl>
+
+</div>
+</div>
+<a id="a6302249a25719dc18f725c4b19555da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6302249a25719dc18f725c4b19555da8">&#9670;&nbsp;</a></span>insert</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* query_pool::insert) (struct <a class="el" href="structquery__pool.html">query_pool</a> *<a class="el" href="main_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, const struct sockaddr *addr, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>向查询池中加入新查询 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qpool</td><td>查询池 </td></tr>
+    <tr><td class="paramname">addr</td><td>请求方地址 </td></tr>
+    <tr><td class="paramname">msg</td><td>查询报文 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a69aa7a98cbcba537a4e41aa96ddca5a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69aa7a98cbcba537a4e41aa96ddca5a4">&#9670;&nbsp;</a></span>ipool</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="index__pool_8h.html#ab81c1ac5334273e44196a19a27a2bf20">Index_Pool</a>* query_pool::ipool</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>序号池 </p>
+
+</div>
+</div>
+<a id="a978d7fe82bc7edb1089fc5642062fd66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a978d7fe82bc7edb1089fc5642062fd66">&#9670;&nbsp;</a></span>loop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uv_loop_t* query_pool::loop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>事件循环 </p>
+
+</div>
+</div>
+<a id="a7f9f953747a71094cb8d56e4a034e2af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f9f953747a71094cb8d56e4a034e2af">&#9670;&nbsp;</a></span>pool</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="query__pool_8h.html#ad1d0c498b52e34a79840d0a07ba5db36">Dns_Query</a>* query_pool::pool[<a class="el" href="query__pool_8h.html#ac92c63ca2d642f94c4ce70367b172f0b">QUERY_POOL_MAX_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>查询池 </p>
+
+</div>
+</div>
+<a id="a2a4264b4238f5a6e65cb0eceadb97736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4264b4238f5a6e65cb0eceadb97736">&#9670;&nbsp;</a></span>queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="queue_8h.html#a8560ae2ddf510ea6643f85a929bffa48">Queue</a>* query_pool::queue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>未分配的查询ID的队列 </p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>include/<a class="el" href="query__pool_8h_source.html">query_pool.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structquery__pool.html">query_pool</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

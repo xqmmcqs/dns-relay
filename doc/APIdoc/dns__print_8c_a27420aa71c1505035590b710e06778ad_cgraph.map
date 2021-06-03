@@ -1,0 +1,8 @@
+<map id="print_dns_rr" name="print_dns_rr">
+<area shape="rect" id="node1" title="打印Resource Record" alt="" coords="5,107,96,133"/>
+<area shape="rect" id="node2" href="$dns__print_8c.html#ac21f9aaff6cb58fc94996ab28134dd4e" title="打印A类型RR的rdata字段" alt="" coords="157,5,236,32"/>
+<area shape="rect" id="node3" href="$dns__print_8c.html#a1762e54b4c8f5b77fd05f11a587c668e" title="打印AAAA类型RR的rdata字段" alt="" coords="144,56,249,83"/>
+<area shape="rect" id="node4" href="$dns__print_8c.html#a51cb3312021d99b0f9d1f3f680750baf" title="打印CNAME类型RR的rdata字段" alt="" coords="297,157,416,184"/>
+<area shape="rect" id="node5" href="$dns__print_8c.html#a7d2f7aadf05efe5e1736eeae47b4f9b7" title="打印MX类型RR的rdata字段" alt="" coords="152,157,241,184"/>
+<area shape="rect" id="node6" href="$dns__print_8c.html#a5bc6e539fe23203d4a35b5ecba60fe7c" title="打印SOA类型RR的rdata字段" alt="" coords="148,208,245,235"/>
+</map>

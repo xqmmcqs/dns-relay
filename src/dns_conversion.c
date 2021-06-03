@@ -154,6 +154,22 @@ static void string_to_dnsrr(Dns_RR * prr, const char * pstring, unsigned * offse
         memcpy(prr->rdata, temp, prr->rdlength);
         free(temp);
     }
+    else if (prr->type == DNS_TYPE_MX) // RFC1035 3.3.9. MX RDATA format
+    {
+        uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
+        if (!temp)
+            log_fatal("内存分配错误")
+        unsigned temp_offset = *offset + 2;
+        prr->rdlength = string_to_rrname(temp, pstring, &temp_offset);
+        prr->rdata = (uint8_t *) calloc(prr->rdlength + 2, sizeof(uint8_t));
+        if (!prr->rdata)
+            log_fatal("内存分配错误")
+        memcpy(prr->rdata, pstring + *offset, 2);
+        memcpy(prr->rdata + 2, temp, prr->rdlength);
+        prr->rdlength += 2;
+        *offset = temp_offset;
+        free(temp);
+    }
     else if (prr->type == DNS_TYPE_SOA) // RFC1035 3.3.13. SOA RDATA format
     {
         uint8_t * temp = (uint8_t *) calloc(DNS_RR_NAME_MAX_SIZE, sizeof(uint8_t));
@@ -187,7 +203,7 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
     if (!pmsg->header)
         log_fatal("内存分配错误")
     string_to_dnshead(pmsg->header, pstring, &offset);
-    Dns_Que * que_tail = NULL; ///< Question Section链表的尾指针
+    Dns_Que * que_tail = NULL; // Question Section链表的尾指针
     for (int i = 0; i < pmsg->header->qdcount; ++i)
     {
         Dns_Que * temp = (Dns_Que *) calloc(1, sizeof(Dns_Que));
@@ -203,7 +219,7 @@ void string_to_dnsmsg(Dns_Msg * pmsg, const char * pstring)
         string_to_dnsque(que_tail, pstring, &offset);
     }
     int tot = pmsg->header->ancount + pmsg->header->nscount + pmsg->header->arcount;
-    Dns_RR * rr_tail = NULL; ///< Resource Record链表的尾指针
+    Dns_RR * rr_tail = NULL; // Resource Record链表的尾指针
     for (int i = 0; i < tot; ++i)
     {
         Dns_RR * temp = (Dns_RR *) calloc(1, sizeof(Dns_RR));
@@ -330,6 +346,13 @@ static void dnsrr_to_string(const Dns_RR * prr, char * pstring, unsigned * offse
     write_uint16(pstring, offset, prr->rdlength);
     if (prr->type == DNS_TYPE_CNAME || prr->type == DNS_TYPE_NS)
         rrname_to_string(prr->rdata, pstring, offset);
+    else if (prr->type == DNS_TYPE_MX)
+    {
+        unsigned temp_offset = *offset + 2;
+        rrname_to_string(prr->rdata + 2, pstring, &temp_offset);
+        memcpy(pstring + *offset, prr->rdata, 2);
+        *offset = temp_offset;
+    }
     else if (prr->type == DNS_TYPE_SOA)
     {
         rrname_to_string(prr->rdata, pstring, offset);
@@ -344,7 +367,7 @@ static void dnsrr_to_string(const Dns_RR * prr, char * pstring, unsigned * offse
     }
 }
 
-unsigned int dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring)
+unsigned dnsmsg_to_string(const Dns_Msg * pmsg, char * pstring)
 {
     unsigned offset = 0;
     dnshead_to_string(pmsg->header, pstring, &offset);
@@ -379,7 +402,7 @@ void destroy_dnsrr(Dns_RR * prr)
 
 void destroy_dnsmsg(Dns_Msg * pmsg)
 {
-    log_debug("释放DNS报文空间 ID: 0x%x", pmsg->header->id)
+    log_debug("释放DNS报文空间 ID: 0x%04x", pmsg->header->id)
     free(pmsg->header);
     Dns_Que * now = pmsg->que;
     while (now != NULL)

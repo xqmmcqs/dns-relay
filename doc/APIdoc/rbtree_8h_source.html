@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: include/rbtree.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('rbtree_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">rbtree.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="rbtree_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef DNSR_RBTREE_H</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define DNSR_RBTREE_H</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dns__structure_8h.html">dns_structure.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1c">   27</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf77fb67151d0c18d397069ad8c271ba3">   29</a></span>&#160;    <a class="code" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf77fb67151d0c18d397069ad8c271ba3">BLACK</a>, <a class="code" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf80f9a890089d211842d59625e561f88">RED</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf80f9a890089d211842d59625e561f88">   30</a></span>&#160;} <a class="code" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1c">Color</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structrbtree__value.html">   33</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structrbtree__value.html">rbtree_value</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structrbtree__value.html#a980f40ea1a2c1d9c5dfeaef5b22a9333">   35</a></span>&#160;    <a class="code" href="structdns__rr.html">Dns_RR</a> * <a class="code" href="structrbtree__value.html#a980f40ea1a2c1d9c5dfeaef5b22a9333">rr</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structrbtree__value.html#a103a6932e7b017ab2bb2f2f0c4371588">   36</a></span>&#160;    uint16_t <a class="code" href="structrbtree__value.html#a103a6932e7b017ab2bb2f2f0c4371588">ancount</a>; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structrbtree__value.html#a1c01903b37bfbc418b7aecfde73def5e">   37</a></span>&#160;    uint16_t <a class="code" href="structrbtree__value.html#a1c01903b37bfbc418b7aecfde73def5e">nscount</a>; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structrbtree__value.html#a281048e9c9b069cfc1ba51d6933c751e">   38</a></span>&#160;    uint16_t <a class="code" href="structrbtree__value.html#a281048e9c9b069cfc1ba51d6933c751e">arcount</a>; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structrbtree__value.html#a3aa193f1c82fe7902ca1999fa0b294d2">   39</a></span>&#160;    uint8_t <a class="code" href="structrbtree__value.html#a3aa193f1c82fe7902ca1999fa0b294d2">type</a>; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="rbtree_8h.html#a3ad9484222f2163212fb74af65a20935">   40</a></span>&#160;} <a class="code" href="rbtree_8h.html#a3ad9484222f2163212fb74af65a20935">Rbtree_Value</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html">   43</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html#a4b4166651ac3380d5a07e79b9c0ab309">   45</a></span>&#160;    <a class="code" href="structrbtree__value.html">Rbtree_Value</a> * <a class="code" href="structdns__rr__linklist.html#a4b4166651ac3380d5a07e79b9c0ab309">value</a>; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html#a66d02cb7e807973430bfd886f6f8950f">   46</a></span>&#160;    time_t <a class="code" href="structdns__rr__linklist.html#a66d02cb7e807973430bfd886f6f8950f">expire_time</a>; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html#a5a9a2df278fdc066438864ee9ccd3654">   47</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * <a class="code" href="structdns__rr__linklist.html#a5a9a2df278fdc066438864ee9ccd3654">next</a>; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html#abae45b0aeaca4038b755730b3e2a4e4c">   54</a></span>&#160;    void (* <a class="code" href="structdns__rr__linklist.html#abae45b0aeaca4038b755730b3e2a4e4c">insert</a>)(<span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * list, <span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * new_list_node);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structdns__rr__linklist.html#a54d9bd561cb1e3de763a0c8b14b2a386">   61</a></span>&#160;    void (* <a class="code" href="structdns__rr__linklist.html#a54d9bd561cb1e3de763a0c8b14b2a386">delete_next</a>)(<span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * list);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * (* query_next)(<span class="keyword">struct </span><a class="code" href="structdns__rr__linklist.html">dns_rr_linklist</a> * list, <span class="keyword">const</span> uint8_t * qname, <span class="keyword">const</span> uint16_t qtype);</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="rbtree_8h.html#a9d6d4f7021c664e08647db63cd57901c">   72</a></span>&#160;} <a class="code" href="rbtree_8h.html#a9d6d4f7021c664e08647db63cd57901c">Dns_RR_LinkList</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structrbtree__node.html">   75</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structrbtree__node.html">rbtree_node</a></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structrbtree__node.html#abbf3a913a39e9a9a42323e15817c12ad">   77</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="structrbtree__node.html#abbf3a913a39e9a9a42323e15817c12ad">key</a>; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="structrbtree__node.html#a11295b11d2e7b3b34ae5fa4405b55ec8">   78</a></span>&#160;    <a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * <a class="code" href="structrbtree__node.html#a11295b11d2e7b3b34ae5fa4405b55ec8">rr_list</a>; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structrbtree__node.html#aadb3636e79df102ba597cbe2a4cde075">   79</a></span>&#160;    <a class="code" href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1c">Color</a> <a class="code" href="structrbtree__node.html#aadb3636e79df102ba597cbe2a4cde075">color</a>; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="structrbtree__node.html#a2be587ea37923dea5167e78592c9cb2e">   80</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structrbtree__node.html">rbtree_node</a> * <a class="code" href="structrbtree__node.html#a2be587ea37923dea5167e78592c9cb2e">left</a>; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="structrbtree__node.html#af1547a25a96223bc5b3dbee409177be3">   81</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structrbtree__node.html">rbtree_node</a> * <a class="code" href="structrbtree__node.html#af1547a25a96223bc5b3dbee409177be3">right</a>; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="structrbtree__node.html#a21c30c17467350315936679e7fe3cedb">   82</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structrbtree__node.html">rbtree_node</a> * <a class="code" href="structrbtree__node.html#a21c30c17467350315936679e7fe3cedb">parent</a>; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="rbtree_8h.html#a9f4c64a0ceb81e4fae72a02d213e0ff4">   83</a></span>&#160;} <a class="code" href="rbtree_8h.html#a9f4c64a0ceb81e4fae72a02d213e0ff4">Rbtree_Node</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="structrbtree.html">   86</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structrbtree.html">rbtree</a></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structrbtree.html#aa0ee53d2d15d7d71413259ca52c94c6a">   88</a></span>&#160;    <a class="code" href="structrbtree__node.html">Rbtree_Node</a> * <a class="code" href="structrbtree.html#aa0ee53d2d15d7d71413259ca52c94c6a">root</a>; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="structrbtree.html#a1a7e453c4df89bf2320c61dab4f9461d">   99</a></span>&#160;    void (* <a class="code" href="structrbtree.html#a1a7e453c4df89bf2320c61dab4f9461d">insert</a>)(<span class="keyword">struct </span><a class="code" href="structrbtree.html">rbtree</a> * tree, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> key, <a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * list);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="structrbtree.html#a108be87eec787e99e91e604e2406c86a">  110</a></span>&#160;    <a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * (* query)(<span class="keyword">struct </span><a class="code" href="structrbtree.html">rbtree</a> * tree, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> data);</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="rbtree_8h.html#a00713190bd59c3e42cc931e579518d37">  111</a></span>&#160;} <a class="code" href="rbtree_8h.html#a00713190bd59c3e42cc931e579518d37">Rbtree</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * <a class="code" href="rbtree_8h.html#a7340708ace3866264b6c8a96a8c685b5">new_linklist</a>();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<a class="code" href="structrbtree.html">Rbtree</a> * <a class="code" href="rbtree_8h.html#a471ee3c523122a7b5a47c91e1ec1252d">new_rbtree</a>();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DNSR_RBTREE_H</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="ttc" id="adns__structure_8h_html"><div class="ttname"><a href="dns__structure_8h.html">dns_structure.h</a></div><div class="ttdoc">DNS报文结构</div></div>
+<div class="ttc" id="arbtree_8h_html_a00713190bd59c3e42cc931e579518d37"><div class="ttname"><a href="rbtree_8h.html#a00713190bd59c3e42cc931e579518d37">Rbtree</a></div><div class="ttdeci">struct rbtree Rbtree</div><div class="ttdoc">红黑树</div></div>
+<div class="ttc" id="arbtree_8h_html_a3ad9484222f2163212fb74af65a20935"><div class="ttname"><a href="rbtree_8h.html#a3ad9484222f2163212fb74af65a20935">Rbtree_Value</a></div><div class="ttdeci">struct rbtree_value Rbtree_Value</div><div class="ttdoc">红黑树节点链表的节点的值，对应一个特定查询的答案</div></div>
+<div class="ttc" id="arbtree_8h_html_a471ee3c523122a7b5a47c91e1ec1252d"><div class="ttname"><a href="rbtree_8h.html#a471ee3c523122a7b5a47c91e1ec1252d">new_rbtree</a></div><div class="ttdeci">Rbtree * new_rbtree()</div><div class="ttdoc">创建红黑树</div><div class="ttdef"><b>Definition:</b> rbtree.c:484</div></div>
+<div class="ttc" id="arbtree_8h_html_a7340708ace3866264b6c8a96a8c685b5"><div class="ttname"><a href="rbtree_8h.html#a7340708ace3866264b6c8a96a8c685b5">new_linklist</a></div><div class="ttdeci">Dns_RR_LinkList * new_linklist()</div><div class="ttdoc">创建链表节点</div><div class="ttdef"><b>Definition:</b> rbtree.c:54</div></div>
+<div class="ttc" id="arbtree_8h_html_a9d6d4f7021c664e08647db63cd57901c"><div class="ttname"><a href="rbtree_8h.html#a9d6d4f7021c664e08647db63cd57901c">Dns_RR_LinkList</a></div><div class="ttdeci">struct dns_rr_linklist Dns_RR_LinkList</div><div class="ttdoc">红黑树节点链表</div></div>
+<div class="ttc" id="arbtree_8h_html_a9f4c64a0ceb81e4fae72a02d213e0ff4"><div class="ttname"><a href="rbtree_8h.html#a9f4c64a0ceb81e4fae72a02d213e0ff4">Rbtree_Node</a></div><div class="ttdeci">struct rbtree_node Rbtree_Node</div><div class="ttdoc">红黑树的节点</div></div>
+<div class="ttc" id="arbtree_8h_html_ab87bacfdad76e61b9412d7124be44c1c"><div class="ttname"><a href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1c">Color</a></div><div class="ttdeci">Color</div><div class="ttdoc">红黑树节点的颜色</div><div class="ttdef"><b>Definition:</b> rbtree.h:28</div></div>
+<div class="ttc" id="arbtree_8h_html_ab87bacfdad76e61b9412d7124be44c1caf77fb67151d0c18d397069ad8c271ba3"><div class="ttname"><a href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf77fb67151d0c18d397069ad8c271ba3">BLACK</a></div><div class="ttdeci">@ BLACK</div><div class="ttdef"><b>Definition:</b> rbtree.h:29</div></div>
+<div class="ttc" id="arbtree_8h_html_ab87bacfdad76e61b9412d7124be44c1caf80f9a890089d211842d59625e561f88"><div class="ttname"><a href="rbtree_8h.html#ab87bacfdad76e61b9412d7124be44c1caf80f9a890089d211842d59625e561f88">RED</a></div><div class="ttdeci">@ RED</div><div class="ttdef"><b>Definition:</b> rbtree.h:29</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html"><div class="ttname"><a href="structdns__rr__linklist.html">dns_rr_linklist</a></div><div class="ttdoc">红黑树节点链表</div><div class="ttdef"><b>Definition:</b> rbtree.h:44</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html_a4b4166651ac3380d5a07e79b9c0ab309"><div class="ttname"><a href="structdns__rr__linklist.html#a4b4166651ac3380d5a07e79b9c0ab309">dns_rr_linklist::value</a></div><div class="ttdeci">Rbtree_Value * value</div><div class="ttdoc">指向当前链表节点的值</div><div class="ttdef"><b>Definition:</b> rbtree.h:45</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html_a54d9bd561cb1e3de763a0c8b14b2a386"><div class="ttname"><a href="structdns__rr__linklist.html#a54d9bd561cb1e3de763a0c8b14b2a386">dns_rr_linklist::delete_next</a></div><div class="ttdeci">void(* delete_next)(struct dns_rr_linklist *list)</div><div class="ttdoc">删除链表中当前节点的下一个结点</div><div class="ttdef"><b>Definition:</b> rbtree.h:61</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html_a5a9a2df278fdc066438864ee9ccd3654"><div class="ttname"><a href="structdns__rr__linklist.html#a5a9a2df278fdc066438864ee9ccd3654">dns_rr_linklist::next</a></div><div class="ttdeci">struct dns_rr_linklist * next</div><div class="ttdoc">链表的下一个节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:47</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html_a66d02cb7e807973430bfd886f6f8950f"><div class="ttname"><a href="structdns__rr__linklist.html#a66d02cb7e807973430bfd886f6f8950f">dns_rr_linklist::expire_time</a></div><div class="ttdeci">time_t expire_time</div><div class="ttdoc">过期的时刻</div><div class="ttdef"><b>Definition:</b> rbtree.h:46</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html_abae45b0aeaca4038b755730b3e2a4e4c"><div class="ttname"><a href="structdns__rr__linklist.html#abae45b0aeaca4038b755730b3e2a4e4c">dns_rr_linklist::insert</a></div><div class="ttdeci">void(* insert)(struct dns_rr_linklist *list, struct dns_rr_linklist *new_list_node)</div><div class="ttdoc">向链表中插入结点</div><div class="ttdef"><b>Definition:</b> rbtree.h:54</div></div>
+<div class="ttc" id="astructdns__rr_html"><div class="ttname"><a href="structdns__rr.html">dns_rr</a></div><div class="ttdoc">报文Resource Record结构体，以链表表示</div><div class="ttdef"><b>Definition:</b> dns_structure.h:73</div></div>
+<div class="ttc" id="astructrbtree__node_html"><div class="ttname"><a href="structrbtree__node.html">rbtree_node</a></div><div class="ttdoc">红黑树的节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:76</div></div>
+<div class="ttc" id="astructrbtree__node_html_a11295b11d2e7b3b34ae5fa4405b55ec8"><div class="ttname"><a href="structrbtree__node.html#a11295b11d2e7b3b34ae5fa4405b55ec8">rbtree_node::rr_list</a></div><div class="ttdeci">Dns_RR_LinkList * rr_list</div><div class="ttdoc">指向当前节点对应的链表</div><div class="ttdef"><b>Definition:</b> rbtree.h:78</div></div>
+<div class="ttc" id="astructrbtree__node_html_a21c30c17467350315936679e7fe3cedb"><div class="ttname"><a href="structrbtree__node.html#a21c30c17467350315936679e7fe3cedb">rbtree_node::parent</a></div><div class="ttdeci">struct rbtree_node * parent</div><div class="ttdoc">指向当前节点的父亲节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:82</div></div>
+<div class="ttc" id="astructrbtree__node_html_a2be587ea37923dea5167e78592c9cb2e"><div class="ttname"><a href="structrbtree__node.html#a2be587ea37923dea5167e78592c9cb2e">rbtree_node::left</a></div><div class="ttdeci">struct rbtree_node * left</div><div class="ttdoc">指向当前节点的左子节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:80</div></div>
+<div class="ttc" id="astructrbtree__node_html_aadb3636e79df102ba597cbe2a4cde075"><div class="ttname"><a href="structrbtree__node.html#aadb3636e79df102ba597cbe2a4cde075">rbtree_node::color</a></div><div class="ttdeci">Color color</div><div class="ttdoc">当前节点的颜色</div><div class="ttdef"><b>Definition:</b> rbtree.h:79</div></div>
+<div class="ttc" id="astructrbtree__node_html_abbf3a913a39e9a9a42323e15817c12ad"><div class="ttname"><a href="structrbtree__node.html#abbf3a913a39e9a9a42323e15817c12ad">rbtree_node::key</a></div><div class="ttdeci">unsigned int key</div><div class="ttdoc">红黑树节点的键</div><div class="ttdef"><b>Definition:</b> rbtree.h:77</div></div>
+<div class="ttc" id="astructrbtree__node_html_af1547a25a96223bc5b3dbee409177be3"><div class="ttname"><a href="structrbtree__node.html#af1547a25a96223bc5b3dbee409177be3">rbtree_node::right</a></div><div class="ttdeci">struct rbtree_node * right</div><div class="ttdoc">指向当前节点的右子节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:81</div></div>
+<div class="ttc" id="astructrbtree__value_html"><div class="ttname"><a href="structrbtree__value.html">rbtree_value</a></div><div class="ttdoc">红黑树节点链表的节点的值，对应一个特定查询的答案</div><div class="ttdef"><b>Definition:</b> rbtree.h:34</div></div>
+<div class="ttc" id="astructrbtree__value_html_a103a6932e7b017ab2bb2f2f0c4371588"><div class="ttname"><a href="structrbtree__value.html#a103a6932e7b017ab2bb2f2f0c4371588">rbtree_value::ancount</a></div><div class="ttdeci">uint16_t ancount</div><div class="ttdoc">RR链表中Answer Section的数目</div><div class="ttdef"><b>Definition:</b> rbtree.h:36</div></div>
+<div class="ttc" id="astructrbtree__value_html_a1c01903b37bfbc418b7aecfde73def5e"><div class="ttname"><a href="structrbtree__value.html#a1c01903b37bfbc418b7aecfde73def5e">rbtree_value::nscount</a></div><div class="ttdeci">uint16_t nscount</div><div class="ttdoc">RR链表中Authority Section的数目</div><div class="ttdef"><b>Definition:</b> rbtree.h:37</div></div>
+<div class="ttc" id="astructrbtree__value_html_a281048e9c9b069cfc1ba51d6933c751e"><div class="ttname"><a href="structrbtree__value.html#a281048e9c9b069cfc1ba51d6933c751e">rbtree_value::arcount</a></div><div class="ttdeci">uint16_t arcount</div><div class="ttdoc">RR链表中Addition Section的数目</div><div class="ttdef"><b>Definition:</b> rbtree.h:38</div></div>
+<div class="ttc" id="astructrbtree__value_html_a3aa193f1c82fe7902ca1999fa0b294d2"><div class="ttname"><a href="structrbtree__value.html#a3aa193f1c82fe7902ca1999fa0b294d2">rbtree_value::type</a></div><div class="ttdeci">uint8_t type</div><div class="ttdoc">RR对应的Question的类型</div><div class="ttdef"><b>Definition:</b> rbtree.h:39</div></div>
+<div class="ttc" id="astructrbtree__value_html_a980f40ea1a2c1d9c5dfeaef5b22a9333"><div class="ttname"><a href="structrbtree__value.html#a980f40ea1a2c1d9c5dfeaef5b22a9333">rbtree_value::rr</a></div><div class="ttdeci">Dns_RR * rr</div><div class="ttdoc">指向一个Dns_RR的链表</div><div class="ttdef"><b>Definition:</b> rbtree.h:35</div></div>
+<div class="ttc" id="astructrbtree_html"><div class="ttname"><a href="structrbtree.html">rbtree</a></div><div class="ttdoc">红黑树</div><div class="ttdef"><b>Definition:</b> rbtree.h:87</div></div>
+<div class="ttc" id="astructrbtree_html_a1a7e453c4df89bf2320c61dab4f9461d"><div class="ttname"><a href="structrbtree.html#a1a7e453c4df89bf2320c61dab4f9461d">rbtree::insert</a></div><div class="ttdeci">void(* insert)(struct rbtree *tree, unsigned int key, Dns_RR_LinkList *list)</div><div class="ttdoc">向红黑树中插入键-值对</div><div class="ttdef"><b>Definition:</b> rbtree.h:99</div></div>
+<div class="ttc" id="astructrbtree_html_aa0ee53d2d15d7d71413259ca52c94c6a"><div class="ttname"><a href="structrbtree.html#aa0ee53d2d15d7d71413259ca52c94c6a">rbtree::root</a></div><div class="ttdeci">Rbtree_Node * root</div><div class="ttdoc">指向红黑树的根节点</div><div class="ttdef"><b>Definition:</b> rbtree.h:88</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="rbtree_8h.html">rbtree.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

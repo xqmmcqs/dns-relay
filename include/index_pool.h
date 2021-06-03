@@ -22,7 +22,7 @@
 #define INDEX_POOL_MAX_SIZE 65535
 
 /// 序号结构体
-typedef struct
+typedef struct index_
 {
     uint16_t id; ///< 发送的DNS查询报文的序号
     uint16_t prev_id; ///< 对应查询的序号

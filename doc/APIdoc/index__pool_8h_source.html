@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: include/index_pool.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('index__pool_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">index_pool.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="index__pool_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef DNSR_INDEX_POOL_H</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define DNSR_INDEX_POOL_H</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="queue_8h.html">queue.h</a>&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="index__pool_8h.html#ab4978b587ed2e3aec43e5b1a94d650a8">   22</a></span>&#160;<span class="preprocessor">#define INDEX_POOL_MAX_SIZE 65535</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structindex__.html">   25</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structindex__.html">index_</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structindex__.html#a2ed87ec15fc869a076b16468d9121095">   27</a></span>&#160;    uint16_t <a class="code" href="structindex__.html#a2ed87ec15fc869a076b16468d9121095">id</a>; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structindex__.html#a1f74bc47dccba4976cd83a08b76562f9">   28</a></span>&#160;    uint16_t <a class="code" href="structindex__.html#a1f74bc47dccba4976cd83a08b76562f9">prev_id</a>; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">   29</a></span>&#160;} <a class="code" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structindex__pool.html">   32</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structindex__pool.html#a4c348dc48fe75dbd585f6b06f2c80488">   34</a></span>&#160;    <a class="code" href="structindex__.html">Index</a> * <a class="code" href="structindex__pool.html#a4c348dc48fe75dbd585f6b06f2c80488">pool</a>[<a class="code" href="index__pool_8h.html#ab4978b587ed2e3aec43e5b1a94d650a8">INDEX_POOL_MAX_SIZE</a>]; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structindex__pool.html#a111772daaaddcee8e655c9bb6a7ec111">   35</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="structindex__pool.html#a111772daaaddcee8e655c9bb6a7ec111">count</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structindex__pool.html#a510933fa8aeeafb6cd8dedc0a5304302">   36</a></span>&#160;    <a class="code" href="structqueue.html">Queue</a> * <a class="code" href="structindex__pool.html#a510933fa8aeeafb6cd8dedc0a5304302">queue</a>; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structindex__pool.html#abe14a3acfbe0139b82824973ed37bc4a">   44</a></span>&#160;    bool (* <a class="code" href="structindex__pool.html#abe14a3acfbe0139b82824973ed37bc4a">full</a>)(<span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a> * ipool);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="structindex__pool.html#ae7416f2d0cf3179a08d6b77ca5294f41">   53</a></span>&#160;    uint16_t (* <a class="code" href="structindex__pool.html#ae7416f2d0cf3179a08d6b77ca5294f41">insert</a>)(<span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a> * ipool, <a class="code" href="structindex__.html">Index</a> * req);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structindex__pool.html#a85d5460293658354e5310f67e80a7d45">   62</a></span>&#160;    bool (* <a class="code" href="structindex__pool.html#a85d5460293658354e5310f67e80a7d45">query</a>)(<span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a> * ipool, uint16_t index);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structindex__pool.html#a2b0c5989ff5722d33ba5dcf289bc256f">   71</a></span>&#160;    <a class="code" href="structindex__.html">Index</a> * (* delete)(<span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a> * ipool, uint16_t index);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="structindex__pool.html#abae05eee7fe94f0fb115992012c39c24">   78</a></span>&#160;    void (* <a class="code" href="structindex__pool.html#abae05eee7fe94f0fb115992012c39c24">destroy</a>)(<span class="keyword">struct </span><a class="code" href="structindex__pool.html">index_pool</a> * ipool);</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="index__pool_8h.html#ab81c1ac5334273e44196a19a27a2bf20">   79</a></span>&#160;} <a class="code" href="index__pool_8h.html#ab81c1ac5334273e44196a19a27a2bf20">Index_Pool</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<a class="code" href="structindex__pool.html">Index_Pool</a> * <a class="code" href="index__pool_8h.html#a041c5d7e1d6c75cc71123f03e794cc86">new_ipool</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DNSR_INDEX_POOL_H</span></div>
+<div class="ttc" id="aindex__pool_8h_html_a041c5d7e1d6c75cc71123f03e794cc86"><div class="ttname"><a href="index__pool_8h.html#a041c5d7e1d6c75cc71123f03e794cc86">new_ipool</a></div><div class="ttdeci">Index_Pool * new_ipool()</div><div class="ttdoc">创建序号池</div><div class="ttdef"><b>Definition:</b> index_pool.c:50</div></div>
+<div class="ttc" id="aindex__pool_8h_html_ab4978b587ed2e3aec43e5b1a94d650a8"><div class="ttname"><a href="index__pool_8h.html#ab4978b587ed2e3aec43e5b1a94d650a8">INDEX_POOL_MAX_SIZE</a></div><div class="ttdeci">#define INDEX_POOL_MAX_SIZE</div><div class="ttdef"><b>Definition:</b> index_pool.h:22</div></div>
+<div class="ttc" id="aindex__pool_8h_html_ab81c1ac5334273e44196a19a27a2bf20"><div class="ttname"><a href="index__pool_8h.html#ab81c1ac5334273e44196a19a27a2bf20">Index_Pool</a></div><div class="ttdeci">struct index_pool Index_Pool</div><div class="ttdoc">序号池</div></div>
+<div class="ttc" id="aindex__pool_8h_html_acacb8bfe1719d7d63449974fd7d8c01f"><div class="ttname"><a href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a></div><div class="ttdeci">struct index_ Index</div><div class="ttdoc">序号结构体</div></div>
+<div class="ttc" id="aqueue_8h_html"><div class="ttname"><a href="queue_8h.html">queue.h</a></div><div class="ttdoc">队列</div></div>
+<div class="ttc" id="astructindex___html"><div class="ttname"><a href="structindex__.html">index_</a></div><div class="ttdoc">序号结构体</div><div class="ttdef"><b>Definition:</b> index_pool.h:26</div></div>
+<div class="ttc" id="astructindex___html_a1f74bc47dccba4976cd83a08b76562f9"><div class="ttname"><a href="structindex__.html#a1f74bc47dccba4976cd83a08b76562f9">index_::prev_id</a></div><div class="ttdeci">uint16_t prev_id</div><div class="ttdoc">对应查询的序号</div><div class="ttdef"><b>Definition:</b> index_pool.h:28</div></div>
+<div class="ttc" id="astructindex___html_a2ed87ec15fc869a076b16468d9121095"><div class="ttname"><a href="structindex__.html#a2ed87ec15fc869a076b16468d9121095">index_::id</a></div><div class="ttdeci">uint16_t id</div><div class="ttdoc">发送的DNS查询报文的序号</div><div class="ttdef"><b>Definition:</b> index_pool.h:27</div></div>
+<div class="ttc" id="astructindex__pool_html"><div class="ttname"><a href="structindex__pool.html">index_pool</a></div><div class="ttdoc">序号池</div><div class="ttdef"><b>Definition:</b> index_pool.h:33</div></div>
+<div class="ttc" id="astructindex__pool_html_a111772daaaddcee8e655c9bb6a7ec111"><div class="ttname"><a href="structindex__pool.html#a111772daaaddcee8e655c9bb6a7ec111">index_pool::count</a></div><div class="ttdeci">unsigned short count</div><div class="ttdoc">池中序号的数量</div><div class="ttdef"><b>Definition:</b> index_pool.h:35</div></div>
+<div class="ttc" id="astructindex__pool_html_a4c348dc48fe75dbd585f6b06f2c80488"><div class="ttname"><a href="structindex__pool.html#a4c348dc48fe75dbd585f6b06f2c80488">index_pool::pool</a></div><div class="ttdeci">Index * pool[INDEX_POOL_MAX_SIZE]</div><div class="ttdoc">序号池</div><div class="ttdef"><b>Definition:</b> index_pool.h:34</div></div>
+<div class="ttc" id="astructindex__pool_html_a510933fa8aeeafb6cd8dedc0a5304302"><div class="ttname"><a href="structindex__pool.html#a510933fa8aeeafb6cd8dedc0a5304302">index_pool::queue</a></div><div class="ttdeci">Queue * queue</div><div class="ttdoc">未分配的序号的队列</div><div class="ttdef"><b>Definition:</b> index_pool.h:36</div></div>
+<div class="ttc" id="astructindex__pool_html_a85d5460293658354e5310f67e80a7d45"><div class="ttname"><a href="structindex__pool.html#a85d5460293658354e5310f67e80a7d45">index_pool::query</a></div><div class="ttdeci">bool(* query)(struct index_pool *ipool, uint16_t index)</div><div class="ttdoc">查询序号是否在序号池中</div><div class="ttdef"><b>Definition:</b> index_pool.h:62</div></div>
+<div class="ttc" id="astructindex__pool_html_abae05eee7fe94f0fb115992012c39c24"><div class="ttname"><a href="structindex__pool.html#abae05eee7fe94f0fb115992012c39c24">index_pool::destroy</a></div><div class="ttdeci">void(* destroy)(struct index_pool *ipool)</div><div class="ttdoc">销毁序号池</div><div class="ttdef"><b>Definition:</b> index_pool.h:78</div></div>
+<div class="ttc" id="astructindex__pool_html_abe14a3acfbe0139b82824973ed37bc4a"><div class="ttname"><a href="structindex__pool.html#abe14a3acfbe0139b82824973ed37bc4a">index_pool::full</a></div><div class="ttdeci">bool(* full)(struct index_pool *ipool)</div><div class="ttdoc">判断序号池是否已满</div><div class="ttdef"><b>Definition:</b> index_pool.h:44</div></div>
+<div class="ttc" id="astructindex__pool_html_ae7416f2d0cf3179a08d6b77ca5294f41"><div class="ttname"><a href="structindex__pool.html#ae7416f2d0cf3179a08d6b77ca5294f41">index_pool::insert</a></div><div class="ttdeci">uint16_t(* insert)(struct index_pool *ipool, Index *req)</div><div class="ttdoc">分配一个新序号</div><div class="ttdef"><b>Definition:</b> index_pool.h:53</div></div>
+<div class="ttc" id="astructqueue_html"><div class="ttname"><a href="structqueue.html">queue</a></div><div class="ttdoc">循环队列</div><div class="ttdef"><b>Definition:</b> queue.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="index__pool_8h.html">index_pool.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

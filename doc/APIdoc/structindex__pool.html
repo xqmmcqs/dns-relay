@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: index_pool结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structindex__pool.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">成员变量</a>  </div>
+  <div class="headertitle">
+<div class="title">index_pool结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>序号池  
+ <a href="structindex__pool.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="index__pool_8h_source.html">index_pool.h</a>&gt;</code></p>
+<div class="dynheader">
+index_pool 的协作图:</div>
+<div class="dyncontent">
+<div class="center"><img src="structindex__pool__coll__graph.png" border="0" usemap="#aindex__pool_coll__map" alt="Collaboration graph"/></div>
+<map name="aindex__pool_coll__map" id="aindex__pool_coll__map">
+<area shape="rect" title="序号池" alt="" coords="33,109,117,136"/>
+<area shape="rect" href="structqueue.html" title="循环队列" alt="" coords="5,5,63,32"/>
+<area shape="rect" href="structindex__.html" title="序号结构体" alt="" coords="87,5,147,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">图例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+成员变量</h2></td></tr>
+<tr class="memitem:a4c348dc48fe75dbd585f6b06f2c80488"><td class="memItemLeft" align="right" valign="top"><a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#a4c348dc48fe75dbd585f6b06f2c80488">pool</a> [<a class="el" href="index__pool_8h.html#ab4978b587ed2e3aec43e5b1a94d650a8">INDEX_POOL_MAX_SIZE</a>]</td></tr>
+<tr class="memdesc:a4c348dc48fe75dbd585f6b06f2c80488"><td class="mdescLeft">&#160;</td><td class="mdescRight">序号池  <a href="structindex__pool.html#a4c348dc48fe75dbd585f6b06f2c80488">更多...</a><br /></td></tr>
+<tr class="separator:a4c348dc48fe75dbd585f6b06f2c80488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a111772daaaddcee8e655c9bb6a7ec111"><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#a111772daaaddcee8e655c9bb6a7ec111">count</a></td></tr>
+<tr class="memdesc:a111772daaaddcee8e655c9bb6a7ec111"><td class="mdescLeft">&#160;</td><td class="mdescRight">池中序号的数量  <a href="structindex__pool.html#a111772daaaddcee8e655c9bb6a7ec111">更多...</a><br /></td></tr>
+<tr class="separator:a111772daaaddcee8e655c9bb6a7ec111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510933fa8aeeafb6cd8dedc0a5304302"><td class="memItemLeft" align="right" valign="top"><a class="el" href="queue_8h.html#a8560ae2ddf510ea6643f85a929bffa48">Queue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#a510933fa8aeeafb6cd8dedc0a5304302">queue</a></td></tr>
+<tr class="memdesc:a510933fa8aeeafb6cd8dedc0a5304302"><td class="mdescLeft">&#160;</td><td class="mdescRight">未分配的序号的队列  <a href="structindex__pool.html#a510933fa8aeeafb6cd8dedc0a5304302">更多...</a><br /></td></tr>
+<tr class="separator:a510933fa8aeeafb6cd8dedc0a5304302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe14a3acfbe0139b82824973ed37bc4a"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#abe14a3acfbe0139b82824973ed37bc4a">full</a> )(struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool)</td></tr>
+<tr class="memdesc:abe14a3acfbe0139b82824973ed37bc4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">判断序号池是否已满  <a href="structindex__pool.html#abe14a3acfbe0139b82824973ed37bc4a">更多...</a><br /></td></tr>
+<tr class="separator:abe14a3acfbe0139b82824973ed37bc4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7416f2d0cf3179a08d6b77ca5294f41"><td class="memItemLeft" align="right" valign="top">uint16_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#ae7416f2d0cf3179a08d6b77ca5294f41">insert</a> )(struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, <a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a> *req)</td></tr>
+<tr class="memdesc:ae7416f2d0cf3179a08d6b77ca5294f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">分配一个新序号  <a href="structindex__pool.html#ae7416f2d0cf3179a08d6b77ca5294f41">更多...</a><br /></td></tr>
+<tr class="separator:ae7416f2d0cf3179a08d6b77ca5294f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85d5460293658354e5310f67e80a7d45"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#a85d5460293658354e5310f67e80a7d45">query</a> )(struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, uint16_t index)</td></tr>
+<tr class="memdesc:a85d5460293658354e5310f67e80a7d45"><td class="mdescLeft">&#160;</td><td class="mdescRight">查询序号是否在序号池中  <a href="structindex__pool.html#a85d5460293658354e5310f67e80a7d45">更多...</a><br /></td></tr>
+<tr class="separator:a85d5460293658354e5310f67e80a7d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b0c5989ff5722d33ba5dcf289bc256f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#a2b0c5989ff5722d33ba5dcf289bc256f">delete</a> )(struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, uint16_t index)</td></tr>
+<tr class="memdesc:a2b0c5989ff5722d33ba5dcf289bc256f"><td class="mdescLeft">&#160;</td><td class="mdescRight">从序号池中删除序号  <a href="structindex__pool.html#a2b0c5989ff5722d33ba5dcf289bc256f">更多...</a><br /></td></tr>
+<tr class="separator:a2b0c5989ff5722d33ba5dcf289bc256f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abae05eee7fe94f0fb115992012c39c24"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structindex__pool.html#abae05eee7fe94f0fb115992012c39c24">destroy</a> )(struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool)</td></tr>
+<tr class="memdesc:abae05eee7fe94f0fb115992012c39c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">销毁序号池  <a href="structindex__pool.html#abae05eee7fe94f0fb115992012c39c24">更多...</a><br /></td></tr>
+<tr class="separator:abae05eee7fe94f0fb115992012c39c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>序号池 </p>
+</div><h2 class="groupheader">结构体成员变量说明</h2>
+<a id="a111772daaaddcee8e655c9bb6a7ec111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a111772daaaddcee8e655c9bb6a7ec111">&#9670;&nbsp;</a></span>count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned short index_pool::count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>池中序号的数量 </p>
+
+</div>
+</div>
+<a id="a2b0c5989ff5722d33ba5dcf289bc256f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b0c5989ff5722d33ba5dcf289bc256f">&#9670;&nbsp;</a></span>delete</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a>*(* index_pool::delete) (struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, uint16_t index)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>从序号池中删除序号 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipool</td><td>序号池 </td></tr>
+    <tr><td class="paramname">index</td><td>待删除的序号 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>删除的序号对应的序号结构体 </dd></dl>
+
+</div>
+</div>
+<a id="abae05eee7fe94f0fb115992012c39c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae05eee7fe94f0fb115992012c39c24">&#9670;&nbsp;</a></span>destroy</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* index_pool::destroy) (struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>销毁序号池 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipool</td><td>序号池 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abe14a3acfbe0139b82824973ed37bc4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe14a3acfbe0139b82824973ed37bc4a">&#9670;&nbsp;</a></span>full</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool(* index_pool::full) (struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>判断序号池是否已满 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipool</td><td>序号池 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>如果池已满，返回true </dd></dl>
+
+</div>
+</div>
+<a id="ae7416f2d0cf3179a08d6b77ca5294f41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7416f2d0cf3179a08d6b77ca5294f41">&#9670;&nbsp;</a></span>insert</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t(* index_pool::insert) (struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, <a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a> *req)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>分配一个新序号 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipool</td><td>序号池 </td></tr>
+    <tr><td class="paramname">req</td><td>序号结构体 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>分配的新序号 </dd></dl>
+
+</div>
+</div>
+<a id="a4c348dc48fe75dbd585f6b06f2c80488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c348dc48fe75dbd585f6b06f2c80488">&#9670;&nbsp;</a></span>pool</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="index__pool_8h.html#acacb8bfe1719d7d63449974fd7d8c01f">Index</a>* index_pool::pool[<a class="el" href="index__pool_8h.html#ab4978b587ed2e3aec43e5b1a94d650a8">INDEX_POOL_MAX_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>序号池 </p>
+
+</div>
+</div>
+<a id="a85d5460293658354e5310f67e80a7d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85d5460293658354e5310f67e80a7d45">&#9670;&nbsp;</a></span>query</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool(* index_pool::query) (struct <a class="el" href="structindex__pool.html">index_pool</a> *ipool, uint16_t index)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>查询序号是否在序号池中 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipool</td><td>序号池 </td></tr>
+    <tr><td class="paramname">index</td><td>序号 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>如果在序号池中，返回true </dd></dl>
+
+</div>
+</div>
+<a id="a510933fa8aeeafb6cd8dedc0a5304302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510933fa8aeeafb6cd8dedc0a5304302">&#9670;&nbsp;</a></span>queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="queue_8h.html#a8560ae2ddf510ea6643f85a929bffa48">Queue</a>* index_pool::queue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>未分配的序号的队列 </p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>include/<a class="el" href="index__pool_8h_source.html">index_pool.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structindex__pool.html">index_pool</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

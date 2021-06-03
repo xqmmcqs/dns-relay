@@ -1,0 +1,8 @@
+<map id="node_init" name="node_init">
+<area shape="rect" id="node1" title="初始化一个节点，分配内存" alt="" coords="5,56,80,83"/>
+<area shape="rect" id="node2" href="$rbtree_8c.html#a7340708ace3866264b6c8a96a8c685b5" title="创建链表节点" alt="" coords="128,56,219,83"/>
+<area shape="rect" id="node3" href="$rbtree_8c.html#a8e0bfadc9752f04f500905a85c47e74e" title=" " alt="" coords="267,5,400,32"/>
+<area shape="rect" id="node5" href="$rbtree_8c.html#a41e95176ba82f906d4ecc38a385f66f7" title=" " alt="" coords="284,56,383,83"/>
+<area shape="rect" id="node6" href="$rbtree_8c.html#a26d08eac00f23b0ed859451a4adc109b" title=" " alt="" coords="268,107,399,133"/>
+<area shape="rect" id="node4" href="$dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="448,5,549,32"/>
+</map>

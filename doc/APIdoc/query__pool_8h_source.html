@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: include/query_pool.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('query__pool_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">query_pool.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="query__pool_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef DNSR_QUERY_POOL_H</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define DNSR_QUERY_POOL_H</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;uv.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dns__structure_8h.html">dns_structure.h</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="index__pool_8h.html">index_pool.h</a>&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cache_8h.html">cache.h</a>&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="query__pool_8h.html#ac92c63ca2d642f94c4ce70367b172f0b">   29</a></span>&#160;<span class="preprocessor">#define QUERY_POOL_MAX_SIZE 256</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structdns__query.html">   32</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdns__query.html">dns_query</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structdns__query.html#aed8d19f4123f4da71303ea766e5db61f">   34</a></span>&#160;    uint16_t <a class="code" href="structdns__query.html#aed8d19f4123f4da71303ea766e5db61f">id</a>; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structdns__query.html#a2881d0b7a98b9dc69a3827dac7bf7cd1">   35</a></span>&#160;    uint16_t <a class="code" href="structdns__query.html#a612d7b86ff1a2599fb7b8b87c9aee2c3">prev_id</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">struct </span>sockaddr <a class="code" href="structdns__query.html#a2881d0b7a98b9dc69a3827dac7bf7cd1">addr</a>; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structdns__query.html#a2f25acc11e8bf511ce3efc20b80b49ef">   37</a></span>&#160;    <a class="code" href="structdns__msg.html">Dns_Msg</a> * <a class="code" href="structdns__query.html#a2f25acc11e8bf511ce3efc20b80b49ef">msg</a>; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structdns__query.html#aba2f09dd768cc21fdf1b089cdb004789">   38</a></span>&#160;    uv_timer_t <a class="code" href="structdns__query.html#aba2f09dd768cc21fdf1b089cdb004789">timer</a>; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="query__pool_8h.html#ad1d0c498b52e34a79840d0a07ba5db36">   39</a></span>&#160;} <a class="code" href="query__pool_8h.html#ad1d0c498b52e34a79840d0a07ba5db36">Dns_Query</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structquery__pool.html">   42</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structquery__pool.html">query_pool</a></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structquery__pool.html#a7f9f953747a71094cb8d56e4a034e2af">   44</a></span>&#160;    <a class="code" href="structdns__query.html">Dns_Query</a> * <a class="code" href="structquery__pool.html#a7f9f953747a71094cb8d56e4a034e2af">pool</a>[<a class="code" href="query__pool_8h.html#ac92c63ca2d642f94c4ce70367b172f0b">QUERY_POOL_MAX_SIZE</a>]; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structquery__pool.html#a3bb533ff216fb17d67d1cf6571176750">   45</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="structquery__pool.html#a3bb533ff216fb17d67d1cf6571176750">count</a>; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structquery__pool.html#a2a4264b4238f5a6e65cb0eceadb97736">   46</a></span>&#160;    <a class="code" href="structqueue.html">Queue</a> * <a class="code" href="structquery__pool.html#a2a4264b4238f5a6e65cb0eceadb97736">queue</a>; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structquery__pool.html#a69aa7a98cbcba537a4e41aa96ddca5a4">   47</a></span>&#160;    <a class="code" href="structindex__pool.html">Index_Pool</a> * <a class="code" href="structquery__pool.html#a69aa7a98cbcba537a4e41aa96ddca5a4">ipool</a>; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structquery__pool.html#a978d7fe82bc7edb1089fc5642062fd66">   48</a></span>&#160;    uv_loop_t * <a class="code" href="structquery__pool.html#a978d7fe82bc7edb1089fc5642062fd66">loop</a>; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structquery__pool.html#aef1a374ebd2f9080b03bb20c618565d7">   49</a></span>&#160;    <a class="code" href="structcache__.html">Cache</a> * <a class="code" href="structquery__pool.html#aef1a374ebd2f9080b03bb20c618565d7">cache</a>; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structquery__pool.html#a5a713b0ec1429d9c019ddfff562ecdea">   57</a></span>&#160;    bool (* <a class="code" href="structquery__pool.html#a5a713b0ec1429d9c019ddfff562ecdea">full</a>)(<span class="keyword">struct </span><a class="code" href="structquery__pool.html">query_pool</a> * <a class="code" href="dns__client_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structquery__pool.html#a6302249a25719dc18f725c4b19555da8">   66</a></span>&#160;    void (* <a class="code" href="structquery__pool.html#a6302249a25719dc18f725c4b19555da8">insert</a>)(<span class="keyword">struct </span><a class="code" href="structquery__pool.html">query_pool</a> * <a class="code" href="dns__client_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, <span class="keyword">const</span> <span class="keyword">struct </span>sockaddr * addr, <span class="keyword">const</span> <a class="code" href="structdns__msg.html">Dns_Msg</a> * msg);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structquery__pool.html#a2779e835edd34265fa9d0cf89ae7465a">   74</a></span>&#160;    void (* <a class="code" href="structquery__pool.html#a2779e835edd34265fa9d0cf89ae7465a">finish</a>)(<span class="keyword">struct </span><a class="code" href="structquery__pool.html">query_pool</a> * <a class="code" href="dns__client_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, <span class="keyword">const</span> <a class="code" href="structdns__msg.html">Dns_Msg</a> * msg);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="structquery__pool.html#a989f35457d5e3c08c38c35bbc70db2a4">   82</a></span>&#160;    void (* <span class="keyword">delete</span>)(<span class="keyword">struct </span><a class="code" href="structquery__pool.html">query_pool</a> * <a class="code" href="dns__client_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a>, uint16_t id);</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">   83</a></span>&#160;} <a class="code" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<a class="code" href="structquery__pool.html">Query_Pool</a> * <a class="code" href="query__pool_8h.html#a51738c1bb6b8a5ad3200f33efe37d9d0">new_qpool</a>(uv_loop_t * <a class="code" href="main_8c.html#add769cb3887f840e6e7be962492de960">loop</a>, <a class="code" href="structcache__.html">Cache</a> * <a class="code" href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DNSR_QUERY_POOL_H</span></div>
+<div class="ttc" id="acache_8h_html"><div class="ttname"><a href="cache_8h.html">cache.h</a></div><div class="ttdoc">缓存</div></div>
+<div class="ttc" id="adns__client_8c_html_a72e226b504514a1ea5a74389ad36ece6"><div class="ttname"><a href="dns__client_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a></div><div class="ttdeci">Query_Pool * qpool</div><div class="ttdoc">查询池</div><div class="ttdef"><b>Definition:</b> main.c:19</div></div>
+<div class="ttc" id="adns__structure_8h_html"><div class="ttname"><a href="dns__structure_8h.html">dns_structure.h</a></div><div class="ttdoc">DNS报文结构</div></div>
+<div class="ttc" id="aindex__pool_8h_html"><div class="ttname"><a href="index__pool_8h.html">index_pool.h</a></div><div class="ttdoc">序号池</div></div>
+<div class="ttc" id="amain_8c_html_a219405a7efb1068433bdef1efa916e8a"><div class="ttname"><a href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a></div><div class="ttdeci">Cache * cache</div><div class="ttdef"><b>Definition:</b> main.c:18</div></div>
+<div class="ttc" id="amain_8c_html_add769cb3887f840e6e7be962492de960"><div class="ttname"><a href="main_8c.html#add769cb3887f840e6e7be962492de960">loop</a></div><div class="ttdeci">uv_loop_t * loop</div><div class="ttdef"><b>Definition:</b> main.c:17</div></div>
+<div class="ttc" id="aquery__pool_8h_html_a51738c1bb6b8a5ad3200f33efe37d9d0"><div class="ttname"><a href="query__pool_8h.html#a51738c1bb6b8a5ad3200f33efe37d9d0">new_qpool</a></div><div class="ttdeci">Query_Pool * new_qpool(uv_loop_t *loop, Cache *cache)</div><div class="ttdoc">创建查询池</div><div class="ttdef"><b>Definition:</b> query_pool.c:155</div></div>
+<div class="ttc" id="aquery__pool_8h_html_ab473e597588e70ec88aa19fa55ab6cae"><div class="ttname"><a href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a></div><div class="ttdeci">struct query_pool Query_Pool</div><div class="ttdoc">DNS查询池</div></div>
+<div class="ttc" id="aquery__pool_8h_html_ac92c63ca2d642f94c4ce70367b172f0b"><div class="ttname"><a href="query__pool_8h.html#ac92c63ca2d642f94c4ce70367b172f0b">QUERY_POOL_MAX_SIZE</a></div><div class="ttdeci">#define QUERY_POOL_MAX_SIZE</div><div class="ttdef"><b>Definition:</b> query_pool.h:29</div></div>
+<div class="ttc" id="aquery__pool_8h_html_ad1d0c498b52e34a79840d0a07ba5db36"><div class="ttname"><a href="query__pool_8h.html#ad1d0c498b52e34a79840d0a07ba5db36">Dns_Query</a></div><div class="ttdeci">struct dns_query Dns_Query</div><div class="ttdoc">DNS查询结构体</div></div>
+<div class="ttc" id="astructcache___html"><div class="ttname"><a href="structcache__.html">cache_</a></div><div class="ttdoc">缓存结构体</div><div class="ttdef"><b>Definition:</b> cache.h:27</div></div>
+<div class="ttc" id="astructdns__msg_html"><div class="ttname"><a href="structdns__msg.html">dns_msg</a></div><div class="ttdoc">DNS报文结构体</div><div class="ttdef"><b>Definition:</b> dns_structure.h:85</div></div>
+<div class="ttc" id="astructdns__query_html"><div class="ttname"><a href="structdns__query.html">dns_query</a></div><div class="ttdoc">DNS查询结构体</div><div class="ttdef"><b>Definition:</b> query_pool.h:33</div></div>
+<div class="ttc" id="astructdns__query_html_a2881d0b7a98b9dc69a3827dac7bf7cd1"><div class="ttname"><a href="structdns__query.html#a2881d0b7a98b9dc69a3827dac7bf7cd1">dns_query::addr</a></div><div class="ttdeci">struct sockaddr addr</div><div class="ttdoc">请求方地址</div><div class="ttdef"><b>Definition:</b> query_pool.h:36</div></div>
+<div class="ttc" id="astructdns__query_html_a2f25acc11e8bf511ce3efc20b80b49ef"><div class="ttname"><a href="structdns__query.html#a2f25acc11e8bf511ce3efc20b80b49ef">dns_query::msg</a></div><div class="ttdeci">Dns_Msg * msg</div><div class="ttdoc">DNS查询报文报文</div><div class="ttdef"><b>Definition:</b> query_pool.h:37</div></div>
+<div class="ttc" id="astructdns__query_html_a612d7b86ff1a2599fb7b8b87c9aee2c3"><div class="ttname"><a href="structdns__query.html#a612d7b86ff1a2599fb7b8b87c9aee2c3">dns_query::prev_id</a></div><div class="ttdeci">uint16_t prev_id</div><div class="ttdoc">原本DNS查询报文的ID</div><div class="ttdef"><b>Definition:</b> query_pool.h:35</div></div>
+<div class="ttc" id="astructdns__query_html_aba2f09dd768cc21fdf1b089cdb004789"><div class="ttname"><a href="structdns__query.html#aba2f09dd768cc21fdf1b089cdb004789">dns_query::timer</a></div><div class="ttdeci">uv_timer_t timer</div><div class="ttdoc">计时器</div><div class="ttdef"><b>Definition:</b> query_pool.h:38</div></div>
+<div class="ttc" id="astructdns__query_html_aed8d19f4123f4da71303ea766e5db61f"><div class="ttname"><a href="structdns__query.html#aed8d19f4123f4da71303ea766e5db61f">dns_query::id</a></div><div class="ttdeci">uint16_t id</div><div class="ttdoc">查询ID</div><div class="ttdef"><b>Definition:</b> query_pool.h:34</div></div>
+<div class="ttc" id="astructindex__pool_html"><div class="ttname"><a href="structindex__pool.html">index_pool</a></div><div class="ttdoc">序号池</div><div class="ttdef"><b>Definition:</b> index_pool.h:33</div></div>
+<div class="ttc" id="astructquery__pool_html"><div class="ttname"><a href="structquery__pool.html">query_pool</a></div><div class="ttdoc">DNS查询池</div><div class="ttdef"><b>Definition:</b> query_pool.h:43</div></div>
+<div class="ttc" id="astructquery__pool_html_a2779e835edd34265fa9d0cf89ae7465a"><div class="ttname"><a href="structquery__pool.html#a2779e835edd34265fa9d0cf89ae7465a">query_pool::finish</a></div><div class="ttdeci">void(* finish)(struct query_pool *qpool, const Dns_Msg *msg)</div><div class="ttdoc">结束查询</div><div class="ttdef"><b>Definition:</b> query_pool.h:74</div></div>
+<div class="ttc" id="astructquery__pool_html_a2a4264b4238f5a6e65cb0eceadb97736"><div class="ttname"><a href="structquery__pool.html#a2a4264b4238f5a6e65cb0eceadb97736">query_pool::queue</a></div><div class="ttdeci">Queue * queue</div><div class="ttdoc">未分配的查询ID的队列</div><div class="ttdef"><b>Definition:</b> query_pool.h:46</div></div>
+<div class="ttc" id="astructquery__pool_html_a3bb533ff216fb17d67d1cf6571176750"><div class="ttname"><a href="structquery__pool.html#a3bb533ff216fb17d67d1cf6571176750">query_pool::count</a></div><div class="ttdeci">unsigned short count</div><div class="ttdoc">池内查询数量</div><div class="ttdef"><b>Definition:</b> query_pool.h:45</div></div>
+<div class="ttc" id="astructquery__pool_html_a5a713b0ec1429d9c019ddfff562ecdea"><div class="ttname"><a href="structquery__pool.html#a5a713b0ec1429d9c019ddfff562ecdea">query_pool::full</a></div><div class="ttdeci">bool(* full)(struct query_pool *qpool)</div><div class="ttdoc">判断查询池是否已满</div><div class="ttdef"><b>Definition:</b> query_pool.h:57</div></div>
+<div class="ttc" id="astructquery__pool_html_a6302249a25719dc18f725c4b19555da8"><div class="ttname"><a href="structquery__pool.html#a6302249a25719dc18f725c4b19555da8">query_pool::insert</a></div><div class="ttdeci">void(* insert)(struct query_pool *qpool, const struct sockaddr *addr, const Dns_Msg *msg)</div><div class="ttdoc">向查询池中加入新查询</div><div class="ttdef"><b>Definition:</b> query_pool.h:66</div></div>
+<div class="ttc" id="astructquery__pool_html_a69aa7a98cbcba537a4e41aa96ddca5a4"><div class="ttname"><a href="structquery__pool.html#a69aa7a98cbcba537a4e41aa96ddca5a4">query_pool::ipool</a></div><div class="ttdeci">Index_Pool * ipool</div><div class="ttdoc">序号池</div><div class="ttdef"><b>Definition:</b> query_pool.h:47</div></div>
+<div class="ttc" id="astructquery__pool_html_a7f9f953747a71094cb8d56e4a034e2af"><div class="ttname"><a href="structquery__pool.html#a7f9f953747a71094cb8d56e4a034e2af">query_pool::pool</a></div><div class="ttdeci">Dns_Query * pool[QUERY_POOL_MAX_SIZE]</div><div class="ttdoc">查询池</div><div class="ttdef"><b>Definition:</b> query_pool.h:44</div></div>
+<div class="ttc" id="astructquery__pool_html_a978d7fe82bc7edb1089fc5642062fd66"><div class="ttname"><a href="structquery__pool.html#a978d7fe82bc7edb1089fc5642062fd66">query_pool::loop</a></div><div class="ttdeci">uv_loop_t * loop</div><div class="ttdoc">事件循环</div><div class="ttdef"><b>Definition:</b> query_pool.h:48</div></div>
+<div class="ttc" id="astructquery__pool_html_aef1a374ebd2f9080b03bb20c618565d7"><div class="ttname"><a href="structquery__pool.html#aef1a374ebd2f9080b03bb20c618565d7">query_pool::cache</a></div><div class="ttdeci">Cache * cache</div><div class="ttdoc">缓存</div><div class="ttdef"><b>Definition:</b> query_pool.h:49</div></div>
+<div class="ttc" id="astructqueue_html"><div class="ttname"><a href="structqueue.html">queue</a></div><div class="ttdoc">循环队列</div><div class="ttdef"><b>Definition:</b> queue.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="query__pool_8h.html">query_pool.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

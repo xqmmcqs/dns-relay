@@ -1,0 +1,9 @@
+<map id="dnsmsg_to_string" name="dnsmsg_to_string">
+<area shape="rect" id="node1" title="DNS报文结构体转换到字节流" alt="" coords="5,56,131,83"/>
+<area shape="rect" id="node2" href="$dns__conversion_8c.html#ad51e454f1437c9575b97f84d3d77a1b9" title="向字节流中写入一个Header Section" alt="" coords="179,5,307,32"/>
+<area shape="rect" id="node4" href="$dns__conversion_8c.html#a2b54cf6f19477718d5286330d0cb0cae" title="向字节流中写入一个Question Section" alt="" coords="182,56,303,83"/>
+<area shape="rect" id="node6" href="$dns__conversion_8c.html#aaf9a9b3814123fe16906c30643db1d59" title="向字节流中写入一个Resource Record" alt="" coords="189,107,297,133"/>
+<area shape="rect" id="node3" href="$dns__conversion_8c.html#a892deea8e33cb7ce2c0f336d112abe4e" title="向字节流中写入一个小端法表示的16位数字" alt="" coords="368,31,460,57"/>
+<area shape="rect" id="node5" href="$dns__conversion_8c.html#a7b904ddd10df7128f7ec9b1aab19b85c" title="向字节流中写入一个NAME字段" alt="" coords="355,81,473,108"/>
+<area shape="rect" id="node7" href="$dns__conversion_8c.html#a803502b08c76912cbf1a675d1d3890a5" title="向字节流中写入一个小端法表示的32位数字" alt="" coords="368,132,460,159"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="cache_insert" name="cache_insert">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,101,108"/>
+<area shape="rect" id="node2" href="$cache_8c.html#a3aa8d6fa65bbd42c0b6327c67362234d" title="字符串哈希" alt="" coords="149,5,240,32"/>
+<area shape="rect" id="node3" href="$dns__conversion_8h.html#a574100917e06ad98a9e6274a41cddcef" title="复制DNS报文RR结构体" alt="" coords="151,56,238,83"/>
+<area shape="rect" id="node4" href="$cache_8c.html#a8c6dd0d6aa6f172b089056e27c11e7da" title="获取一串RR中的最小ttl" alt="" coords="151,107,238,133"/>
+<area shape="rect" id="node5" href="$rbtree_8h.html#a7340708ace3866264b6c8a96a8c685b5" title="创建链表节点" alt="" coords="149,157,240,184"/>
+<area shape="rect" id="node6" href="$rbtree_8c.html#a8e0bfadc9752f04f500905a85c47e74e" title=" " alt="" coords="288,107,421,133"/>
+<area shape="rect" id="node8" href="$rbtree_8c.html#a41e95176ba82f906d4ecc38a385f66f7" title=" " alt="" coords="305,157,404,184"/>
+<area shape="rect" id="node9" href="$rbtree_8c.html#a26d08eac00f23b0ed859451a4adc109b" title=" " alt="" coords="289,208,420,235"/>
+<area shape="rect" id="node7" href="$dns__conversion_8h.html#a70f17de617dc9a8a1a87e966b35bf273" title="释放DNS报文RR结构体的空间" alt="" coords="469,107,571,133"/>
+</map>

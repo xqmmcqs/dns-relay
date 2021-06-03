@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DNS中继服务器: include/util.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('util_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">util.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="util_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifndef DNSR_UTIL_H</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define DNSR_UTIL_H</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config__jar_8h.html">config_jar.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">extern</span> FILE * <a class="code" href="util_8h.html#ab936051f5aaca44c6c3c41dee0d19c36">log_file</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="util_8h.html#aff8be7e5fd1fcb990ba969a2391f9f10">   22</a></span>&#160;<span class="preprocessor">#define log_debug(args...) \</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">    if (LOG_MASK &amp; 1) \</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">        if (log_file != stderr) \</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">            fprintf(log_file, &quot;[DEBUG] %s:%d &quot;</span>, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        else \</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            fprintf(log_file, &quot;\x1b[37m[DEBUG]\x1b[36m %s:%d \x1b[0m&quot;, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        fprintf(log_file, args); \</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        fprintf(log_file, &quot;\n&quot;); \</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="util_8h.html#a50af197751b746ed3151734549307e28">   33</a></span>&#160;<span class="preprocessor">#define log_info(args...) \</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    if (LOG_MASK &amp; 2) \</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">        if (log_file != stderr) \</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">            fprintf(log_file, &quot;[INFO ] %s:%d &quot;</span>, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        else \</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            fprintf(log_file, &quot;\x1b[34m[INFO ]\x1b[36m %s:%d \x1b[0m&quot;, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        fprintf(log_file, args); \</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        fprintf(log_file, &quot;\n&quot;); \</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="util_8h.html#af8f805a98ad86a43d8b6019ff1423fcf">   44</a></span>&#160;<span class="preprocessor">#define log_error(args...) \</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">    if (LOG_MASK &amp; 4) \</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">        if (log_file != stderr) \</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">            fprintf(log_file, &quot;[ERROR] %s:%d &quot;</span>, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        else \</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            fprintf(log_file, &quot;\x1b[33m[ERROR]\x1b[36m %s:%d \x1b[0m&quot;, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        fprintf(log_file, args); \</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        fprintf(log_file, &quot;\n&quot;); \</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="util_8h.html#afc1a1e3aa839b3db0861c0e510415e2e">   55</a></span>&#160;<span class="preprocessor">#define log_fatal(args...) \</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    if (LOG_MASK &amp; 8) \</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">        if (log_file != stderr) \</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">            fprintf(log_file, &quot;[FATAL] %s:%d &quot;</span>, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        else \</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            fprintf(log_file, &quot;\x1b[31m[FATAL]\x1b[36m %s:%d \x1b[0m&quot;, __FILE__, __LINE__); \</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        fprintf(log_file, args); \</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        fprintf(log_file, &quot;\n&quot;); \</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        exit(EXIT_FAILURE); \</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DNSR_UTIL_H</span></div>
+<div class="ttc" id="aconfig__jar_8h_html"><div class="ttname"><a href="config__jar_8h.html">config_jar.h</a></div><div class="ttdoc">命令行参数解析</div></div>
+<div class="ttc" id="autil_8h_html_ab936051f5aaca44c6c3c41dee0d19c36"><div class="ttname"><a href="util_8h.html#ab936051f5aaca44c6c3c41dee0d19c36">log_file</a></div><div class="ttdeci">FILE * log_file</div><div class="ttdef"><b>Definition:</b> main.c:20</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="util_8h.html">util.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

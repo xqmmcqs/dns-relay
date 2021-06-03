@@ -1,0 +1,16 @@
+<map id="query_pool" name="query_pool">
+<area shape="rect" id="node1" title="DNS查询池" alt="" coords="327,603,413,629"/>
+<area shape="rect" id="node2" href="$structdns__query.html" title="DNS查询结构体" alt="" coords="127,237,210,264"/>
+<area shape="rect" id="node3" href="$structdns__msg.html" title="DNS报文结构体" alt="" coords="131,95,206,121"/>
+<area shape="rect" id="node4" href="$structdns__header.html" title="报文Header Section结构体" alt="" coords="5,5,95,32"/>
+<area shape="rect" id="node5" href="$structdns__rr.html" title="报文Resource Record结构体，以链表表示" alt="" coords="295,5,354,32"/>
+<area shape="rect" id="node12" href="$structrbtree__value.html" title="红黑树节点链表的节点的值，对应一个特定查询的答案" alt="" coords="278,95,371,121"/>
+<area shape="rect" id="node6" href="$structdns__question.html" title="报文Question Section结构体，以链表表示" alt="" coords="119,5,218,32"/>
+<area shape="rect" id="node7" href="$structindex__pool.html" title="序号池" alt="" coords="465,513,549,540"/>
+<area shape="rect" id="node8" href="$structqueue.html" title="循环队列" alt="" coords="435,409,492,436"/>
+<area shape="rect" id="node9" href="$structindex__.html" title="序号结构体" alt="" coords="516,409,576,436"/>
+<area shape="rect" id="node10" href="$structcache__.html" title="缓存结构体" alt="" coords="283,513,347,540"/>
+<area shape="rect" id="node11" href="$structdns__rr__linklist.html" title="红黑树节点链表" alt="" coords="311,185,413,212"/>
+<area shape="rect" id="node13" href="$structrbtree.html" title="红黑树" alt="" coords="356,409,411,436"/>
+<area shape="rect" id="node14" href="$structrbtree__node.html" title="红黑树的节点" alt="" coords="347,297,438,323"/>
+</map>

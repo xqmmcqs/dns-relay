@@ -8,9 +8,9 @@ include_directories(/usr/local/include)
 
 add_executable(main
         src/main.c
-        include/config_jar.h
-        src/config_jar.c
         include/util.h
+        src/config_jar.c
+        include/config_jar.h
         include/dns_structure.h
         src/dns_conversion.c
         include/dns_conversion.h

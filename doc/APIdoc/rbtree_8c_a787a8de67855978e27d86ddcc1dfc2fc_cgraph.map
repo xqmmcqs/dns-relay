@@ -1,0 +1,10 @@
+<map id="rbtree_delete" name="rbtree_delete">
+<area shape="rect" id="node1" title="删除红黑树中的节点" alt="" coords="5,107,103,133"/>
+<area shape="rect" id="node2" href="$rbtree_8c.html#ac734d64a69533759abbc046c6266e951" title="依照不同情况调整红黑树的形态，使其平衡" alt="" coords="157,56,249,83"/>
+<area shape="rect" id="node7" href="$rbtree_8c.html#a05ef0ed79d24a2628b928224a4139c3b" title="销毁红黑树中的节点" alt="" coords="153,107,253,133"/>
+<area shape="rect" id="node8" href="$rbtree_8c.html#a959b13831afca5020b0f054c12554410" title="求子树的最小节点" alt="" coords="151,157,256,184"/>
+<area shape="rect" id="node3" href="$rbtree_8c.html#ab62e652e4fc283a274b30e1f1f08c211" title="将节点左旋" alt="" coords="307,5,387,32"/>
+<area shape="rect" id="node5" href="$rbtree_8c.html#aef6fab1149a4f11067237f95c7bdb41f" title="将节点右旋" alt="" coords="304,56,391,83"/>
+<area shape="rect" id="node6" href="$rbtree_8c.html#a4dd4bda21d33193ea5d725f28033e7e3" title="求节点的兄弟节点" alt="" coords="318,107,377,133"/>
+<area shape="rect" id="node4" href="$rbtree_8c.html#a4e57b2a3dc11c51ba425457a45fc44fd" title="求节点的祖父节点" alt="" coords="439,31,529,57"/>
+</map>

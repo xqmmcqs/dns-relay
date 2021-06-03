@@ -30,7 +30,7 @@ typedef enum
 } Color;
 
 /// 红黑树节点链表的节点的值，对应一个特定查询的答案
-typedef struct
+typedef struct rbtree_value
 {
     Dns_RR * rr; ///< 指向一个Dns_RR的链表
     uint16_t ancount; ///< RR链表中Answer Section的数目

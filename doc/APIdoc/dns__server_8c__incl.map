@@ -1,0 +1,20 @@
+<map id="src/dns_server.c" name="src/dns_server.c">
+<area shape="rect" id="node1" title="DNS服务器" alt="" coords="337,5,456,32"/>
+<area shape="rect" id="node2" href="$dns__server_8h.html" title="DNS服务器" alt="" coords="232,80,385,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="769,80,833,107"/>
+<area shape="rect" id="node7" href="$util_8h.html" title="输出调试信息" alt="" coords="638,80,745,107"/>
+<area shape="rect" id="node10" href="$dns__conversion_8h.html" title="DNS报文格式转换" alt="" coords="90,155,271,181"/>
+<area shape="rect" id="node11" href="$dns__print_8h.html" title="DNS报文打印" alt="" coords="5,229,148,256"/>
+<area shape="rect" id="node12" href="$query__pool_8h.html" title="查询池" alt="" coords="409,80,563,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="346,155,391,181"/>
+<area shape="rect" id="node4" href="$dns__structure_8h.html" title="DNS报文结构" alt="" coords="354,304,466,331"/>
+<area shape="rect" id="node5" title=" " alt="" coords="452,379,517,405"/>
+<area shape="rect" id="node8" title=" " alt="" coords="738,229,799,256"/>
+<area shape="rect" id="node9" href="$config__jar_8h.html" title="命令行参数解析" alt="" coords="779,155,867,181"/>
+<area shape="rect" id="node13" title=" " alt="" coords="447,229,522,256"/>
+<area shape="rect" id="node14" href="$index__pool_8h.html" title="序号池" alt="" coords="517,155,612,181"/>
+<area shape="rect" id="node16" href="$cache_8h.html" title="缓存" alt="" coords="636,155,704,181"/>
+<area shape="rect" id="node15" href="$queue_8h.html" title="队列" alt="" coords="508,304,576,331"/>
+<area shape="rect" id="node17" href="$rbtree_8h.html" title="红黑树" alt="" coords="647,229,714,256"/>
+<area shape="rect" id="node18" title=" " alt="" coords="651,304,710,331"/>
+</map>

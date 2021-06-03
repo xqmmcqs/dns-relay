@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/xhtml;charset=UTF-8" http-equiv="Content-Type"/>
+<meta content="IE=9" http-equiv="X-UA-Compatible"/>
+<meta content="Doxygen 1.9.1" name="generator"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>DNS中继服务器: include/cache.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="dynsections.js" type="text/javascript"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script src="resize.js" type="text/javascript"></script>
+<script src="navtreedata.js" type="text/javascript"></script>
+<script src="navtree.js" type="text/javascript"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script src="search/searchdata.js" type="text/javascript"></script>
+<script src="search/search.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js" type="text/javascript"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellpadding="0" cellspacing="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">DNS中继服务器
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script src="menudata.js" type="text/javascript"></script>
+<script src="menu.js" type="text/javascript"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="ui-resizable side-nav-resizable" id="side-nav">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div class="sync" id="nav-sync"></div>
+    </div>
+  </div>
+  <div class="ui-resizable-handle" id="splitbar"
+       style="-moz-user-select:none;">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('cache_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onkeydown="return searchBox.OnSearchSelectKey(event)"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onmouseover="return searchBox.OnSearchSelectShow()">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe frameborder="0" id="MSearchResults"
+        name="MSearchResults" src="javascript:void(0)">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">cache.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="cache_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef DNSR_CACHE_H</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define DNSR_CACHE_H</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dns__structure_8h.html">dns_structure.h</a>&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rbtree_8h.html">rbtree.h</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="cache_8h.html#a8a6befd630ea1c2ab260266f7466540c">   23</a></span>&#160;<span class="preprocessor">#define CACHE_SIZE 30</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structcache__.html">   26</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcache__.html">cache_</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structcache__.html#acabce542251947db1f24a053009a6653">   28</a></span>&#160;    <a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * <a class="code" href="structcache__.html#acabce542251947db1f24a053009a6653">head</a>; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structcache__.html#a66c801ed47c1ce6277f74f8303f1877d">   29</a></span>&#160;    <a class="code" href="structdns__rr__linklist.html">Dns_RR_LinkList</a> * <a class="code" href="structcache__.html#a66c801ed47c1ce6277f74f8303f1877d">tail</a>; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structcache__.html#a7bfb881e7c4f491fbab1fe4ff2c2257a">   30</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structcache__.html#a7bfb881e7c4f491fbab1fe4ff2c2257a">size</a>; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structcache__.html#aa4098344fb51798827908b28800c03ae">   31</a></span>&#160;    <a class="code" href="structrbtree.html">Rbtree</a> * <a class="code" href="structcache__.html#aa4098344fb51798827908b28800c03ae">tree</a>; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structcache__.html#a002afe5b9b85ef573ff55a88fad7dd10">   39</a></span>&#160;    void (* <a class="code" href="structcache__.html#a002afe5b9b85ef573ff55a88fad7dd10">insert</a>)(<span class="keyword">struct </span><a class="code" href="structcache__.html">cache_</a> * <a class="code" href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a>, <span class="keyword">const</span> <a class="code" href="structdns__msg.html">Dns_Msg</a> * msg);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structcache__.html#ab86980cec5f51623d150ec30c09e82ac">   48</a></span>&#160;    <a class="code" href="structrbtree__value.html">Rbtree_Value</a> * (* query)(<span class="keyword">struct </span><a class="code" href="structcache__.html">cache_</a> * <a class="code" href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a>, <span class="keyword">const</span> <a class="code" href="structdns__question.html">Dns_Que</a> * que);</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">   49</a></span>&#160;} <a class="code" href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="structcache__.html">Cache</a> * <a class="code" href="cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2">new_cache</a>(FILE * hosts_file);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//DNSR_CACHE_H</span></div>
+<div class="ttc" id="acache_8h_html_aacb3cd9ae53f433578c171271fb89409"><div class="ttname"><a href="cache_8h.html#aacb3cd9ae53f433578c171271fb89409">Cache</a></div><div class="ttdeci">struct cache_ Cache</div><div class="ttdoc">缓存结构体</div></div>
+<div class="ttc" id="acache_8h_html_aec8c9137815dd993a99a9c1e1d4a06f2"><div class="ttname"><a href="cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2">new_cache</a></div><div class="ttdeci">Cache * new_cache(FILE *hosts_file)</div><div class="ttdoc">创建缓存</div><div class="ttdef"><b>Definition:</b> cache.c:156</div></div>
+<div class="ttc" id="adns__structure_8h_html"><div class="ttname"><a href="dns__structure_8h.html">dns_structure.h</a></div><div class="ttdoc">DNS报文结构</div></div>
+<div class="ttc" id="amain_8c_html_a219405a7efb1068433bdef1efa916e8a"><div class="ttname"><a href="main_8c.html#a219405a7efb1068433bdef1efa916e8a">cache</a></div><div class="ttdeci">Cache * cache</div><div class="ttdef"><b>Definition:</b> main.c:18</div></div>
+<div class="ttc" id="arbtree_8h_html"><div class="ttname"><a href="rbtree_8h.html">rbtree.h</a></div><div class="ttdoc">红黑树</div></div>
+<div class="ttc" id="astructcache___html"><div class="ttname"><a href="structcache__.html">cache_</a></div><div class="ttdoc">缓存结构体</div><div class="ttdef"><b>Definition:</b> cache.h:27</div></div>
+<div class="ttc" id="astructcache___html_a002afe5b9b85ef573ff55a88fad7dd10"><div class="ttname"><a href="structcache__.html#a002afe5b9b85ef573ff55a88fad7dd10">cache_::insert</a></div><div class="ttdeci">void(* insert)(struct cache_ *cache, const Dns_Msg *msg)</div><div class="ttdoc">向缓存中插入DNS回复</div><div class="ttdef"><b>Definition:</b> cache.h:39</div></div>
+<div class="ttc" id="astructcache___html_a66c801ed47c1ce6277f74f8303f1877d"><div class="ttname"><a href="structcache__.html#a66c801ed47c1ce6277f74f8303f1877d">cache_::tail</a></div><div class="ttdeci">Dns_RR_LinkList * tail</div><div class="ttdoc">LRU尾节点</div><div class="ttdef"><b>Definition:</b> cache.h:29</div></div>
+<div class="ttc" id="astructcache___html_a7bfb881e7c4f491fbab1fe4ff2c2257a"><div class="ttname"><a href="structcache__.html#a7bfb881e7c4f491fbab1fe4ff2c2257a">cache_::size</a></div><div class="ttdeci">int size</div><div class="ttdoc">LRU大小</div><div class="ttdef"><b>Definition:</b> cache.h:30</div></div>
+<div class="ttc" id="astructcache___html_aa4098344fb51798827908b28800c03ae"><div class="ttname"><a href="structcache__.html#aa4098344fb51798827908b28800c03ae">cache_::tree</a></div><div class="ttdeci">Rbtree * tree</div><div class="ttdoc">红黑树</div><div class="ttdef"><b>Definition:</b> cache.h:31</div></div>
+<div class="ttc" id="astructcache___html_acabce542251947db1f24a053009a6653"><div class="ttname"><a href="structcache__.html#acabce542251947db1f24a053009a6653">cache_::head</a></div><div class="ttdeci">Dns_RR_LinkList * head</div><div class="ttdoc">LRU头结点</div><div class="ttdef"><b>Definition:</b> cache.h:28</div></div>
+<div class="ttc" id="astructdns__msg_html"><div class="ttname"><a href="structdns__msg.html">dns_msg</a></div><div class="ttdoc">DNS报文结构体</div><div class="ttdef"><b>Definition:</b> dns_structure.h:85</div></div>
+<div class="ttc" id="astructdns__question_html"><div class="ttname"><a href="structdns__question.html">dns_question</a></div><div class="ttdoc">报文Question Section结构体，以链表表示</div><div class="ttdef"><b>Definition:</b> dns_structure.h:64</div></div>
+<div class="ttc" id="astructdns__rr__linklist_html"><div class="ttname"><a href="structdns__rr__linklist.html">dns_rr_linklist</a></div><div class="ttdoc">红黑树节点链表</div><div class="ttdef"><b>Definition:</b> rbtree.h:44</div></div>
+<div class="ttc" id="astructrbtree__value_html"><div class="ttname"><a href="structrbtree__value.html">rbtree_value</a></div><div class="ttdoc">红黑树节点链表的节点的值，对应一个特定查询的答案</div><div class="ttdef"><b>Definition:</b> rbtree.h:34</div></div>
+<div class="ttc" id="astructrbtree_html"><div class="ttname"><a href="structrbtree.html">rbtree</a></div><div class="ttdoc">红黑树</div><div class="ttdef"><b>Definition:</b> rbtree.h:87</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="cache_8h.html">cache.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img alt="doxygen" class="footer" height="31" src="doxygen.svg" width="104"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

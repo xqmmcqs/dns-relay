@@ -31,7 +31,9 @@
 #define DNS_TYPE_SOA 6
 #define DNS_TYPE_PTR 12
 #define DNS_TYPE_HINFO 13
+#define DNS_TYPE_MINFO 15
 #define DNS_TYPE_MX 15
+#define DNS_TYPE_TXT 16
 #define DNS_TYPE_AAAA 28
 
 #define DNS_CLASS_IN 1
@@ -40,7 +42,7 @@
 #define DNS_RCODE_NXDOMAIN 3
 
 /// 报文Header Section结构体
-typedef struct
+typedef struct dns_header
 {
     uint16_t id;
     uint8_t qr: 1;
@@ -79,7 +81,7 @@ typedef struct dns_rr
 } Dns_RR;
 
 /// DNS报文结构体
-typedef struct
+typedef struct dns_msg
 {
     Dns_Header * header; ///< 指向Header Section
     Dns_Que * que; ///< 指向Question Section链表的头节点
