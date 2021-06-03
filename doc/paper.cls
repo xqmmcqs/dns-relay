@@ -48,6 +48,7 @@
   urlcolor={winered},
   filecolor={winered},
   citecolor={winered},
+  bookmarksdepth=3,
   linktoc=all,
 }
 % settings for the hyperref and geometry

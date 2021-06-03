@@ -57,7 +57,7 @@
 此外，基于性能和实用性的考虑，我们实现了数个额外需求：
 
 \begin{enumerate}
-    \item 打印调试信息和DNS报文内容。
+    \item 输出调试信息和DNS报文内容。
     \item 在转发DNS请求时重新分配序号，以区分不同的查询。
     \item 避免阻塞式查询，采用事件驱动的方式实现高并发。
     \item 对于数据结构中查询不到的DNS请求，存储来自服务器的DNS回复以供之后的重复查询，并且在到期后删除记录。
@@ -237,7 +237,7 @@ Question部分和RR中的域名都是由一串字符\mintinline{text}{<domain-na
 
 \paragraph{RDATA格式}
 
-对于DNS中继服务器来说，RDATA部分的内容并不重要，只是涉及到域名压缩，以及调试打印的需求，所以需要对一部分类型的RDATA作处理。需要处理的RDATA如下。
+对于DNS中继服务器来说，RDATA部分的内容并不重要，只是涉及到域名压缩，以及调试输出的需求，所以需要对一部分类型的RDATA作处理。需要处理的RDATA如下。
 
 \subparagraph{A类型RDATA格式}
 
@@ -356,7 +356,7 @@ Question部分和RR中的域名都是由一串字符\mintinline{text}{<domain-na
     \item ADDRESS，128位IPv6地址。
 \end{itemize}
 
-\subsection{DNS报文结构体}
+\subsubsection{DNS报文结构体}
 
 DNS报文结构体定义在\mintinline{text}{dns_structure.h}中，由四个结构体构成，其结构如\figref{fig:struct_structure}所示。
 
@@ -420,11 +420,11 @@ typedef struct dns_msg
 \end{minted}
 \end{code}
 
-\mintinline{text}{dns_structure.h}的文档见\href{}{dns\_structure.h文件参考}。
+\mintinline{text}{dns_structure.h}的文档见\href{run:./APIdoc/dns__structure_8h.html}{dns\_structure.h文件参考}。
 
-\subsection{DNS报文字节流和结构体的转换}
+\subsubsection{DNS报文字节流和结构体的转换}
 
-从UDP socket中获取到的DNS报文是字节流的形式，我们需要将它转换成结构体，便于分析与打印，之后需要将结构体转换回字节流进行发送。
+从UDP socket中获取到的DNS报文是字节流的形式，我们需要将它转换成结构体，便于分析与输出，之后需要将结构体转换回字节流进行发送。
 
 此外，我们还需要关注报文结构体和RR结构体的复制和销毁操作。
 
@@ -446,7 +446,7 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src);
 \end{minted}
 \end{code}
 
-\mintinline{text}{dns_conversion.h}的文档见\href{}{dns\_conversion.h文件参考}。
+\mintinline{text}{dns_conversion.h}的文档见\href{run:./APIdoc/dns__conversion_8h.html}{dns\_conversion.h文件参考}。
 
 \paragraph{将字节流转换成结构体}
 
@@ -462,7 +462,7 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src);
 
 从图中可见，此函数分别调用\mintinline{C}{string_to_dnshead}、\mintinline{C}{string_to_dnsque}和\mintinline{C}{string_to_dnsrr}将报文的三个部分转换为结构体，对于Question部分和RR部分，需要维护一个链表头指针和尾指针，每次转换后的新记录插入链表尾即可。
 
-此外，考虑到域名格式的特殊性，\mintinline{C}{string_to_rrname}函数负责通过递归的形式将域名解析成可打印的常见的格式，\mintinline{C}{read_uint16}和\mintinline{C}{read_uint32}函数用于将大端法数字转换成小端法数字。
+此外，考虑到域名格式的特殊性，\mintinline{C}{string_to_rrname}函数负责通过递归的形式将域名解析成可输出的常见的格式，\mintinline{C}{read_uint16}和\mintinline{C}{read_uint32}函数用于将大端法数字转换成小端法数字。
 
 \paragraph{将结构体转换成字节流}
 
@@ -486,11 +486,11 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src);
 
 \mintinline{C}{copy_dnsmsg}和\mintinline{C}{copy_dnsrr}函数分别实现整个DNS报文的复制和RR链表的复制。
 
-上面提到的函数接口的的文档见\href{}{dns\_conversion.c文件参考}。
+上面提到的函数接口的的文档见\href{run:./APIdoc/dns__conversion_8c.html}{dns\_conversion.c文件参考}。
 
-\subsection{DNS报文的打印}
+\subsubsection{DNS报文的输出}
 
-通过打印DNS字节流和结构体，可以观察DNS报文的转换过程是否正确，并且跟踪程序运行的过程，便于debug的工作。
+通过输出DNS字节流和结构体，可以观察DNS报文的转换过程是否正确，并且跟踪程序运行的过程，便于debug的工作。
 
 上述操作定义在\mintinline{text}{dns_print.h}中，如下：
 
@@ -502,7 +502,9 @@ void print_dns_message(const Dns_Msg * pmsg);
 \end{minted}
 \end{code}
 
-\mintinline{C}{print_dns_string}函数用于打印DNS字节流，打印的效果如下：
+\mintinline{text}{dns_print.h}的文档见\href{run:./APIdoc/dns__print_8h.html}{dns\_print.h文件参考}。
+
+\mintinline{C}{print_dns_string}函数用于输出DNS字节流，输出的效果如下：
 
 \begin{code}
 \begin{minted}[frame=none]{text}
@@ -513,7 +515,7 @@ void print_dns_message(const Dns_Msg * pmsg);
 \end{minted}
 \end{code}
 
-\mintinline{C}{print_dns_message}函数用于打印DNS结构体，其函数调用图如\figref{fig:print_dns_message_call}：
+\mintinline{C}{print_dns_message}函数用于输出DNS结构体，其函数调用图如\figref{fig:print_dns_message_call}。
 
 \begin{figure}[htbp]
 
@@ -523,10 +525,10 @@ void print_dns_message(const Dns_Msg * pmsg);
 
 \end{figure}
 
-该函数分别调用\mintinline{C}{print_dns_header}、\mintinline{C}{print_dns_question}和\mintinline{C}{print_dns_rr}函数打印结构体的三个部分。
-由于RR的RDATA字段格式较多，所以另外实现了几个函数用于打印不同类型的RDATA字段。
+该函数分别调用\mintinline{C}{print_dns_header}、\mintinline{C}{print_dns_question}和\mintinline{C}{print_dns_rr}函数输出结构体的三个部分。
+由于RR的RDATA字段格式较多，所以另外实现了几个函数用于输出不同类型的RDATA字段。
 
-打印的效果如下：
+输出的效果如下：
 
 \begin{code}
 \begin{minted}[frame=none]{text}
@@ -562,6 +564,160 @@ RDATA = 10.3.9.161
 \end{minted}
 \end{code}
 
+上面提到的函数接口的的文档见\href{run:./APIdoc/dns__print_8c.html}{dns\_print.c文件参考}。
+
+\subsection{DNS记录的存储}
+
+理论上，通过一个域名和类型可以查询到一个RR的列表作为回复。对于DNS记录的存储就是基于这个对应关系。
+
+\subsubsection{红黑树和RR链表}
+
+DNS记录存储在一个红黑树中，红黑树节点的键是域名字符串经过哈希得到的整数，由于哈希可能存在冲突，并且一个域名可能对应多个不同类的查询，可采用拉链法解决冲突。
+因此，每个红黑树节点对应多个值，这些值被串联成一个有空头结点的单向链表。每个值中存储域名和查询类型、一个RR的列表和RR列表中各个部分的个数。
+
+上述数据结构的结构体的关系如\figref{fig:rbtree_structure}所示。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=0.3\linewidth]{./APIdoc/structrbtree__node__coll__graph.png}
+    \caption{红黑树和RR链表结构体的关系\label{fig:rbtree_structure}}
+
+\end{figure}
+
+红黑树中会存储从对照表中读取到的”IP地址-域名“对，也会存储运行时收到的回复。当存储对照表中的记录时，默认这些记录是永久的，而存储运行时的回复时，需要根据RR列表中最小的TTL确认这条记录的过期时间，过期时间记录在链表的节点中。
+
+此外，红黑树和RR链表（以及之后的大部分数据结构）都将数据结构的操作作为函数指针封装在结构体中，达到类似成员函数的效果。
+
+红黑树和RR链表的数据结构和操作定义在\mintinline{text}{rbtree.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+typedef enum
+{
+    BLACK, RED
+} Color;
+ 
+typedef struct rbtree_value
+{
+    Dns_RR * rr; 
+    uint16_t ancount; 
+    uint16_t nscount; 
+    uint16_t arcount; 
+    uint8_t type; 
+} Rbtree_Value;
+ 
+typedef struct dns_rr_linklist
+{
+    Rbtree_Value * value; 
+    time_t expire_time; 
+    struct dns_rr_linklist * next; 
+    
+    void (* insert)(struct dns_rr_linklist * list, struct dns_rr_linklist * new_list_node);
+    
+    void (* delete_next)(struct dns_rr_linklist * list);
+    
+    struct dns_rr_linklist * (* query_next)(struct dns_rr_linklist * list, const uint8_t * qname, const uint16_t qtype);
+} Dns_RR_LinkList;
+ 
+typedef struct rbtree_node
+{
+    unsigned int key; 
+    Dns_RR_LinkList * rr_list; 
+    Color color; 
+    struct rbtree_node * left; 
+    struct rbtree_node * right; 
+    struct rbtree_node * parent; 
+} Rbtree_Node;
+ 
+typedef struct rbtree
+{
+    Rbtree_Node * root; 
+    
+    void (* insert)(struct rbtree * tree, unsigned int key, Dns_RR_LinkList * list);
+    
+    Dns_RR_LinkList * (* query)(struct rbtree * tree, unsigned int data);
+} Rbtree;
+ 
+Dns_RR_LinkList * new_linklist();
+ 
+Rbtree * new_rbtree();
+\end{minted}
+\end{code}
+
+\mintinline{text}{rbtree.h}的文档见\href{run:./APIdoc/rbtree_8h.html}{rbtree.h文件参考}。
+
+\paragraph{RR链表}
+
+\mintinline{C}{Dns_RR_LinkList}结构体有三个方法：
+
+\begin{itemize}
+    \item \mintinline{C}{insert}方法用于在链表中的某个节点后插入新节点。
+    \item \mintinline{C}{delete_next}方法用于删除链表中某个节点的下一个结点。
+    \item \mintinline{C}{query_next}方法用于遍历一个链表，根据域名和查询类型从中筛选出一个节点。
+\end{itemize}
+
+\paragraph{红黑树的插入操作}
+
+\mintinline{C}{Rbtree}结构体的\mintinline{C}{insert}方法用于向红黑树中插入键-值对。
+
+具体来说，函数传入一个键和一个RR链表节点。首先在红黑树中按照键查找对应的节点，如果查找到节点，则将RR链表节点插入这个节点的RR链表尾；如果查找不到节点，则创建一个新节点以及一个有空头结点的RR链表，并将传入的RR链表节点插入到这个链表尾，在此之后，需要调用\mintinline{C}{insert_case}函数维护红黑树的平衡。
+
+对于红黑树的维护细节不属于本报告的范畴，故略去。
+
+这个方法对应\mintinline{text}{rbtree.c}中的\mintinline{C}{rbtree_insert}函数，该函数的调用图如\figref{fig:rbtree_insert_call}所示。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=0.8\linewidth]{./APIdoc/rbtree_8c_ae46c23eec5c1ea21ebab9279843de3a3_cgraph.png}
+    \caption{\mintinline{C}{rbtree_insert}函数的调用图\label{fig:rbtree_insert_call}}
+
+\end{figure}
+
+\paragraph{红黑树的查询操作}
+
+\mintinline{C}{Rbtree}结构体的\mintinline{C}{query}方法用于根据键在红黑树中查询RR链表。
+
+函数调用\mintinline{C}{rbtree_find}函数，在红黑树中根据键查找结点。如果查找到节点，将节点的RR链表中超时的节点删去。如果此时节点的链表为空（即只有一个头节点），则调用\mintinline{C}{rbtree_delete}函数删除这个节点，并且维护红黑树的平衡；否则返回这个RR链表。
+
+这个方法对应\mintinline{text}{rbtree.c}中的\mintinline{C}{rbtree_query}函数，该函数的调用图如\figref{fig:rbtree_query_call}所示。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=0.8\linewidth]{./APIdoc/rbtree_8c_a7460cf092b0132ece0a692cd84a26456_cgraph.png}
+    \caption{\mintinline{C}{rbtree_query}函数的调用图\label{fig:rbtree_query_call}}
+
+\end{figure}
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/rbtree_8c.html}{rbtree.c文件参考}。
+
+\subsubsection{LRU高速缓存}
+
+\paragraph{缓存的插入操作}
+
+\paragraph{缓存的查询操作}
+
+\subsection{序号池和查询池}
+
+\subsubsection{队列}
+
+\subsubsection{序号池}
+
+\subsubsection{查询池}
+
+\subsection{DNS服务端和客户端}
+
+\subsubsection{DNS服务端}
+
+\subsubsection{DNS客户端}
+
+\subsection{其他工具模块}
+
+\subsubsection{命令行参数解析}
+
+\subsubsection{调试信息输出}
 
 \section{构建方式}
 

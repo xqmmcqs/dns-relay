@@ -57,6 +57,7 @@ typedef struct dns_rr_linklist
      * @brief 删除链表中当前节点的下一个结点
      *
      * @param list 当前节点
+     * @note list不能是链表的尾节点
      */
     void (* delete_next)(struct dns_rr_linklist * list);
     
