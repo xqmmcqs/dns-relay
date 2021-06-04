@@ -141,7 +141,7 @@ static void qpool_delete(Query_Pool * qpool, uint16_t id)
         log_error("查询池中不存在此序号")
         return;
     }
-    log_debug("删除查询 ID: 0x%x", id)
+    log_debug("删除查询 ID: 0x%04x", id)
     Dns_Query * query = qpool->pool[id % QUERY_POOL_MAX_SIZE];
     qpool->queue->push(qpool->queue, id + QUERY_POOL_MAX_SIZE);
     qpool->pool[id % QUERY_POOL_MAX_SIZE] = NULL;

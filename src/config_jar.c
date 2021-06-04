@@ -20,7 +20,7 @@
 char * REMOTE_HOST = "10.3.9.4";
 int LOG_MASK = 15;
 int CLIENT_PORT = 0;
-char * HOSTS_PATH = "./hosts.txt";
+char * HOSTS_PATH = "../hosts.txt";
 char * LOG_PATH = NULL;
 
 void init_config(int argc, char * const * argv)

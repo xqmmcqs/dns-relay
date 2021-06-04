@@ -1,6 +1,6 @@
 /**
  * @file      dns_server.h
- * @brief     DNS服务器
+ * @brief     DNS服务端
  * @author    Ziheng Mao
  * @date      2021/4/3
  * @copyright GNU General Public License, version 3 (GPL-3.0)
@@ -20,7 +20,7 @@
 #include "dns_structure.h"
 
 /**
- * @brief 服务器初始化
+ * @brief 服务端初始化
  *
  * @param loop 事件循环
  */

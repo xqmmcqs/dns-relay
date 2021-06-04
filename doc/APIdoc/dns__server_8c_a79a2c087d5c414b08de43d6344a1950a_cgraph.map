@@ -1,5 +1,5 @@
 <map id="init_server" name="init_server">
-<area shape="rect" id="node1" title="服务器初始化" alt="" coords="5,107,88,133"/>
+<area shape="rect" id="node1" title="服务端初始化" alt="" coords="5,107,88,133"/>
 <area shape="rect" id="node2" href="$dns__server_8c.html#a55af4a4772ee42f239e2befc7b1190c7" title="为缓冲区分配空间" alt="" coords="136,81,225,108"/>
 <area shape="rect" id="node3" href="$dns__server_8c.html#a3f5c9971834e8a6c273a8584c42c46a3" title="从本地接收查询报文的回调函数" alt="" coords="147,132,215,159"/>
 <area shape="rect" id="node4" href="$dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="281,31,400,57"/>

@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5,588,56,615"/>
 <area shape="rect" id="node2" href="$dns__client_8h.html#a4976b0d7477e15d42c27429fe3138598" title="客户端初始化" alt="" coords="109,512,187,539"/>
 <area shape="rect" id="node13" href="$config__jar_8h.html#ac93dfd9f4c9f842917b45c609c8c2da9" title="解析命令行参数" alt="" coords="107,1120,189,1147"/>
-<area shape="rect" id="node14" href="$dns__server_8h.html#a79a2c087d5c414b08de43d6344a1950a" title="服务器初始化" alt="" coords="107,436,189,463"/>
+<area shape="rect" id="node14" href="$dns__server_8h.html#a79a2c087d5c414b08de43d6344a1950a" title="服务端初始化" alt="" coords="107,436,189,463"/>
 <area shape="rect" id="node17" href="$cache_8h.html#aec8c9137815dd993a99a9c1e1d4a06f2" title="创建缓存" alt="" coords="104,1069,192,1096"/>
 <area shape="rect" id="node31" href="$query__pool_8h.html#a51738c1bb6b8a5ad3200f33efe37d9d0" title="创建查询池" alt="" coords="106,588,190,615"/>
 <area shape="rect" id="node3" href="$dns__client_8c.html#a55af4a4772ee42f239e2befc7b1190c7" title="为缓冲区分配空间" alt="" coords="243,157,333,184"/>

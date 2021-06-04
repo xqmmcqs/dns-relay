@@ -488,11 +488,14 @@ Rbtree * new_rbtree()
     if (!tree)
         log_fatal("内存分配错误")
     tree->root = NULL;
-    NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
     if (!NIL)
-        log_fatal("内存分配错误")
-    NIL->color = BLACK;
-    NIL->left = NIL->right = NIL;
+    {
+        NIL = (Rbtree_Node *) calloc(1, sizeof(Rbtree_Node));
+        if (!NIL)
+            log_fatal("内存分配错误")
+        NIL->color = BLACK;
+        NIL->left = NIL->right = NIL;
+    }
     
     tree->insert = &rbtree_insert;
     tree->query = &rbtree_query;

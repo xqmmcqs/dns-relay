@@ -1,11 +1,11 @@
 /**
  * @file      dns_server.c
- * @brief     DNS服务器
+ * @brief     DNS服务端
  * @author    Ziheng Mao
  * @date      2021/4/3
  * @copyright GNU General Public License, version 3 (GPL-3.0)
  *
- * 本文件的内容是DNS服务器的实现。
+ * 本文件的内容是DNS服务端的实现。
 */
 
 #include "../include/dns_server.h"
@@ -17,8 +17,8 @@
 #include "../include/dns_print.h"
 #include "../include/query_pool.h"
 
-static uv_udp_t server_socket; ///< 服务器与本地通信的socket
-static struct sockaddr_in recv_addr; ///< 服务器收取DNS查询报文的地址
+static uv_udp_t server_socket; ///< 服务端与本地通信的socket
+static struct sockaddr_in recv_addr; ///< 服务端收取DNS查询报文的地址
 extern Query_Pool * qpool; ///< 查询池
 
 /**

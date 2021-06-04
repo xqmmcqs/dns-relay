@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('dns__server_8c.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 
-<p>DNS服务器  
+<p>DNS服务端  
 <a href="#details">更多...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="dns__server_8h_source.html">../include/dns_server.h</a>&quot;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
@@ -109,8 +109,8 @@ dns_server.c 的引用(Include)关系图:</div>
 <div class="dyncontent">
 <div class="center"><img src="dns__server_8c__incl.png" border="0" usemap="#asrc_2dns__server_8c" alt=""/></div>
 <map name="asrc_2dns__server_8c" id="asrc_2dns__server_8c">
-<area shape="rect" title="DNS服务器" alt="" coords="337,5,456,32"/>
-<area shape="rect" href="dns__server_8h.html" title="DNS服务器" alt="" coords="232,80,385,107"/>
+<area shape="rect" title="DNS服务端" alt="" coords="337,5,456,32"/>
+<area shape="rect" href="dns__server_8h.html" title="DNS服务端" alt="" coords="232,80,385,107"/>
 <area shape="rect" title=" " alt="" coords="769,80,833,107"/>
 <area shape="rect" href="util_8h.html" title="输出调试信息" alt="" coords="638,80,745,107"/>
 <area shape="rect" href="dns__conversion_8h.html" title="DNS报文格式转换" alt="" coords="90,155,271,181"/>
@@ -142,7 +142,7 @@ dns_server.c 的引用(Include)关系图:</div>
 <tr class="memdesc:a3f5c9971834e8a6c273a8584c42c46a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">从本地接收查询报文的回调函数  <a href="dns__server_8c.html#a3f5c9971834e8a6c273a8584c42c46a3">更多...</a><br /></td></tr>
 <tr class="separator:a3f5c9971834e8a6c273a8584c42c46a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79a2c087d5c414b08de43d6344a1950a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__server_8c.html#a79a2c087d5c414b08de43d6344a1950a">init_server</a> (uv_loop_t *<a class="el" href="main_8c.html#add769cb3887f840e6e7be962492de960">loop</a>)</td></tr>
-<tr class="memdesc:a79a2c087d5c414b08de43d6344a1950a"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务器初始化  <a href="dns__server_8c.html#a79a2c087d5c414b08de43d6344a1950a">更多...</a><br /></td></tr>
+<tr class="memdesc:a79a2c087d5c414b08de43d6344a1950a"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务端初始化  <a href="dns__server_8c.html#a79a2c087d5c414b08de43d6344a1950a">更多...</a><br /></td></tr>
 <tr class="separator:a79a2c087d5c414b08de43d6344a1950a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c27be19d71612df0b60fd5c68d0502a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__server_8c.html#a9c27be19d71612df0b60fd5c68d0502a">send_to_local</a> (const struct sockaddr *addr, const <a class="el" href="dns__structure_8h.html#af9793e5f9c4dc6b1a90865331e9fe741">Dns_Msg</a> *msg)</td></tr>
 <tr class="memdesc:a9c27be19d71612df0b60fd5c68d0502a"><td class="mdescLeft">&#160;</td><td class="mdescRight">将DNS回复报文发送至本地  <a href="dns__server_8c.html#a9c27be19d71612df0b60fd5c68d0502a">更多...</a><br /></td></tr>
@@ -151,21 +151,21 @@ dns_server.c 的引用(Include)关系图:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 变量</h2></td></tr>
 <tr class="memitem:a125c2f8e4ef0170e771e52eab324dbf7"><td class="memItemLeft" align="right" valign="top">static uv_udp_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__server_8c.html#a125c2f8e4ef0170e771e52eab324dbf7">server_socket</a></td></tr>
-<tr class="memdesc:a125c2f8e4ef0170e771e52eab324dbf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务器与本地通信的socket  <a href="dns__server_8c.html#a125c2f8e4ef0170e771e52eab324dbf7">更多...</a><br /></td></tr>
+<tr class="memdesc:a125c2f8e4ef0170e771e52eab324dbf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务端与本地通信的socket  <a href="dns__server_8c.html#a125c2f8e4ef0170e771e52eab324dbf7">更多...</a><br /></td></tr>
 <tr class="separator:a125c2f8e4ef0170e771e52eab324dbf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab68c13e44aff4b13c0e9a04ab2cbf71e"><td class="memItemLeft" align="right" valign="top">static struct sockaddr_in&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__server_8c.html#ab68c13e44aff4b13c0e9a04ab2cbf71e">recv_addr</a></td></tr>
-<tr class="memdesc:ab68c13e44aff4b13c0e9a04ab2cbf71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务器收取DNS查询报文的地址  <a href="dns__server_8c.html#ab68c13e44aff4b13c0e9a04ab2cbf71e">更多...</a><br /></td></tr>
+<tr class="memdesc:ab68c13e44aff4b13c0e9a04ab2cbf71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">服务端收取DNS查询报文的地址  <a href="dns__server_8c.html#ab68c13e44aff4b13c0e9a04ab2cbf71e">更多...</a><br /></td></tr>
 <tr class="separator:ab68c13e44aff4b13c0e9a04ab2cbf71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72e226b504514a1ea5a74389ad36ece6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="query__pool_8h.html#ab473e597588e70ec88aa19fa55ab6cae">Query_Pool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dns__server_8c.html#a72e226b504514a1ea5a74389ad36ece6">qpool</a></td></tr>
 <tr class="memdesc:a72e226b504514a1ea5a74389ad36ece6"><td class="mdescLeft">&#160;</td><td class="mdescRight">查询池  <a href="dns__server_8c.html#a72e226b504514a1ea5a74389ad36ece6">更多...</a><br /></td></tr>
 <tr class="separator:a72e226b504514a1ea5a74389ad36ece6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock"><p>DNS服务器 </p>
+<div class="textblock"><p>DNS服务端 </p>
 <dl class="section author"><dt>作者</dt><dd>Ziheng Mao </dd></dl>
 <dl class="section date"><dt>日期</dt><dd>2021/4/3 </dd></dl>
 <dl class="section copyright"><dt>版权所有</dt><dd>GNU General Public License, version 3 (GPL-3.0)</dd></dl>
-<p>本文件的内容是DNS服务器的实现。 </p>
+<p>本文件的内容是DNS服务端的实现。 </p>
 </div><h2 class="groupheader">函数说明</h2>
 <a id="a55af4a4772ee42f239e2befc7b1190c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55af4a4772ee42f239e2befc7b1190c7">&#9670;&nbsp;</a></span>alloc_buffer()</h2>
@@ -236,7 +236,7 @@ dns_server.c 的引用(Include)关系图:</div>
       </table>
 </div><div class="memdoc">
 
-<p>服务器初始化 </p>
+<p>服务端初始化 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
     <tr><td class="paramname">loop</td><td>事件循环 </td></tr>
@@ -248,7 +248,7 @@ dns_server.c 的引用(Include)关系图:</div>
 <div class="dyncontent">
 <div class="center"><img src="dns__server_8c_a79a2c087d5c414b08de43d6344a1950a_cgraph.png" border="0" usemap="#adns__server_8c_a79a2c087d5c414b08de43d6344a1950a_cgraph" alt=""/></div>
 <map name="adns__server_8c_a79a2c087d5c414b08de43d6344a1950a_cgraph" id="adns__server_8c_a79a2c087d5c414b08de43d6344a1950a_cgraph">
-<area shape="rect" title="服务器初始化" alt="" coords="5,107,88,133"/>
+<area shape="rect" title="服务端初始化" alt="" coords="5,107,88,133"/>
 <area shape="rect" href="dns__server_8c.html#a55af4a4772ee42f239e2befc7b1190c7" title="为缓冲区分配空间" alt="" coords="136,81,225,108"/>
 <area shape="rect" href="dns__server_8c.html#a3f5c9971834e8a6c273a8584c42c46a3" title="从本地接收查询报文的回调函数" alt="" coords="147,132,215,159"/>
 <area shape="rect" href="dns__conversion_8h.html#a014b4d840d6c7d7242d7b26ccd32bda8" title="释放DNS报文结构体的空间" alt="" coords="281,31,400,57"/>
@@ -521,7 +521,7 @@ dns_server.c 的引用(Include)关系图:</div>
 </table>
 </div><div class="memdoc">
 
-<p>服务器收取DNS查询报文的地址 </p>
+<p>服务端收取DNS查询报文的地址 </p>
 
 </div>
 </div>
@@ -545,7 +545,7 @@ dns_server.c 的引用(Include)关系图:</div>
 </table>
 </div><div class="memdoc">
 
-<p>服务器与本地通信的socket </p>
+<p>服务端与本地通信的socket </p>
 
 </div>
 </div>

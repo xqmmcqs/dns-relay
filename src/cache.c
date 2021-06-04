@@ -175,7 +175,7 @@ Cache * new_cache(FILE * hosts_file)
             rr->name[strlen(domain) + 1] = 0;
             rr->name[strlen(domain)] = '.';
             rr->class = DNS_CLASS_IN;
-            rr->ttl = -1;
+            rr->ttl = -1; // 永久有效
             if (strchr(ip, '.') != NULL) // ipv4
             {
                 rr->type = DNS_TYPE_A;

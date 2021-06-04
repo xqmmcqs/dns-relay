@@ -57,9 +57,11 @@
 此外，基于性能和实用性的考虑，我们实现了数个额外需求：
 
 \begin{enumerate}
+    \item 在对照表中增加对IPv6的支持。
     \item 输出调试信息和DNS报文内容。
     \item 在转发DNS请求时重新分配序号，以区分不同的查询。
-    \item 避免阻塞式查询，采用事件驱动的方式实现高并发。
+    \item 避免阻塞式I/O，采用异步方式进行网络通信。
+    \item 采用事件驱动的方式实现高并发。
     \item 对于数据结构中查询不到的DNS请求，存储来自服务器的DNS回复以供之后的重复查询，并且在到期后删除记录。
     \item 实现高速缓存，对于经常访问的记录，加快查询效率。
     \item 命令行参数解析。
@@ -455,7 +457,7 @@ Dns_Msg * copy_dnsmsg(const Dns_Msg * src);
 \begin{figure}[htbp]
 
     \centering
-    \includegraphics[width=0.7\linewidth]{./APIdoc/dns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph.png}
+    \includegraphics[width=0.8\linewidth]{./APIdoc/dns__conversion_8c_a0f89102e256c499ffa19784791cb68f6_cgraph.png}
     \caption{\mintinline{C}{string_to_dnsmsg}函数调用图\label{fig:string_to_dnsmsg_call}}
 
 \end{figure}
@@ -520,13 +522,13 @@ void print_dns_message(const Dns_Msg * pmsg);
 \begin{figure}[htbp]
 
     \centering
-    \includegraphics[width=0.7\linewidth]{./APIdoc/dns__print_8c_a33a39397e0f2e1a98b86b6d85321ee79_cgraph.png}
+    \includegraphics[width=0.8\linewidth]{./APIdoc/dns__print_8c_a33a39397e0f2e1a98b86b6d85321ee79_cgraph.png}
     \caption{\mintinline{C}{print_dns_message}函数调用图\label{fig:print_dns_message_call}}
 
 \end{figure}
 
 该函数分别调用\mintinline{C}{print_dns_header}、\mintinline{C}{print_dns_question}和\mintinline{C}{print_dns_rr}函数输出结构体的三个部分。
-由于RR的RDATA字段格式较多，所以另外实现了几个函数用于输出不同类型的RDATA字段。
+由于RR的RDATA字段格式较多，所以另外实现了几个函数分别用于输出A、AAAA、MX(NS)、CNAME、SOA类型的RDATA字段。
 
 输出的效果如下：
 
@@ -647,7 +649,7 @@ Rbtree * new_rbtree();
 
 \mintinline{text}{rbtree.h}的文档见\href{run:./APIdoc/rbtree_8h.html}{rbtree.h文件参考}。
 
-\paragraph{RR链表}
+\paragraph{RR链表}\label{rr_linklist}
 
 \mintinline{C}{Dns_RR_LinkList}结构体有三个方法：
 
@@ -656,6 +658,8 @@ Rbtree * new_rbtree();
     \item \mintinline{C}{delete_next}方法用于删除链表中某个节点的下一个结点。
     \item \mintinline{C}{query_next}方法用于遍历一个链表，根据域名和查询类型从中筛选出一个节点。
 \end{itemize}
+
+此外，\mintinline{C}{new_linklist}函数用于创建一个新的RR链表节点。
 
 \paragraph{红黑树的插入操作}
 
@@ -691,35 +695,544 @@ Rbtree * new_rbtree();
 
 \end{figure}
 
+此外，\mintinline{C}{new_rbtree}函数用于创建一棵新的空红黑树。
+
 上面提到的函数接口的的文档见\href{run:./APIdoc/rbtree_8c.html}{rbtree.c文件参考}。
 
 \subsubsection{LRU高速缓存}
 
-\paragraph{缓存的插入操作}
+对于经常访问的缓存，将其存储到高速缓存中可以加快查询速度。利用\ref{rr_linklist}节提到的RR链表，我们实现了一个LRU(Least Recently Used，最近最少使用)缓存。
+
+对于在这个RR链表中，最近被访问的记录会被移到链表尾，当链表长度达到上限时，优先移出链表头的节点，即最久未使用的值最先被移出缓存。
+
+缓存的数据结构和操作定义在\mintinline{text}{cache.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+#define CACHE_SIZE 30
+ 
+typedef struct cache_
+{
+    Dns_RR_LinkList * head; 
+    Dns_RR_LinkList * tail; 
+    int size; 
+    Rbtree * tree; 
+    
+    void (* insert)(struct cache_ * cache, const Dns_Msg * msg);
+    
+    Rbtree_Value * (* query)(struct cache_ * cache, const Dns_Que * que);
+} Cache;
+ 
+Cache * new_cache(FILE * hosts_file);
+\end{minted}
+\end{code}
+
+\mintinline{text}{cache.h}的文档见\href{run:./APIdoc/cache_8h.html}{cache.h文件参考}。
+
+\paragraph{缓存的初始化}
+
+\mintinline{C}{new_cache}函数用于创建一个新的缓存。
+
+此函数会调用\mintinline{C}{new_rbtree}创建一棵新的红黑树，之后从对照表的文件中读入“域名-IP”对，构造RR记录和RR链表节点并插入红黑树中。
+
+一个对照表的例子如下：
+
+\begin{code}
+\begin{minted}{text}
+baidu.com 220.181.38.148
+www.cloudflare.com 104.16.124.96
+www.bupt.edu.cn 10.3.9.161
+google.com 172.217.160.78
+test.com 0.0.0.0
+bt.byr.cn 2001:da8:215:4078:250:56ff:fe97:654d
+\end{minted}
+\end{code}
+
+\paragraph{缓存的插入操作} 
+
+\mintinline{C}{Cache}结构体的\mintinline{C}{insert}方法用于向缓存中插入DNS记录。
+
+该函数会从DNS报文数据结构中提取出QNAME、QTYPE、ANCOUNT、NSCOUNT、ARCOUNT，将RR部分复制两遍以创建两个RR链表节点，将这两个节点分别插入LRU缓存中和红黑树中。
+
+函数调用\mintinline{C}{BKDRHash}函数对域名生成字符串哈希，调用\mintinline{C}{get_min_ttl}得到一个RR列表中最小的TTL。
+
+这个方法对应\mintinline{text}{cache.c}中的\mintinline{C}{cache_insert}函数，该函数的调用图如\figref{fig:cache_insert_call}所示。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=0.8\linewidth]{./APIdoc/cache_8c_a6ced4e1f620d2e750fb0c2c049962fa8_cgraph.png}
+    \caption{\mintinline{C}{cache_insert}函数的调用图\label{fig:cache_insert_call}}
+
+\end{figure}
 
 \paragraph{缓存的查询操作}
 
+\mintinline{C}{Cache}结构体的\mintinline{C}{query}方法用于在缓存中查询DNS记录。
+
+该函数会首先在LRU中查询DNS记录，如果查询到，将该节点移到链表的末尾，之后生成该节点中的值的副本并且返回；
+
+如果在LRU中查找不到，则调用红黑树的\mintinline{C}{query}方法进行查询，在返回的链表中查找满足QNAME和QTYPE的值，将查找到的值复制两份，一份插入到LRU缓存中，一份返回。
+
+如果红黑树中也查找不到，则返回空指针。
+
+这个方法对应\mintinline{text}{cache.c}中的\mintinline{C}{cache_query}函数，该函数的调用图如\figref{fig:cache_query_call}所示。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=0.8\linewidth]{./APIdoc/cache_8c_a1abbd81313d8d7e8b25446d7921121e0_cgraph.png}
+    \caption{\mintinline{C}{cache_query}函数的调用图\label{fig:cache_query_call}}
+
+\end{figure}
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/cache_8c.html}{cache.c文件参考}。
+
 \subsection{序号池和查询池}
+
+为了实现并发查询，我们实现了一个查询池，查询池中的内容为DNS查询。中继服务器会为每个DNS查询分配一个序号，同时保存以下信息：
+
+\begin{itemize}
+    \item 请求方的地址，中继服务器向这个地址发送回复。
+    \item 原本的DNS查询报文，中继服务器收到远程回复时和原本的查询报文比对。
+    \item 计时器，DNS查询超时后自动从查询池中移除并销毁。
+\end{itemize}
+
+为了防止短时间内查询序号重复，导致无法区分当前查询和之前的查询，我们采用滑动窗口的方式分配查询序号。查询池的大小为256，而查询序号为0至65535。
+
+具体来说，查询池外维护一个队列，队列中保存未使用的查询序号，初始情况下，队列中有0至255的序号；当需要在查询池中添加查询时，从队列中取出一个序号并创建新的DNS查询；当一个从查询池中移除一个查询时，将它的查询编号加256后再加入队列。
+
+DNS报文中的ID是由不同进程自主生成的，为了区分不同的报文，中继服务器在向远程服务器发送报文之前，需要重新分配报文ID，并且建立报文ID和DNS查询序号的对应关系。
+
+因此，我们另外实现了一个序号池，实现方式和查询池类似，即采用一个队列保存未分配的序号，需要分配新序号时从队列里取出并加入查询池，序号用完后从查询池中移除并加入队列。在分配序号时不需要考虑重复的情况，所以序号池的大小为65536。
 
 \subsubsection{队列}
 
+为了节省空间，我们实现了一个循环队列，大小为65536。队列的下标采用自然溢出的方式。
+
+队列的数据结构和操作定义在\mintinline{text}{queue.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+#define QUEUE_MAX_SIZE 65536
+
+typedef struct queue
+{
+    uint16_t q[QUEUE_MAX_SIZE]; 
+    unsigned short head; 
+    unsigned short tail; 
+    
+    void (* push)(struct queue * queue, uint16_t num);
+    
+    uint16_t (* pop)(struct queue * queue);
+    
+    void (* destroy)(struct queue * queue);
+} Queue;
+ 
+Queue * new_queue();
+\end{minted}
+\end{code}
+
+\mintinline{text}{queue.h}的文档见\href{run:./APIdoc/queue_8h.html}{queue.h文件参考}。
+
+\paragraph{队列的初始化}
+
+\mintinline{C}{new_queue}函数用于创建一个新的队列。
+
+\paragraph{队列的入队操作}
+
+\mintinline{C}{Queue}结构体的\mintinline{C}{push}方法用于向队尾插入值。
+
+\paragraph{队列的出队操作}
+
+\mintinline{C}{Queue}结构体的\mintinline{C}{pop}方法取出队首的值并返回。
+
+\paragraph{队列的销毁}
+
+\mintinline{C}{Queue}结构体的\mintinline{C}{destroy}方法销毁队列。
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/queue_8c.html}{queue.c文件参考}。
+
 \subsubsection{序号池}
+
+如前所述，我们定义一个结构体保存报文的序号及其对应查询的序号。一个报文序号在序号池中的位置是固定的（即，如果结构体中的序号是x，则查询池中下标为x的指针指向这个结构体），所以判断一个序号是否在序号池中，只需要判断序号池中对应位置的指针是否为空即可。
+
+序号池的数据结构和操作定义在\mintinline{text}{index_pool.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+#define INDEX_POOL_MAX_SIZE 65535
+
+typedef struct index_
+{
+    uint16_t id; 
+    uint16_t prev_id; 
+} Index;
+ 
+typedef struct index_pool
+{
+    Index * pool[INDEX_POOL_MAX_SIZE]; 
+    unsigned short count; 
+    Queue * queue; 
+    
+    bool (* full)(struct index_pool * ipool);
+    
+    uint16_t (* insert)(struct index_pool * ipool, Index * req);
+    
+    bool (* query)(struct index_pool * ipool, uint16_t index);
+    
+    Index * (* delete)(struct index_pool * ipool, uint16_t index);
+    
+    void (* destroy)(struct index_pool * ipool);
+} Index_Pool;
+ 
+Index_Pool * new_ipool();
+\end{minted}
+\end{code}
+
+\mintinline{text}{index_pool.h}的文档见\href{run:./APIdoc/index__pool_8h.html}{index\_pool.h文件参考}。
+
+\paragraph{序号池的初始化}
+
+\mintinline{C}{new_ipool}函数用于创建一个新的序号池。
+
+\paragraph{判断序号池满}
+
+\mintinline{C}{Index_Pool}结构体的\mintinline{C}{full}方法用于判断序号池是否已满。
+
+\paragraph{序号池的插入操作}
+
+\mintinline{C}{Index_Pool}结构体的\mintinline{C}{insert}方法从队首取出序号加入序号池。
+
+\paragraph{序号池的移除操作}
+
+\mintinline{C}{Index_Pool}结构体的\mintinline{C}{delete}方法从序号池中删除给定的序号，并且将序号插入队列。
+
+\paragraph{序号池的销毁}
+
+\mintinline{C}{Index_Pool}结构体的\mintinline{C}{destroy}方法销毁序号池。
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/index__pool_8c.html}{index\_pool.c文件参考}。
 
 \subsubsection{查询池}
 
+如前所述，我们定义一个结构体表示DNS查询，以及另一个结构体表示查询池。
+
+查询池的数据结构和操作定义在\mintinline{text}{query_pool.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+#define QUERY_POOL_MAX_SIZE 256
+
+typedef struct dns_query
+{
+    uint16_t id; 
+    uint16_t prev_id; 
+    struct sockaddr addr; 
+    Dns_Msg * msg; 
+    uv_timer_t timer; 
+} Dns_Query;
+ 
+typedef struct query_pool
+{
+    Dns_Query * pool[QUERY_POOL_MAX_SIZE]; 
+    unsigned short count; 
+    Queue * queue; 
+    Index_Pool * ipool; 
+    uv_loop_t * loop; 
+    Cache * cache; 
+    
+    bool (* full)(struct query_pool * qpool);
+    
+    void (* insert)(struct query_pool * qpool, const struct sockaddr * addr, const Dns_Msg * msg);
+    
+    void (* finish)(struct query_pool * qpool, const Dns_Msg * msg);
+    
+    void (* delete)(struct query_pool * qpool, uint16_t id);
+} Query_Pool;
+ 
+Query_Pool * new_qpool(uv_loop_t * loop, Cache * cache);
+\end{minted}
+\end{code}
+
+\mintinline{text}{query_pool.h}的文档见\href{run:./APIdoc/query__pool_8h.html}{query\_pool.h文件参考}。
+
+\paragraph{查询池的初始化}
+
+\mintinline{C}{new_qpool}函数用于创建一个新的查询池。
+
+\paragraph{判断查询池满}
+
+\mintinline{C}{Query_Pool}结构体的\mintinline{C}{full}方法用于判断查询池是否已满。
+
+\paragraph{查询池的插入操作}
+
+\mintinline{C}{Query_Pool}结构体的\mintinline{C}{insert}方法用于在查询池中创建新DNS查询。
+
+当DNS服务端收到来自本地的查询请求时，会调用这个函数。此函数会创建新的DNS查询结构体，从队列中取出序号并分配给它。之后，查询池会首先在缓存中查找记录，如果查找成功，则销毁这个DNS查询、构造回复报文（如果需要DNS污染则构造特殊报文）并且发送回本地；否则查询池利用序号池分配新的报文序号，并启动计时器，向远程服务器发送报文。
+
+\paragraph{查询池的删除操作}
+
+\mintinline{C}{Query_Pool}结构体的\mintinline{C}{delete}方法用于从查询池中移除一个DNS查询，销毁这个结构体并且将查询序号放回队列。
+
+当一个DNS查询超时或者正常结束时会调用这个函数。
+
+\paragraph{查询池的结束查询操作}
+
+\mintinline{C}{Query_Pool}结构体的\mintinline{C}{finish}方法用于结束一个DNS查询。
+
+当DNS客户端收到来自远程的回复时，会调用这个函数。此函数根据报文序号在序号池中找到查询的序号，再在查询池中找到相应的查询，和原本的查询报文进行比对，如果比对成功，则向缓存中插入这个回复报文，并且将报文发回本地，之后调用\mintinline{C}{delete}方法从查询池中删除查询。
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/query__pool_8c.html}{query\_pool.c文件参考}。
+
 \subsection{DNS服务端和客户端}
+
+DNS服务端与本地的进程通信，DNS客户端与远程DNS服务器通信。
+
+服务端和客户端采用\href{https://libuv.org/}{libuv}提供的跨平台异步I/O，即无阻塞的UDP报文发送和接收。采用事件驱动的方式实现并发查询。
 
 \subsubsection{DNS服务端}
 
+DNS服务端的接口定义在\mintinline{text}{dns_server.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+void init_server(uv_loop_t * loop);
+
+void send_to_local(const struct sockaddr * addr, const Dns_Msg * msg);
+\end{minted}
+\end{code}
+
+\mintinline{text}{dns_server.h}的文档见\href{run:./APIdoc/dns__server_8h.html}{dns\_server.h文件参考}。
+
+\paragraph{服务端的初始化}
+
+\mintinline{C}{init_server}函数用于初始化服务端。
+
+该函数首先将服务端socket绑定到事件循环，之后将0.0.0.0:53绑定到服务端socket，作为接收地址。
+
+当服务端socket上有消息发来时，首先调用\mintinline{C}{alloc_buffer}函数分配一个固定大小的缓冲区，当消息接收完毕后调用\mintinline{C}{on_read}函数，对收到的消息进行处理。
+
+\paragraph{服务端收到本地查询报文}
+
+定义在\mintinline{text}{dns_server.c}中的函数\mintinline{C}{on_read}对收到的DNS报文进行处理，其函数原型如下：
+
+\begin{code}
+\begin{minted}{C}
+static void on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct sockaddr * addr, unsigned flags);
+\end{minted}
+\end{code}
+
+其中各个参数的解释如下：
+
+\begin{itemize}
+    \item \mintinline{C}{handle}为UDP句柄；
+    \item \mintinline{C}{nread}表示收到报文的长度；
+    \item \mintinline{C}{buf}为接收消息之前分配的缓冲区，其中存储DNS报文；
+    \item \mintinline{C}{addr}为发送方地址；
+    \item \mintinline{C}{flags}为一些标志。
+\end{itemize}
+
+收到消息后，函数执行如下几个步骤：
+
+\begin{enumerate}
+    \item 输出报文信息；
+    \item 将字节流转换成结构体；
+    \item 如果查询池未满，则将报文加入查询池；
+    \item 释放报文结构体和缓冲区。
+\end{enumerate}
+
+\paragraph{服务端向本地发送回复报文}
+
+\mintinline{C}{send_to_local}函数将回复报文发送至本地进程，该函数执行如下几个步骤：
+
+\begin{enumerate}
+    \item 输出报文信息；
+    \item 将结构体转换成字节流；
+    \item 分配缓冲区，拷贝字节流；
+    \item 创建UDP句柄；
+    \item 发送报文。
+\end{enumerate}
+
+报文发送完成后，调用定义在\mintinline{text}{dns_server.c}中的\mintinline{C}{on_send}函数，该函数负责UDP句柄和缓冲区的释放。
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/dns__server_8c.html}{dns\_server.c文件参考}。
+
 \subsubsection{DNS客户端}
+
+DNS客户端的接口定义在\mintinline{text}{dns_client.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+void init_client(uv_loop_t * loop);
+
+void send_to_remote(const Dns_Msg * msg);
+\end{minted}
+\end{code}
+
+\mintinline{text}{dns_client.h}的文档见\href{run:./APIdoc/dns__client_8h.html}{dns\_client.h文件参考}。
+
+\paragraph{客户端的初始化}
+
+\mintinline{C}{init_client}函数用于初始化客户端。
+
+该函数首先将客户端socket绑定到事件循环，之后将本地某一端口和远程DNS服务器的53端口绑定到客户端socket。
+
+当客户端socket上有消息发来时，首先调用\mintinline{C}{alloc_buffer}函数分配一个固定大小的缓冲区，当消息接收完毕后调用\mintinline{C}{on_read}函数，对收到的消息进行处理。
+
+\paragraph{客户端收到远程回复报文}
+
+定义在\mintinline{text}{dns_client.c}中的函数\mintinline{C}{on_read}对收到的DNS报文进行处理，其函数原型如下：
+
+\begin{code}
+\begin{minted}{C}
+static void on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct sockaddr * addr, unsigned flags);
+\end{minted}
+\end{code}
+
+其参数和执行步骤和服务端的同名函数几乎一致，其中调用查询池的\mintinline{C}{finish}方法结束查询。
+
+\paragraph{客户端向远程发送查询报文}
+
+\mintinline{C}{send_to_remote}函数将查询报文发送至远程DNS服务器，该函数的步骤和服务端的\mintinline{C}{send_to_local}函数基本一致。
+
+报文发送完成后，调用定义在\mintinline{text}{dns_client.c}中的\mintinline{C}{on_send}函数，该函数负责UDP句柄和缓冲区的释放。
+
+上面提到的函数接口的的文档见\href{run:./APIdoc/dns__client_8c.html}{dns\_client.c文件参考}。
 
 \subsection{其他工具模块}
 
 \subsubsection{命令行参数解析}
 
+命令行参数解析的接口定义在\mintinline{text}{config_jar.h}中，如下：
+
+\begin{code}
+\begin{minted}{C}
+extern char * REMOTE_HOST; 
+extern int LOG_MASK; 
+extern int CLIENT_PORT; 
+extern char * HOSTS_PATH; 
+extern char * LOG_PATH; 
+ 
+void init_config(int argc, char * const * argv);
+\end{minted}
+\end{code}
+
+\mintinline{text}{config_jar.h}的文档见\href{run:./APIdoc/config__jar_8h.html}{config\_jar.h文件参考}。
+
+程序提供五个命令行参数\label{para}：
+
+\begin{itemize}
+    \item \mintinline{text}{--remote_host}，远程DNS服务器地址，默认为10.3.9.4；
+    \item \mintinline{text}{--log_mask}，\label{debug_level}调试等级掩码，调试信息分为四个等级，分别为DEBUG、INFO、ERROR、FATAL，调试等级掩码是一个4位二进制数，从低位到高位分别对应这四个等级，如果对应位为1，表示输出这个调试等级的信息，例如，当调试等级为3时，输出DEBUG和INFO等级的信息；
+    \item \mintinline{text}{--client_post}，客户端端口，可以指定一个1024至65535之间的端口，默认任意分配一个端口；
+    \item \mintinline{text}{--hosts_path}，“域名-IP”对照表文件路径，默认为上一级目录下的\mintinline{text}{hosts.txt}；
+    \item \mintinline{text}{--log_path}，日志文件路径，默认为空，表示调试信息输出到\mintinline{C}{stderr}。
+\end{itemize}
+
+\mintinline{C}{init_config}函数的参数应和\mintinline{C}{main}函数的参数保持一致，该函数通过解析字符数组获得参数。
+
 \subsubsection{调试信息输出}
 
-\section{构建方式}
+如\ref{debug_level}节所述，调试等级分为四级，在\mintinline{text}{util.h}中定义了四个宏，分别用于输出四个等级的调试信息，如下：
+
+\begin{code}
+\begin{minted}{C}
+extern FILE * log_file;
+
+#define log_debug(args...) \
+    if (LOG_MASK & 1) \
+    { \
+        if (log_file != stderr) \
+            fprintf(log_file, "[DEBUG] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[37m[DEBUG]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
+    }
+ 
+#define log_info(args...) \
+    if (LOG_MASK & 2) \
+    { \
+        if (log_file != stderr) \
+            fprintf(log_file, "[INFO ] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[34m[INFO ]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
+    }
+ 
+#define log_error(args...) \
+    if (LOG_MASK & 4) \
+    { \
+        if (log_file != stderr) \
+            fprintf(log_file, "[ERROR] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[33m[ERROR]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
+    }
+ 
+#define log_fatal(args...) \
+    if (LOG_MASK & 8) \
+    { \
+        if (log_file != stderr) \
+            fprintf(log_file, "[FATAL] %s:%d ", __FILE__, __LINE__); \
+        else \
+            fprintf(log_file, "\x1b[31m[FATAL]\x1b[36m %s:%d \x1b[0m", __FILE__, __LINE__); \
+        fprintf(log_file, args); \
+        fprintf(log_file, "\n"); \
+        exit(EXIT_FAILURE); \
+    }
+\end{minted}
+\end{code}
+
+\mintinline{text}{util.h}的文档见\href{run:./APIdoc/util_8h.html}{util.h文件参考}。
+
+在\mintinline{C}{stderr}中输出调试信息时，行首的调试等级会加以颜色区分，文件名和行号信息会以蓝色加以区分；在文件中输出调试信息时不会打印颜色信息。输出FATAL等级的调试信息后，程序会异常终止。
+
+输出调试信息的效果如\figref{fig:log}。
+
+\begin{figure}[htbp]
+
+    \centering
+    \includegraphics[width=\linewidth]{./Images/log.png}
+    \caption{调试信息输出效果\label{fig:log}}
+
+\end{figure}
+
+\section{用户指南}
+
+所需环境：\href{https://github.com/libuv/libuv}{libuv}和\href{https://cmake.org/download/}{CMake}。
+
+libuv安装完成后，需要将\mintinline{text}{CMakeLists.txt}中\mintinline{text}{link_directories}和\mintinline{text}{include_directories}的值改为libuv的动态链接库和头文件路径。
+
+之后，在项目目录中执行以下命令来编译：
+
+\begin{code}
+\begin{minted}{shell}
+mkdir build
+cd build
+cmake ..
+make
+\end{minted}
+\end{code}
+
+编译完成后，运行：
+
+\begin{code}
+\begin{minted}{shell}
+./main
+\end{minted}
+\end{code}
+
+程序运行参数参考\ref{para}节的说明，例如：
+
+\begin{code}
+\begin{minted}{shell}
+./main --log_path ./log.txt --remote_host 114.114.114.114
+\end{minted}
+\end{code}
 
 \section{测试结果}
 

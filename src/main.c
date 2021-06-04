@@ -25,11 +25,11 @@ int main(int argc, char * argv[])
     log_file = stderr;
     if (LOG_PATH)
     {
-        log_debug("打开log文件");
+        log_debug("打开log文件")
         log_file = fopen(LOG_PATH, "w");
         if (!log_file)
         {
-            log_fatal("log文件打开失败");
+            log_fatal("log文件打开失败")
             exit(1);
         }
     }
@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
     FILE * hosts_file = fopen(HOSTS_PATH, "r");
     if (!hosts_file)
     {
-        log_fatal("hosts文件打开失败");
+        log_fatal("hosts文件打开失败")
         exit(1);
     }
     
