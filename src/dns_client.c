@@ -51,10 +51,17 @@ static void alloc_buffer(uv_handle_t * handle, size_t suggested_size, uv_buf_t *
 static void
 on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct sockaddr * addr, unsigned flags)
 {
-    if (nread <= 0)
+    if (nread < 0)
     {
-        free(buf->base);
-        log_error("报文无效")
+        if (buf->base)
+            free(buf->base);
+        log_debug("传输错误")
+        return;
+    }
+    if (nread == 0)
+    {
+        if (buf->base)
+            free(buf->base);
         return;
     }
     log_info("从服务器接收到消息")
@@ -66,7 +73,8 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     print_dns_message(msg);
     qpool->finish(qpool, msg);
     destroy_dnsmsg(msg);
-    free(buf->base);
+    if (buf->base)
+        free(buf->base);
 }
 
 /**

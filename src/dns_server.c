@@ -65,13 +65,19 @@ static void on_send(uv_udp_send_t * req, int status)
 static void
 on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct sockaddr * addr, unsigned flags)
 {
-    if (nread <= 0) // 收到无效报文
+    if (nread < 0)
     {
-        free(buf->base);
-        log_error("报文无效")
+        if (buf->base)
+            free(buf->base);
+        log_debug("传输错误")
         return;
     }
-    
+    if (nread == 0)
+    {
+        if (buf->base)
+            free(buf->base);
+        return;
+    }
     log_debug("收到本地DNS查询报文")
     print_dns_string(buf->base, nread);
     Dns_Msg * msg = (Dns_Msg *) calloc(1, sizeof(Dns_Msg));
@@ -87,7 +93,8 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     else
         qpool->insert(qpool, addr, msg); // 将DNS查询加入查询池
     destroy_dnsmsg(msg);
-    free(buf->base);
+    if (buf->base)
+        free(buf->base);
 }
 
 void init_server(uv_loop_t * loop)
