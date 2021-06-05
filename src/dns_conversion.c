@@ -92,7 +92,7 @@ static void string_to_dnshead(Dns_Header * phead, const char * pstring, unsigned
 {
     phead->id = read_uint16(pstring, offset);
     uint16_t flag = read_uint16(pstring, offset);
-    phead->qr = flag >> 15;
+    phead->qr = (flag >> 15) & 0x1;
     phead->opcode = (flag >> 11) & 0xF;
     phead->aa = (flag >> 10) & 0x1;
     phead->tc = (flag >> 9) & 0x1;

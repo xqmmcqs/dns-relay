@@ -54,6 +54,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     if (nread <= 0)
     {
         free(buf->base);
+        log_error("报文无效")
         return;
     }
     log_info("从服务器接收到消息")

@@ -68,6 +68,7 @@ on_read(uv_udp_t * handle, ssize_t nread, const uv_buf_t * buf, const struct soc
     if (nread <= 0) // 收到无效报文
     {
         free(buf->base);
+        log_error("报文无效")
         return;
     }
     

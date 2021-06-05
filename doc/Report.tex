@@ -69,6 +69,8 @@
 
 \section{模块介绍}
 
+\subsection{模块划分}
+
 \subsection{DNS报文解析和构建}
 
 \subsubsection{DNS报文格式分析}
@@ -990,6 +992,8 @@ Query_Pool * new_qpool(uv_loop_t * loop, Cache * cache);
 DNS服务端与本地的进程通信，DNS客户端与远程DNS服务器通信。
 
 服务端和客户端采用\href{https://libuv.org/}{libuv}提供的跨平台异步I/O，即无阻塞的UDP报文发送和接收。采用事件驱动的方式实现并发查询。
+
+\subsubsection{DNS协议通信原理}
 
 \subsubsection{DNS服务端}
 
