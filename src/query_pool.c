@@ -58,17 +58,16 @@ static void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const
         query->msg->header->nscount = value->nscount;
         query->msg->header->arcount = value->arcount;
         query->msg->rr = value->rr;
-    
+        
         // 污染
-        if ((value->rr->type == DNS_TYPE_A || value->rr->type == DNS_TYPE_AAAA) && value->rr->rdata != NULL &&
-            (*(int *) value->rr->rdata) == 0)
+        if (value->rr->type == 255 && (*(int *) value->rr->rdata) == 0)
         {
             query->msg->header->rcode = DNS_RCODE_NXDOMAIN;
             destroy_dnsrr(query->msg->rr);
             query->msg->rr = NULL;
             query->msg->header->ancount = 0;
         }
-    
+        
         send_to_local(addr, query->msg);
         free(value);
         qpool->delete(qpool, query->id);
@@ -87,7 +86,7 @@ static void qpool_insert(Query_Pool * qpool, const struct sockaddr * addr, const
         index->id = qpool->ipool->insert(qpool->ipool, index);
         index->prev_id = id;
         query->msg->header->id = index->id;
-    
+        
         uv_timer_init(qpool->loop, &query->timer);
         query->timer.data = malloc(sizeof(uint16_t) + sizeof(Query_Pool *));
         if (!query->timer.data)

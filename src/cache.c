@@ -120,7 +120,8 @@ static Rbtree_Value * cache_query(Cache * cache, const Dns_Que * que)
     list = cache->tree->query(cache->tree, BKDRHash(que->qname));
     while (list != NULL)
     {
-        if (strcmp(list->value->rr->name, que->qname) == 0 && list->value->type == que->qtype)
+        if (strcmp(list->value->rr->name, que->qname) == 0 &&
+            (list->value->type == 255 || list->value->type == que->qtype))
         {
             log_info("红黑树命中")
             Rbtree_Value * value = (Rbtree_Value *) calloc(1, sizeof(Rbtree_Value));
@@ -178,7 +179,10 @@ Cache * new_cache(FILE * hosts_file)
             rr->ttl = -1; // 永久有效
             if (strchr(ip, '.') != NULL) // ipv4
             {
-                rr->type = DNS_TYPE_A;
+                if (strcmp(ip, "0.0.0.0") == 0)
+                    rr->type = 255;
+                else
+                    rr->type = DNS_TYPE_A;
                 rr->rdlength = 4;
                 rr->rdata = (uint8_t *) calloc(4, sizeof(uint8_t));
                 if (!rr->rdata)

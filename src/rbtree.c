@@ -43,7 +43,8 @@ static Dns_RR_LinkList * linklist_query_next(Dns_RR_LinkList * list, const uint8
     {
         if (list->next->expire_time != -1 && list->next->expire_time <= now_time)
             list = list->next;
-        else if (strcmp(list->next->value->rr->name, qname) == 0 && list->next->value->type == qtype)
+        else if (strcmp(list->next->value->rr->name, qname) == 0 &&
+                 (list->next->value->type == 255 || list->next->value->type == qtype))
             return list;
         else
             list = list->next;
