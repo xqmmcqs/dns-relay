@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 
-#include "dns_structure.h"
 #include "rbtree.h"
 
 #define CACHE_SIZE 30
