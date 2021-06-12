@@ -1242,7 +1242,31 @@ extern FILE * log_file;
 
 \section{用户指南}
 
+\subsection{安装依赖}
+
 所需环境：\href{https://github.com/libuv/libuv}{libuv}和\href{https://cmake.org/download/}{CMake}。
+
+Linux下安装libuv：
+
+\begin{code}
+\begin{minted}{shell}
+apt install libuv1-dev -y
+\end{minted}
+\end{code}
+
+macOS下安装libuv，首先从GitHub下载源程序，通过以下方式编译：
+
+\begin{code}
+\begin{minted}{shell}
+sh autogen.sh
+./configure
+make
+make check
+make install
+\end{minted}
+\end{code}
+
+\subsection{编译项目}
 
 libuv安装完成后，需要将\mintinline{text}{CMakeLists.txt}中\mintinline{text}{link_directories}和\mintinline{text}{include_directories}的值改为libuv的动态链接库和头文件路径。
 
@@ -1273,6 +1297,16 @@ make
 \end{minted}
 \end{code}
 
+\subsection{配置DNS服务器}
+
+对于Linux系统，执行如下指令：
+
+\begin{code}
+\begin{minted}{shell}
+echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
+\end{minted}
+\end{code}
+
 对于macOS系统，在设置中，进入网络设置，如\figref{fig:settings1}，点击“高级...”。之后按照\figref{fig:settings2}中的提示操作，完成后点击\figref{fig:settings1}右下角的“应用”。
 
 \begin{figure}[htbp]
@@ -1292,6 +1326,53 @@ make
         \end{minipage}
     }
     \caption{网络设置}
+
+\end{figure}
+
+\subsection{抓包与分析}
+
+对于Linux系统，首先使用\mintinline{shell}{ifconfig}查看需要监听的网卡，例如选择\mintinline{text}{eth0}网卡，使用\mintinline{shell}{tcpdump}指令监听UDP端口53，进行抓包：
+
+\begin{code}
+\begin{minted}{shell}
+tcpdump -i eth0 udp port 53 -vv
+\end{minted}
+\end{code}
+
+产生的输出如下：
+
+\begin{code}
+\begin{minted}{text}
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+22:05:01.549890 IP (tos 0x0, ttl 64, id 35938, offset 0, flags [DF], proto UDP (17), length 58)
+    km-ubuntu.40868 > 222.172.200.68.domain: [bad udp cksum 0x680e -> 0x6b26!] 21821+ A? ourtale.love. (30)
+22:05:01.550179 IP (tos 0x0, ttl 64, id 35939, offset 0, flags [DF], proto UDP (17), length 58)
+    km-ubuntu.57546 > 222.172.200.68.domain: [bad udp cksum 0x680e -> 0x7e71!] 177+ AAAA? ourtale.love. (30)
+22:05:01.551235 IP (tos 0x0, ttl 64, id 35940, offset 0, flags [DF], proto UDP (17), length 73)
+...
+\end{minted}
+\end{code}
+
+或者使用Wireshark软件，选择网卡后，在筛选栏中输入\mintinline{text}{dns}，过滤出DNS报文，如\figref{fig:wireshark1}所示。如果想要抓取本地进程和DNS服务端通信的报文，选择网卡Loopback即可，如\figref{fig:wireshark2}。
+
+\begin{figure}[htbp]
+
+    \centering
+    
+    \subfigure[Wireshark抓取DNS客户端和远程服务器通信的报文\label{fig:wireshark1}]{
+        \begin{minipage}[t]{\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./Images/wireshark1.png}
+        \end{minipage}
+    }
+
+    \subfigure[Wireshark抓取本地进程和DNS服务端通信的报文\label{fig:wireshark2}]{
+        \begin{minipage}[t]{\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{./Images/wireshark2.png}
+        \end{minipage}
+    }
+    \caption{Wireshark抓包}
 
 \end{figure}
 
@@ -1322,6 +1403,8 @@ make
     \caption{超时后重新查询的日志\label{fig:resend}}
 
 \end{figure}
+
+运行中继服务器5个小时，服务器没有出现异常。
 
 \section{实验总结}
 
