@@ -384,6 +384,16 @@
     breaklines,
     tabsize=4,
 }
+\setminted[Python]{
+    mathescape,
+    linenos=true,
+    baselinestretch=1,
+    frame=lines,
+    framesep=2mm,
+    autogobble,
+    breaklines,
+    tabsize=4,
+}
 \setminted[text]{
     frame=lines,
     framesep=2mm,

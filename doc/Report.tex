@@ -27,7 +27,7 @@
     \item 表中未检到该域名，则向因特网DNS服务器发出查询，并将结果返给客户端（中继功能）
 \end{itemize}
 
-\subsection{实验环境}
+\subsection{开发环境}
 
 \begin{itemize}
     \item macOS Big Sur 11.3
@@ -38,6 +38,20 @@
 \end{itemize}
 
 \subsection{成员分工}
+
+\setlength{\tabcolsep}{6mm}
+{
+    \begin{table}[htbp]
+        \centering
+        \begin{tabular}{cc}
+            姓名 & 分工 \\
+            \hline 
+            毛子恒 & 开发\ 文档 \\
+            李臻 & 测试\ 文档 \\
+            张梓靖 & 开发\ 文档 \\
+        \end{tabular}
+    \end{table}
+}
 
 \section{功能需求}
 
@@ -1378,6 +1392,8 @@ tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 byt
 
 \section{测试结果}
 
+\subsection{基础功能测试}
+
 三个基本功能的测试结果如\figref{fig:test}。对照表采用\ref{iptable}节中的例子。
 
 \begin{figure}[htbp]
@@ -1404,9 +1420,85 @@ tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 byt
 
 \end{figure}
 
-运行中继服务器5个小时，服务器没有出现异常。
+\subsection{手动构造报文测试}
+
+通过\mintinline{text}{dnspython}包测试功能，首先执行以下指令安装包：
+
+\begin{code}
+\begin{minted}{shell}
+pip install dnspython
+\end{minted}
+\end{code}
+
+手动构造报文：
+
+\begin{code}
+\begin{minted}{Python}
+from dns import message, query
+q1 = message.from_text("id 3000\nopcode QUERY\nrcode NOERROR\nflags RD\n;QUESTION\nbaidu.com. IN A\n;ANSWER\n;AUTHORITY\n;ADDITIONAL")
+r = query.udp(a, "127.0.0.1")
+print(r.to_text())
+\end{minted}
+\end{code}
+
+上述代码构造了一个A类型\mintinline{text}{baidu.com}的DNS查询报文，并且向DNS中继服务器发出查询请求，运行结果如下：
+
+\begin{code}
+\begin{minted}{text}
+id 3000
+opcode QUERY
+rcode NOERROR
+flags QR RD RA
+;QUESTION
+baidu.com. IN A
+;ANSWER
+baidu.com. 4294967295 IN A 220.181.38.148
+;AUTHORITY
+;ADDITIONAL
+\end{minted}
+\end{code}
+
+我们用这个方法测试了同时发送多个相同编号DNS报文的情况，DNS中继服务器对于每个报文重新编号并且正确地发送了回复。
+
+\subsection{稳定性测试}
+
+运行中继服务器5个小时，期间正常浏览网页、观看视频，服务器没有出现异常。
 
 \section{实验总结}
+
+\subsection{调试中遇到的问题和解决方案}
+
+最初我们期望采用windows和linux系统原生socket接口实现socket编程，我们研究了阻塞式I/O以及常见的跨平台实现。之后我们找到了实现更简单、具有事件驱动和异步I/O功能的libuv库，于是决定采用libuv进行socket编程。
+
+采用libuv实现多线程时，我们遇到了难以调试的内存泄漏和重复释放问题，在参考其他项目的实现之后，我们决定仅采用单线程+事件驱动的形式实现高并发，实测效果与多线程的方式差距不大。
+
+此外，我们的红黑树实现参考了\href{https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91}{维基百科-红黑树}中的实现，但是维基百科中的代码有一些漏洞，比如右旋函数没有判断当前节点是否为根，\mintinline{C}{delete_case}函数中正确的代码被注释掉，这些错误可能导致红黑树中出现二元或者三元环。我们一一修复了这些问题，保证红黑树的正确性。
+
+最后，我们参考常见的实现方法，完成了多个等级的调试信息输出，期间遇到了带有颜色的调试信息无法写入到文件的问题，因此我们需要判断当前输出的文件是否是\mintinline{C}{stderr}，再输出颜色信息。
+
+\subsection{工作总结}
+
+本次实验中我们实现了一个功能比较全面的DNS中继服务器，在实用性和效率方面进行了许多改进，使其具有部署到应用环境的价值。
+
+在实验的开始，我们详细研究了DNS协议的内容，阅读RFC 1034和1035文档的重要部分，并且参考一些博客，对报文数据结构的基本格式进行设计。在此期间我们的信息检索能力和英文文献阅读能力均得到了提升。
+
+在掌握DNS协议的基础知识之后，我们对跨平台socket和高并发的实现进行了研究，最终采用libuv作为解决方案。通过学习libuv的文档和一些示例，我们实现了基础的报文转发功能，并且在高并发的环境下进行了初步的压力测试。
+
+此后，针对高并发查询和重新编号的需求，我们实现了查询池和序号池，在不考虑缓存需求的情况下对这些部分进行了测试。测试结果显示直接中继能够正常运行。
+
+针对缓存的需求，我们学习红黑树和LRU的相关知识，实现了高速缓存+红黑树的两层缓存结构，对于这一个模块进行了单独测试，最后将其整合进主题模块。
+
+最后，我们实现了调试信息模块和命令行参数解析模块，并且参考Google编码规范和一些其他开源项目，重新格式化了代码，添加了注释，更改了项目的目录结构，完成了文档的撰写工作。
+
+在本次实验中我们主要有如下几个收获：
+
+\begin{itemize}
+    \item 了解DNS协议有关知识，掌握DNS协议运作的原理，以及DNS报文的结构。
+    \item 掌握跨平台的socket编程技术。
+    \item 了解常见的高并发解决方案，理解多线程编程和事件驱动编程的方法。
+    \item 学习C语言项目的编码规范，掌握C语言工程的开发和测试方式，了解完整C语言项目的流程，增强C语言编程能力。
+    \item 增强英文文档和文献阅读能力和信息检索能力。
+\end{itemize}
 
 % \begin{table}[!htbp]
 %     \centering
