@@ -137,6 +137,7 @@ var NAVTREEINDEX0 =
 "globals_vars.html":[2,1,2],
 "index.html":[],
 "index.html":[0],
+"index.html#autotoc_md1":[0,0],
 "index__pool_8c.html":[2,0,1,6],
 "index__pool_8c.html#a041c5d7e1d6c75cc71123f03e794cc86":[2,0,1,6,5],
 "index__pool_8c.html#a67139b5f1ddded8783211a8d57e71fab":[2,0,1,6,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "structdns__question.html#a28612cf31ea9061817c7652d97f68f10":[1,0,4,3],
 "structdns__question.html#a56bb43b72d4dcb451e7348fc8d9b8448":[1,0,4,0],
 "structdns__question.html#af73ac9b5a07466a461dd4cd3013db9a6":[1,0,4,2],
-"structdns__question.html#afe96f7c0e33a7f83e289140633217017":[1,0,4,1],
-"structdns__rr.html":[1,0,5]
+"structdns__question.html#afe96f7c0e33a7f83e289140633217017":[1,0,4,1]
 };

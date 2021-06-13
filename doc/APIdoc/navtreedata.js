@@ -25,7 +25,9 @@
 var NAVTREE =
 [
   [ "DNS中继服务器", "index.html", [
-    [ "DNSR", "index.html", null ],
+    [ "DNSR", "index.html", [
+      [ "参考", "index.html#autotoc_md1", null ]
+    ] ],
     [ "结构体", "annotated.html", [
       [ "结构体", "annotated.html", "annotated_dup" ],
       [ "结构体索引", "classes.html", null ],
@@ -52,7 +54,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structdns__rr.html#a14b7df2cdf7cb177122b01a33b5a2f5c"
+"structdns__rr.html"
 ];
 
 var SYNCONMSG = '点击 关闭 面板同步';

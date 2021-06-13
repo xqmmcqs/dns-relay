@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"structdns__rr.html":[1,0,5],
 "structdns__rr.html#a14b7df2cdf7cb177122b01a33b5a2f5c":[1,0,5,5],
 "structdns__rr.html#a4ec48268ad471be7cd29ee45238a5a3c":[1,0,5,3],
 "structdns__rr.html#a4f59cff39a47412a95bde44ac4cb3e88":[1,0,5,1],
